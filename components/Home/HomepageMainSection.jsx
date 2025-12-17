@@ -319,24 +319,25 @@ return (
   >
     {/* 🎥 YouTube iframe */}
     <iframe
-      src="https://www.youtube.com/embed/gynWNinqmjw"
-      title="🔴LIVE NEWS TODAY: இன்றைய முக்கிய செய்திகள் | Today Breaking News Tamil | NewsTamil 24X7"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerPolicy="strict-origin-when-cross-origin"
-      allowFullScreen
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        borderRadius:"5px"
-      }}
-    ></iframe>
+  src="https://www.youtube.com/embed/gynWNinqmjw?autoplay=1&mute=1"
+  title="🔴LIVE NEWS TODAY: இன்றைய முக்கிய செய்திகள் | Today Breaking News Tamil | NewsTamil 24X7"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    borderRadius: "5px",
+  }}
+></iframe>
+
 
     {/* 🖼️ Image on bottom-left */}
-    <img
+    {/* <img
       src="https://cdn-icons-png.freepik.com/512/18429/18429788.png" // replace with your image path
       alt="Overlay logo"
       style={{
@@ -348,7 +349,7 @@ return (
         zIndex: 5,      // ensures it appears above the iframe
         opacity: 0.9,   // optional: slight transparency
       }}
-    />
+    /> */}
   </div>
 </Box>
 

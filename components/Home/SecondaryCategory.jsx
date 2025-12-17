@@ -227,7 +227,7 @@ function SecondaryCategory({viewControl}) {
                 <hr
                   style={{
                     width: "95%",
-                    border: "0.5px solid #666666",
+                    border: "0.5px solid #666666ff",
                     margin: "6px 0 0 0",
                   }}
                 />

@@ -111,10 +111,13 @@ const GetJustNowCategory = async () => {
 
   
       const special = [
-    {alt:"Nigal Thagavu",image:"https://i.ytimg.com/vi/F_dH84hviXs/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBqImbjwYDiGkXr8zqYsubDQoycBQ",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
-    {alt:"Dhinam Oru VIP",image:"https://i.ytimg.com/vi/LGPVEj_eZC0/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDlY3FEAQeF4FsNlSFfUt4IEJRVhQ",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChjMBOpUe0oD-K8tdPQQFNg"},
-    {alt:"Fast 100 News",image:"https://i.ytimg.com/vi/zbynwF8OwCQ/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCrQ4GOAh4lIM7M5tL_0hsKub76bw",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
-  ];
+    {alt:"Cine Snacks",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/CINE-SNACKS_dica3m.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
+  {alt:"Spot Light",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/SPOTLIGHT_ndmg9p.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
+  {alt:"ARVR",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/AR-VR_y83asr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
+{alt:"News Focus",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/TOP-STORIES_jqoaes.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
+  {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/NIGAZHTHAGAVU_hwinpu.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
+{alt:"Kazhugu",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738183/KAZHUGU_hvp9ge.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
+ ];
   return (
     <>
     <Box

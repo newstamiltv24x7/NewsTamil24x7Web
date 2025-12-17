@@ -438,7 +438,7 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <Grid container spacing={1}>
-              {newsData?.slice(6, 18).map((list, index) => (
+              {newsData?.slice(6, 14).map((list, index) => (
                 <Grid
                   item
                   md={3}

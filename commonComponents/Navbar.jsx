@@ -74,6 +74,11 @@ function Navbar(props) {
 
 const dateString = new Date().toLocaleString();
 
+  // compute spacer to prevent page content from sliding under the fixed/sticky headers
+  const headerOffset = quickControl === "no" ? 90 : list?.length > 0 ? 105 : 90;
+  const navBarHeight = 64; // approximate height of the orange nav bar
+  const spacerHeight = headerOffset + navBarHeight;
+
 
   const handleClick = (event, item) => {
     
@@ -774,6 +779,13 @@ const dateString = new Date().toLocaleString();
           </Popper>
         </Box>
       </Box>
+      {/* Spacer to prevent page content from appearing behind the fixed header/nav */}
+      <Box
+        sx={{
+          height: `${spacerHeight}px`,
+          display: { xs: "none", sm: "block", md: "block" },
+        }}
+      />
     </Box>
   );
 }

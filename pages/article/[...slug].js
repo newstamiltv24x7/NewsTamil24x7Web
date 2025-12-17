@@ -125,7 +125,7 @@ function Page({
   viewControl,
 }) {
 
-  console.log(trendingData,"<<< TRRRR DATAAAA")
+  console.log(trendingData)
 
 
   const navigate = useRouter();

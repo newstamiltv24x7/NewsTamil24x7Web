@@ -42,6 +42,7 @@ export default function CardSection({
       setShareOpen(true);
     }
   };
+console.log("hello",data);
 
   return (
     <Card

@@ -585,7 +585,7 @@ export const getHomeTechnology = async (body) => {
 
 export const getSeoList = async (val) => {
   return await axios
-    .get(`${baseURL}/api/v1/web/seo_setup/list`)
+    .get(`${baseURL}`)
     .then((res) => {
       return res;
     })

@@ -220,12 +220,19 @@ function MobileNav(props) {
     >
       <Box
         display="flex"
-        width="100vw"
+        width="100%"
         whiteSpace="nowrap"
-        overflowX="auto"
         py={0.5}
         borderBottom="1px solid #fff"
         alignItems="center"
+        sx={{
+          overflowX: "auto",
+          WebkitOverflowScrolling: "touch",
+          touchAction: "pan-x",
+          msOverflowStyle: "auto",
+          overscrollBehaviorX: "auto",
+          "& .MuiButton-root": { flex: "0 0 auto", whiteSpace: "nowrap" },
+        }}
       >
         <Link href="/short-news" passHref>
           <div style={{ display: 'inline-block', minWidth: 120 }}>
@@ -261,6 +268,8 @@ function MobileNav(props) {
                   textUnderlineOffset: mainPath === item?.c_category_slug_english_name ? "12px" : "",
                   textDecorationThickness: mainPath === item?.c_category_slug_english_name ? "3px" : "",
                   paddingBottom: 0,
+                  flex: "0 0 auto",
+                  whiteSpace: "nowrap",
                   "&:hover": {
                     color: "#fb6002",
                     textDecoration: "underline",

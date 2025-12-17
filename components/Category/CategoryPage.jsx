@@ -115,7 +115,7 @@ function CategoryPage({
         main_category_name: parentPath,
         sub_category_name: childPath,
       };
-      const results = await getHomePageNews(body);
+      const results = await getHomePageNews(body);      
       const resultsData = CryptoFetcher(results?.payloadJson);
       if (results?.appStatusCode === 0) {
         if (resultsData) {
