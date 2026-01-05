@@ -271,7 +271,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               fontWeight={400}
               sx={{ opacity: 1 }}
             >
-              Updated: {convertTime(singleNews?.at(0)?.updatedAt)}
+              Posted on: {convertTime(singleNews?.at(0)?.updatedAt)}
             </Typography>
             {viewControl === "yes" && 
             <Box

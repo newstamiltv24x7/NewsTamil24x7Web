@@ -593,3 +593,25 @@ export const getSeoList = async (val) => {
       return err;
     });
 };
+
+export const getAuthorByName = async (name) => {
+  try {
+    return await axios
+      .get(`${baseURL}/api/v1/web/user/list?name=${encodeURIComponent(name)}`)
+      .then((res) => res.data)
+      .catch((err) => err);
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getAuthorByUrl = async (url) => {
+  try {
+    return await axios
+      .get(`${baseURL}/api/v1/web/user/list?url=${encodeURIComponent(url)}`)
+      .then((res) => res.data)
+      .catch((err) => err);
+  } catch (err) {
+    return err;
+  }
+};

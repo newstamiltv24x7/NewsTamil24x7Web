@@ -505,7 +505,7 @@ function ArticlePageContainer({
                   component={"p"}
                   fontWeight={400}
                 >
-                  Updated: {convertTime(NEWSDATA?.at(0)?.updatedAt)}
+                  Posted on: {convertTime(NEWSDATA?.at(0)?.updatedAt)}
                 </Typography>
                 {viewControl === "yes" && 
                 <Box
