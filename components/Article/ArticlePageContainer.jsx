@@ -521,6 +521,34 @@ function ArticlePageContainer({
                 </Box>
                   }
               </Box>
+              <Box textAlign={"left"}>
+                <Typography
+                  fontFamily={"var(--anek-font)"}
+                  className={""}
+                  fontSize={15}
+                  lineHeight={1.3}
+                  component={"p"}
+                  fontWeight={400}
+                  sx={{ opacity: 0.6 }}
+                >
+                  By:{" "}
+                  <Link
+                    href={`/author/${
+                      NEWSDATA?.at(0)?.c_slugName ||
+                      (NEWSDATA?.at(0)?.c_createdName || "")
+                        .replaceAll(" ", "-")
+                        .toLowerCase()
+                    }`}
+                    style={{
+                      color: mode === "light" ? "#000" : "#fff",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                    }}
+                  >
+                    {NEWSDATA?.at(0)?.c_createdName}
+                  </Link>
+                </Typography>
+              </Box>
               <Box my={1}>
                 <Box
                   display={"flex"}
