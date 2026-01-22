@@ -207,6 +207,7 @@ function HomepageMainSection({
   const [images, setImages] = useState([]);
   const [youtube_link, setYoutube_link] = useState([]);
   const [current, setCurrent] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const CryptoJS = require("crypto-js");
   const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
   
@@ -251,6 +252,16 @@ const GetJustNowCategory = async () => {
   const goPrev = () => setCurrent((prev) => (prev > 0 ? prev - 1 : images.length - 1));
   const goNext = () => setCurrent((prev) => (prev < images.length - 1 ? prev + 1 : 0));
 
+  // Auto-slide to next image every 5s; pause while hovered
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    if (isHovered) return; // pause when hovered
+    const id = setInterval(() => {
+      setCurrent((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+    }, 5000);
+    return () => clearInterval(id);
+  }, [images, isHovered]);
+
   if (images.length === 0) return <div>Loading images...</div>;
 
 return (
@@ -271,7 +282,7 @@ return (
         overflow: "hidden",
         gap:"10px",
       }} maxWidth={1440}>
-         <Box style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
+         <Box onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
         <Link href={youtube_link[current]}>
       <img
         src={images[current]}
