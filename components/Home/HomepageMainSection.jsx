@@ -262,16 +262,16 @@ return (
       viewControl={viewControl}
     >
       <Box mx={{ md: "inherit", lg: "auto" }} pb={3}
-        px={2} style={{
-      display: "flex",
-      flexDirection: "row",
-      width: "100%",
-      height: "320px",
-      overflow: "hidden",
-      maxWidth:"1440px",
-      gap:"10px",
-    }}>
-       <Box style={{ flex: 4, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
+          style={{
+            
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        height: "400px",
+        overflow: "hidden",
+        gap:"10px",
+      }} maxWidth={1440}>
+         <Box style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
         <Link href={youtube_link[current]}>
       <img
         src={images[current]}
@@ -282,7 +282,7 @@ return (
       <Box
         style={{
           position: "absolute",
-          left: 20,
+          right: 20,
           bottom: 10,
           display: "flex",
           gap: 8,
@@ -305,7 +305,7 @@ return (
       </Box>
     </Box>
     {/* Right Side: YouTube Live Embed */}
-      <Box style={{ flex: 3, minWidth: 0, position: "relative" }}>
+      <Box style={{ flex: 1, minWidth: 0, position: "relative" }}>
   <div
     style={{
       position: "relative",
@@ -314,7 +314,7 @@ return (
       height: "100%",
       paddingTop: "0",
       border: "5px solid red",
-      overflow: "hidden", // ensures image doesn’t spill out
+      overflow: "hidden",
     }}
   >
     {/* 🎥 YouTube iframe */}
