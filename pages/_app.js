@@ -10,16 +10,24 @@ import "react-multi-carousel/lib/styles.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { SessionProvider } from "next-auth/react";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import ClientErrorHandler from "@/components/ClientErrorHandler";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <ThemeContextProvider>
-      <Provider store={store}>
-        <AdSense />
-        <NotificationSetup />
-        <Component {...pageProps} />
-      </Provider>
-      <ToastContainer />
+      <SessionProvider session={session}>
+        <ErrorBoundary>
+          <ClientErrorHandler />
+          <Provider store={store}>
+            <AdSense />
+            <NotificationSetup />
+            <Component {...pageProps} />
+          </Provider>
+          <ToastContainer />
+        </ErrorBoundary>
+      </SessionProvider>
     </ThemeContextProvider>
   );
 }
