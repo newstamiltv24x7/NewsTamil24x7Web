@@ -36,7 +36,7 @@ function MobileVideos() {
     try {
       const body = {
         n_page: 1,
-        n_limit: 15,
+        n_limit: 5,
         c_search_term: "",
         c_video_type: "posted",
         c_youtube_type: "video",
@@ -72,7 +72,7 @@ function MobileVideos() {
         </Box>
 
         {Array.isArray(shortsData) &&
-          shortsData?.slice(0, 6)?.map((list) => (
+          shortsData?.slice(0, 5)?.map((list) => (
             <Box
               p={1}
               m={1}

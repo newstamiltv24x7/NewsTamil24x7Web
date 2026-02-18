@@ -45,7 +45,7 @@ function MobileShorts() {
     try {
       const body = {
         n_page: 1,
-        n_limit: 15,
+        n_limit: 4,
         c_search_term: "",
         c_video_type: "posted",
         c_youtube_type: "shorts",
@@ -82,7 +82,7 @@ function MobileShorts() {
 
         <Grid container spacing={1} pl={1}>
           {Array.isArray(shortsData) &&
-            shortsData?.slice(0, 6)?.map((list) => (
+            shortsData?.slice(0, 4)?.map((list) => (
               <Grid xs={6} key={list?._id}>
                 <div style={{ position: "relative", margin: 8 }}>
                   <Card sx={{ px: 1 }}>

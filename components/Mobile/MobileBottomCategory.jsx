@@ -64,7 +64,7 @@ function MobileBottomCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: SeventhCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -86,7 +86,7 @@ function MobileBottomCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: EighthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -108,7 +108,7 @@ function MobileBottomCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: NinethCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -130,7 +130,7 @@ function MobileBottomCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: TenthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -157,7 +157,7 @@ function MobileBottomCategory({viewControl}) {
     GetSeventhCategory();
     GetEighthCategory();
     GetNinethCategory();
-    GetTenthCategory();
+    //GetTenthCategory();
   }, [HomePageNews]);
 
   return (

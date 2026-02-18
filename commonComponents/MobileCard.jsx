@@ -21,20 +21,20 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
     <>
       <Grid container py={1} spacing={2}>
         <Grid item xs={5}>
-          <Box borderRadius={"6px"} overflow={"hidden"}>
+          <Box
+            borderRadius={"6px"}
+            overflow={"hidden"}
+            sx={{ position: "relative", width: "100%", aspectRatio: "16/9" }}
+          >
             <Link href={`/article/${list?.story_desk_created_name}`}>
               <Image
-              fetchPriority="high" 
-              rel="preload"
                 src={list?.story_cover_image_url}
                 alt="cover_image"
-                width={1200}
-                height={400}
+                fill
+                sizes="(max-width:600px) 50vw, (max-width:900px) 33vw, 261px"
+                quality={60}
                 loading="lazy"
                 style={{
-                  width: "100%",
-                  height: "90%",
-                  // height: "fit-content",
                   objectFit: "cover",
                   borderRadius: "6px",
                 }}

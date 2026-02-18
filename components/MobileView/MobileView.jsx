@@ -47,7 +47,7 @@ function MobileView({
     try {
       const result = await getHomeTopSection({
         n_page: 1,
-        n_limit: 6,
+        n_limit: 5,
         main_category_id: "cf336f838e81",
       });
       const news = CryptoFetcher(result?.payloadJson) || [];
@@ -83,11 +83,11 @@ function MobileView({
         viewControl={viewControl}
       />
       <MobileHomeCategory viewControl={viewControl} />
-      <MobileWebStories webstoriesData={webstoriesData} />
+      {/* <MobileWebStories webstoriesData={webstoriesData} /> */}
       <MobileShorts />
       <MobileVideos />
       <MobileCards cardData={cardData} viewControl={viewControl} />
-      <MobilePhotos photosData={photosData} />
+      {/* <MobilePhotos photosData={photosData} /> */}
       <MobileBottomCategory viewControl={viewControl} />
     </MobilepageLayout>
   );

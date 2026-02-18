@@ -45,12 +45,12 @@ const intervalRef = useRef(null);
   const goNext = () => setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
     const images = [
-  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/CINE-SNACKS_dica3m.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
-  {alt:"Spot Light",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/SPOTLIGHT_ndmg9p.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
-  {alt:"ARVR",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/AR-VR_y83asr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
-{alt:"News Focus",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/TOP-STORIES_jqoaes.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
-  {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738184/NIGAZHTHAGAVU_hwinpu.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
-{alt:"Kazhugu",image:"https://res.cloudinary.com/dnttrjr2x/image/upload/v1764738183/KAZHUGU_hvp9ge.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
+  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
+  {alt:"Spot Light",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_SPOTLIGHT_1_flwr97.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
+  {alt:"ARVR",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394474/jpeg-optimizer_AR-VR_1_zjcgs0.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
+{alt:"News Focus",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394471/jpeg-optimizer_TOP-STORIES_1_eodnlr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
+  {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_NIGAZHTHAGAVU_1_yxxpoa.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
+{alt:"Kazhugu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_KAZHUGU_1_tj9kka.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
 ];
 
 useEffect(() => {

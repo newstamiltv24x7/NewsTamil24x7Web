@@ -15,7 +15,7 @@ function MobileCards() {
     try {
       const body = {
         n_page: 1,
-        n_limit: 8,
+        n_limit: 5,
         c_search_term: "",
       };
       const results = await getAllCardSection(body);
@@ -55,7 +55,7 @@ function MobileCards() {
         className="mob-cards"
       >
         {Array.isArray(cardData) &&
-          cardData.slice(0, 10).map((list) => (
+          cardData.slice(0, 5).map((list) => (
             <SwiperSlide key={list?._id}>
               {/* <Box overflow={"auto"} width={"100%"}>
                 <Box

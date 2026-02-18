@@ -73,7 +73,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: FirstCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -95,7 +95,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: SecondCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -117,7 +117,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: ThirdCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -139,7 +139,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: FourthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -156,12 +156,12 @@ function MobileHomeCategory({viewControl}) {
     }
   };
 
-  const GetFifthCategory = async () => {
+  {/* const GetFifthCategory = async () => {
     if (HomePageNews?.length > 0) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: FifthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -176,14 +176,14 @@ function MobileHomeCategory({viewControl}) {
         console.log(err);
       }
     }
-  };
+  }; */}
 
-  const GetSixthCategory = async () => {
+  {/* const GetSixthCategory = async () => {
     if (HomePageNews?.length > 0) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: SixthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -198,14 +198,14 @@ function MobileHomeCategory({viewControl}) {
         console.log(err);
       }
     }
-  };
+  }; */}
 
   const GetSeventhCategory = async () => {
     if (HomePageNews?.length > 0) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: SeventhCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -227,7 +227,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: EighthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -249,7 +249,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: NinethCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -271,7 +271,7 @@ function MobileHomeCategory({viewControl}) {
       try {
         const body = {
           n_page: 1,
-          n_limit: 6,
+          n_limit: 4,
           main_category_id: TenthCategoryId,
         };
         const response = await getAllNewsList(body);
@@ -293,8 +293,6 @@ function MobileHomeCategory({viewControl}) {
     GetSecondCategory();
     GetThirdCategory();
     GetFourthCategory();
-    GetFifthCategory();
-    GetSixthCategory();
     GetSeventhCategory();
     GetEighthCategory();
     GetNinethCategory();
