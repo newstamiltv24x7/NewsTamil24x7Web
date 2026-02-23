@@ -45,7 +45,7 @@ function VideosPage({ trendingData }) {
   // --------------------------
 
   const [liveData, setLiveData] = useState({});
-  const [postedData, setPostedData] = useState({});
+  const [postedData, setPostedData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [path, setPath] = useState("");
   const [cardData, setCardData] = useState([]);
@@ -404,7 +404,7 @@ function VideosPage({ trendingData }) {
               )}
               <Grid container spacing={1} mt={2}>
                 {Array.isArray(postedData) &&
-                  postedData?.slice(1, 6)?.map((list) => (
+                  postedData?.slice(1)?.map((list) => (
                     <Grid item md={6} xs={12} sm={6} key={list?._id}>
                       <Box
                         p={1}
