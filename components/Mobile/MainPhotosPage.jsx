@@ -69,7 +69,7 @@ function MainPhotosPage({ menuData, trendingData, photosData,viewControl,breakin
           photosData?.map((list) => (
             <Box key={list?._id} p={0} m={0}>
               <Box height={"auto"} border={"1px solid #cbcbcb"}>
-                <Link href={`/photos/${list?.c_photos_slug_title}`}>
+                <Link href={`/photos/${list?.c_photos_slug_title || '#'}`}>
                   <Image
                   fetchPriority="high" rel="preload"
                     src={list?.c_photos_img}

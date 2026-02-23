@@ -256,7 +256,6 @@ function MobileNav(props) {
           <React.Fragment key={item?._id}>
             <Link href={getNavLink(item?.c_category_slug_english_name)} passHref>
               <Button
-                component="a"
                 sx={{
                   color: mainPath === item?.c_category_slug_english_name ? "#ff992c" : "#fff",
                   fontFamily: "var(--anek-font)",

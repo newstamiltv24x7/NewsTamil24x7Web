@@ -418,7 +418,7 @@ function ArticlePageContainer({
                             height={180}
                           >
                             <Link
-                              href={`/article/${list?.story_desk_created_name}`}
+                              href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}
                             >
                               <Image 
                               fetchPriority="high" 

@@ -68,7 +68,7 @@ function MobileDrawer({ menuData, close }) {
           justifyContent={"center"}
         >
           <Link href={"/"}>
-            <Image fetchPriority="high" rel="preload"
+            <Image
               src={Logo}
               alt="news-tamil-menu-logo"
               width={150}
@@ -82,8 +82,8 @@ function MobileDrawer({ menuData, close }) {
 
         </Box>
         <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={0.3} marginTop={2}>
-          <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} target="_blank"><Image fetchPriority="high" rel="preload" src={PlayStore} alt="play" width={100} height={28} /></Link>
-          <Link href={"#"} target="_blank"><Image fetchPriority="high" rel="preload" src={AppStore} alt="app" width={100} height={28} /></Link>
+          <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} target="_blank"><Image src={PlayStore} alt="play" width={100} height={28} /></Link>
+          <Link href={"#"} target="_blank"><Image src={AppStore} alt="app" width={100} height={28} /></Link>
           </Box>
         <List>
           {Array.isArray(menuData) &&

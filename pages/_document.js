@@ -1,51 +1,32 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import Link from "next/link";
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
         {/* Google site Verification */}
-      <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION} />
-        {/* Google Tag Manager */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-PRSM1C3X5Y"
-        ></script>
-        <script>
-          {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-PRSM1C3X5Y');
-            `}
-        </script>
-        {/* End Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-W4MVHNC');
-            `,
-          }}
+        <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION} />
+
+        {/* ── Font performance — preconnect then load all weights in one request ──
+            Loading fonts via <link> instead of CSS @import avoids a render-blocking
+            round-trip and lets the browser discover the resource earlier (LCP + FCP). */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Combined stylesheet — single network request for all three font families.
+            display=optional prevents invisible text during font load (CLS fix). */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&family=New+Amsterdam&family=Oswald:wght@200..700&display=optional"
         />
-        {process.env.NODE_ENV === "production" && (
-          <script
-            strategy="lazyOnload"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6708033438621783"
-            crossOrigin="anonymous"
-          ></script>
-        )}
+
+        {/* GTM + GA scripts are intentionally NOT placed here.
+            They are injected via next/script in pages/_app.js with
+            strategy="afterInteractive" so they never block first paint. */}
       </Head>
-      {/* <script async src="https://cdn.ampproject.org/v0.js"></script> */}
       <body>
         <Main />
         <NextScript />
-        {/* Google Tag Manager (noscript) */}
+        {/* Google Tag Manager (noscript fallback) */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-W4MVHNC"
@@ -54,7 +35,6 @@ export default function Document() {
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
       </body>
     </Html>
   );

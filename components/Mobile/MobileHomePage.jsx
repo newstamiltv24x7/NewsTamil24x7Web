@@ -111,8 +111,8 @@ const GetJustNowCategory = async () => {
 
   
       const special = [
-  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
   {alt:"Spot Light",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_SPOTLIGHT_1_flwr97.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
+  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
   {alt:"ARVR",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394474/jpeg-optimizer_AR-VR_1_zjcgs0.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
 {alt:"News Focus",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394471/jpeg-optimizer_TOP-STORIES_1_eodnlr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
   {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_NIGAZHTHAGAVU_1_yxxpoa.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
@@ -162,7 +162,7 @@ const GetJustNowCategory = async () => {
     overflow: 'hidden',
     borderRadius: '5px',
   }}
-><Link href={youtube_link[current]}>
+><Link href={youtube_link[current] || '#'}>
   <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
     <Image
       src={images[current]}
@@ -246,7 +246,7 @@ const GetJustNowCategory = async () => {
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsData?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                 >
                   {newsData?.at(0)?.story_title_name}
                 </Link>
@@ -262,7 +262,7 @@ const GetJustNowCategory = async () => {
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsData?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                 >
                   {newsData?.at(0)?.story_sub_title_name}
                 </Link>
@@ -320,7 +320,7 @@ const GetJustNowCategory = async () => {
                 </Box>
               </Box>
             </Box>
-<Link href={`/article/${newsData?.at(0)?.story_desk_created_name}`}>
+<Link href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}>
               <Box position={"relative"}>
                 
                  {viewControl === "yes" && 
@@ -540,9 +540,9 @@ const GetJustNowCategory = async () => {
     overflow: 'hidden',
   }}
 >
-  <Link href={special[current].url}>
+  <Link href={special[current]?.url || '#'}>
     <img
-      src={special[current].image}
+      src={special[current]?.image}
       alt="Live event"
       style={{
         width: '100%',

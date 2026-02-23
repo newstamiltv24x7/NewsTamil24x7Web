@@ -52,7 +52,7 @@ function VerticalSwiper({ breakingData }) {
               color: "#000",
             }}
           >
-            <Link href={`/article/${list?.redirect_url}`}>
+            <Link href={`/article/${list?.redirect_url || list?.story_desk_created_name || list?._id || '#'}`}>
               <Typography
                 color={"#000"}
                 textTransform={"uppercase"}

@@ -283,10 +283,15 @@ return (
         gap:"10px",
       }} maxWidth={1440}>
          <Box onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
-        <Link href={youtube_link[current]}>
+        <Link href={youtube_link[current] || '#'}>
+      {/* Above-the-fold hero slider: eager load + high fetch priority for LCP */}
       <img
         src={images[current]}
         alt="Live event"
+        loading="eager"
+        fetchPriority="high"
+        width={800}
+        height={450}
         style={{ width: "100%", height: "100%", borderRadius:"5px",transition: "none", transform: "scale(1)" }}
       />
         </Link>

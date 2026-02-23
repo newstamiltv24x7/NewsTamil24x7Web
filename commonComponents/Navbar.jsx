@@ -168,7 +168,8 @@ const dateString = new Date().toLocaleString();
                 marginInline: "auto",
               }}
             >
-              <Image fetchPriority="high" rel="preload"
+              <Image
+                priority
                 src={Logo}
                 alt="news-tamil-logo"
                 width={225}
@@ -360,7 +361,7 @@ const dateString = new Date().toLocaleString();
                   left={12}
                   onMouseEnter={(e) => handle2Click(e)}
                 >
-                  <Image fetchPriority="high" rel="preload" src={MenuMore} alt="more" width={32} height={32} />
+                  <Image src={MenuMore} alt="more" width={32} height={32} />
                 </Box>
               
               </Box>
@@ -382,7 +383,7 @@ const dateString = new Date().toLocaleString();
               }}
             >
               <Link href={"/search"} style={{ position: "relative", top: 3 }}>
-                <Image fetchPriority="high" rel="preload" src={Search} alt="more" width={24} height={24} />
+                <Image src={Search} alt="more" width={24} height={24} />
               </Link>
               <Box
     p={"0px 0px 0px 0px"}
@@ -390,7 +391,7 @@ const dateString = new Date().toLocaleString();
     color={"#000"}
   >
     <Link href={"/short-news"}>
-      <Image fetchPriority="high" rel="preload"
+      <Image
         src={ShortNewsIcon}
         alt="shorts-news-logo"
         width={120}
@@ -427,12 +428,9 @@ const dateString = new Date().toLocaleString();
                     onMouseOver={() => setLoginPop(true)}
                     // onMouseLeave={() => setLoginPop(false)}
                   /> */}
-                  <FaUser fetchPriority="high" rel="preload"
-                    src={User}
-                    alt="more"
-                    width={30}
-                    height={30}
+                  <FaUser
                     className="user-profile-img"
+                    style={{ fontSize: '30px', cursor: 'pointer' }}
                     onMouseOver={() => setLoginPop(true)}/>
                 </Box>
               )}

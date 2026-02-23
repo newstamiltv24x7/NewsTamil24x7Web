@@ -199,7 +199,7 @@ function MobileBottomCategory({viewControl}) {
               >
                 <Link
                   href={`/article/${
-                    seventhNewsList?.at(0)?.story_desk_created_name
+                    seventhNewsList?.at(0)?.story_desk_created_name || seventhNewsList?.at(0)?._id || '#'
                   }`}
                 >
                   <Box position={"relative"}>

@@ -45,12 +45,12 @@ const intervalRef = useRef(null);
   const goNext = () => setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
     const images = [
-  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
   {alt:"Spot Light",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_SPOTLIGHT_1_flwr97.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
+  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
   {alt:"ARVR",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394474/jpeg-optimizer_AR-VR_1_zjcgs0.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
-{alt:"News Focus",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394471/jpeg-optimizer_TOP-STORIES_1_eodnlr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
+  {alt:"News Focus",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394471/jpeg-optimizer_TOP-STORIES_1_eodnlr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
   {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_NIGAZHTHAGAVU_1_yxxpoa.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
-{alt:"Kazhugu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_KAZHUGU_1_tj9kka.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
+  {alt:"Kazhugu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_KAZHUGU_1_tj9kka.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
 ];
 
 useEffect(() => {
@@ -90,7 +90,7 @@ useEffect(() => {
                             engTitle=""
                             url="#"
                           />
-         <Box style={{ minWidth: 0, position: "relative"}}><Link href={images[current].url}>
+         <Box style={{ minWidth: 0, position: "relative"}}><Link href={images[current]?.url || '#'}>
   <img
     src={images[current].image}
     alt="Live event"
@@ -166,7 +166,7 @@ useEffect(() => {
                     fontWeight={550}
                     height={54}
                   >
-                    <Link href={`/article/${list?.story_desk_created_name}`}>
+                    <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
                       {list?.story_title_name}
                     </Link>
                   </Typography>
@@ -350,14 +350,15 @@ useEffect(() => {
                 </Grid>
                 <Grid item xs={4}>
                   <Box borderRadius={"6px"} overflow={"hidden"}>
-                    <Link href={`/article/${list?.story_desk_created_name}`}>
+                    <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
                       <Image
-                      fetchPriority="high" rel="preload"
                         src={list?.story_cover_image_url}
                         alt="newstamil-banner-image"
                         width={1200}
                         height={400}
                         loading="lazy"
+                        quality={75}
+                        sizes="(max-width: 768px) 100vw, 200px"
                         style={{
                           width: "100%",
                           height: "80px",

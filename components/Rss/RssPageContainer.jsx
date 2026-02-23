@@ -30,7 +30,7 @@ function RssPageContainer({ rssData }) {
               <Link
                 style={{ width: "max-content" }}
                 href={{
-                  pathname: list?.c_category_slug_english_name,
+                  pathname: list?.c_category_slug_english_name || '#',
                   // query: {
                   //   category: list?.c_category_slug_english_name,
                   // },
@@ -107,7 +107,7 @@ function RssPageContainer({ rssData }) {
               <Box key={list?._id}>
                 <Link
                   href={{
-                    pathname: list?.c_category_slug_english_name,
+                    pathname: list?.c_category_slug_english_name || '#',
                     // query: {
                     //   category: list?.c_category_slug_english_name,
                     // },

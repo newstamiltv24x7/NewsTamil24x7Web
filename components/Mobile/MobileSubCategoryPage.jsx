@@ -110,7 +110,7 @@ function MobileSubCategoryPage({ categoryName, parentPath, childPath,viewControl
           pb={newsId === newsList?.at(0)?._id && shareOpen ? 0 : 2}
           borderBottom={"1px solid #313131"}
         >
-          <Link href={`/article/${newsList?.at(0)?.story_desk_created_name}`}>
+          <Link href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}>
             <Image 
             fetchPriority="high" rel="preload"
               src={newsList?.at(0)?.story_cover_image_url}
@@ -138,7 +138,7 @@ function MobileSubCategoryPage({ categoryName, parentPath, childPath,viewControl
             overflow={"hidden"}
             sx={{ cursor: "pointer" }}
           >
-            <Link href={`/article/${newsList?.at(0)?.story_desk_created_name}`}>
+            <Link href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}>
               {newsList?.at(0)?.story_title_name}
             </Link>
           </Typography>
@@ -152,7 +152,7 @@ function MobileSubCategoryPage({ categoryName, parentPath, childPath,viewControl
             pt={"10px"}
             sx={{ cursor: "pointer" }}
           >
-            <Link href={`/article/${newsList?.at(0)?.story_desk_created_name}`}>
+            <Link href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}>
               {newsList?.at(0)?.story_sub_title_name}
             </Link>
           </Typography>

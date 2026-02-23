@@ -15,9 +15,11 @@ const AdUnit = () => {
   }, []);
 
   return (
+    // min-height reserves layout space before the ad renders,
+    // preventing the CLS shift caused by a zero-height ad slot expanding.
     <ins
       className="adsbygoogle"
-      style={{ display: "block" }}
+      style={{ display: "block", minHeight: "250px", width: "100%" }}
       data-ad-client="ca-pub-6708033438621783"
       data-ad-slot="6423242113"
       data-ad-format="auto"

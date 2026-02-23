@@ -83,39 +83,39 @@ function MobileShorts() {
         <Grid container spacing={1} pl={1}>
           {Array.isArray(shortsData) &&
             shortsData?.slice(0, 4)?.map((list) => (
-              <Grid xs={6} key={list?._id}>
+              <Grid item xs={6} key={list?._id}>
                 <div style={{ position: "relative", margin: 8 }}>
-                  <Card sx={{ px: 1 }}>
-                    <Link href={list?.c_url_link} target="_blank">
-                      <Image 
-                      fetchPriority="high" rel="preload"
-                        src={list?.c_thumbanail_image}
-                        alt="newstamil-thumb-image"
-                        width={100}
-                        unoptimized
-                        height={100}
-                        style={{
-                          width: "100%",
-                          height: "250px",
-                          objectFit: "contain",
-                        }}
-                      />
-                      <Image 
-                      fetchPriority="high" rel="preload"
-                        src={WhitePlay}
-                        alt="newstamil-button"
-                        width={32}
-                        height={56}
-                        style={{
-                          position: "absolute",
-                          top: "40%",
-                          left: "45%",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Link>
-                    <CardContent sx={{ p: 0.4 }}>
-                      <Link href={list?.c_url_link} target="_blank">
+                  <Link href={list?.c_url_link} target="_blank" style={{ textDecoration: "none" }}>
+                    <Card sx={{ px: 1 }}>
+                      <div style={{ position: "relative" }}>
+                        <Image 
+                        fetchPriority="high" rel="preload"
+                          src={list?.c_thumbanail_image}
+                          alt="newstamil-thumb-image"
+                          width={200}
+                          unoptimized
+                          height={250}
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "contain",
+                          }}
+                        />
+                        <Image 
+                        fetchPriority="high" rel="preload"
+                          src={WhitePlay}
+                          alt="newstamil-button"
+                          width={32}
+                          height={56}
+                          style={{
+                            position: "absolute",
+                            top: "40%",
+                            left: "45%",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </div>
+                      <CardContent sx={{ p: 0.4 }}>
                         <Typography
                           fontFamily={"var(--anek-font)"}
                           className="textWrapper"
@@ -123,11 +123,12 @@ function MobileShorts() {
                           lineHeight={1.3}
                           component={"p"}
                           fontWeight={550}
+                          sx={{ color: "inherit" }}
                           // height={70}
                         >
                           {list?.c_url_title}
                         </Typography>
-                      </Link>
+                      
                       <Box
                         display={"flex"}
                         justifyContent={"space-between"}
@@ -293,6 +294,7 @@ function MobileShorts() {
                       </Box>
                     </CardContent>
                   </Card>
+                  </Link>
                 </div>
               </Grid>
             ))}

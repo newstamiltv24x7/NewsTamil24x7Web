@@ -151,7 +151,7 @@ function Footer() {
               // top={10}
             >
                <Link href={"/"}>
-               <Image fetchPriority="high" rel="preload" src={Logo} alt="news-tamil-logo" width={280} height={95} />
+               <Image src={Logo} alt="news-tamil-logo" width={280} height={95} />
                </Link>
              
             </Box>
@@ -164,7 +164,7 @@ function Footer() {
                 
                 >
                   <Link href={"/short-news"}>
-                    <Image fetchPriority="high" rel="preload"
+                    <Image
                       src={ShortNewsIcon}
                       alt="shorts-news-logo"
                       width={120}
@@ -218,13 +218,13 @@ function Footer() {
                     }
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload" src={YoutubeNew} alt="fb" width={22} height={22} />
+                    <Image src={YoutubeNew} alt="fb" width={22} height={22} />
                   </Link>
                   <Link
                     href={"https://www.facebook.com/newstamiltv24x7"}
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload" src={FacebookNew} alt="fb" width={22} height={22} />
+                    <Image src={FacebookNew} alt="fb" width={22} height={22} />
                   </Link>
                   <Link
                     href={
@@ -232,19 +232,19 @@ function Footer() {
                     }
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload" src={WhatsAppNew} alt="fb" width={22} height={22} />
+                    <Image src={WhatsAppNew} alt="fb" width={22} height={22} />
                   </Link>
                   <Link
                     href={"https://www.twitter.com/newstamiltv24x7"}
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload" src={TwitterNew} alt="fb" width={22} height={22} />
+                    <Image src={TwitterNew} alt="fb" width={22} height={22} />
                   </Link>
                   <Link
                     href={"https://www.instagram.com/newstamiltv24x7"}
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload"
+                    <Image
                       src={InstagramNew}
                       alt="insta"
                       width={22}
@@ -255,7 +255,7 @@ function Footer() {
                     href={"https://www.threads.net/@newstamiltv24x7"}
                     target="_blank"
                   >
-                    <Image fetchPriority="high" rel="preload"
+                    <Image
                       src={ThreadsNew}
                       alt="insta"
                       width={22}
@@ -263,7 +263,7 @@ function Footer() {
                     />
                   </Link>
                   <Link href={`https://www.linkedin.com/in/newstamil24x7/`}>
-                    <Image fetchPriority="high" rel="preload"
+                    <Image
                       src={LinkedinNew}
                       alt="insta"
                       width={22}
@@ -271,24 +271,24 @@ function Footer() {
                     />
                   </Link>
                   <Link href={"https://t.me/newstamiltv24x7"} target="_blank">
-                  <Image fetchPriority="high" rel="preload" src={TelegramNew} alt="insta" width={22} height={22} />
+                  <Image src={TelegramNew} alt="insta" width={22} height={22} />
                   </Link>
                   
                   <Link href={"/rss"} target="_blank">
-                    <Image fetchPriority="high" rel="preload" src={RssLogo} alt="gn" width={22} height={22} />
+                    <Image src={RssLogo} alt="gn" width={22} height={22} />
                   </Link>
                   <Link
                     href={"https://news.google.com/publications/CAAqBwgKMK7avwswu_XWAw?ceid=IN:ta&oc=3"}
                     target="_blank"
                   >
-                     <Image fetchPriority="high" rel="preload" src={GoogleNews} alt="gn" width={22} height={22} />
+                     <Image src={GoogleNews} alt="gn" width={22} height={22} />
                   </Link>
                  
                   <Link
                     href={"https://m.dailyhunt.in/news/india/tamil/newstamil+24x7-epaper-newstamil/district-updates-district?mode=pwa&action=click"}
                     target="_blank"
                   >
-                     <Image fetchPriority="high" rel="preload" src={Dailyhunt} alt="dh" width={22} height={22} />
+                     <Image src={Dailyhunt} alt="dh" width={22} height={22} />
                   </Link>
                  
                 </Box>
@@ -306,8 +306,8 @@ function Footer() {
                   top={0}
                   lineHeight={0}
                 >
-                  <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} target="_blank"><Image fetchPriority="high" rel="preload" src={PlayStore} alt="play" width={100} height={28} /></Link>
-                  <Link href={"#"} target="_blank"><Image fetchPriority="high" rel="preload" src={AppStore} alt="app" width={100} height={28}/></Link>
+                  <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} target="_blank"><Image src={PlayStore} alt="play" width={100} height={28} /></Link>
+                  <Link href={"#"} target="_blank"><Image src={AppStore} alt="app" width={100} height={28}/></Link>
                   
                 </Box>
           </Grid>

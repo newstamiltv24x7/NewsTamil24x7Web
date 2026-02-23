@@ -132,7 +132,7 @@ function CommonHeader({ title, engTitle, url }) {
           title !== "Cards" &&
           title !== "Photos" &&
           title !== "Web-Stories" && (
-            <Link href={`/news/${url}`}>
+            <Link href={`/news/${url || '#'}`}>
               <Button
                 endIcon={<Image fetchPriority="high" rel="preload" src={MoreIcon} alt="more-icon" />}
                 sx={{

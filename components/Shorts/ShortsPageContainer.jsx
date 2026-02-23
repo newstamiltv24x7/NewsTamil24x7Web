@@ -176,7 +176,7 @@ function ShortsPageContainer(props) {
                       style={{ margin: "6px 0", position: "relative" }}
                     >
                       <Card>
-                        <Link href={list?.c_url_link} target="_blank">
+                        <Link href={list?.c_url_link || '#'} target="_blank">
                           <Image
                           fetchPriority="high" rel="preload"
                             src={list?.c_thumbanail_image}
@@ -205,7 +205,7 @@ function ShortsPageContainer(props) {
                           />
                         </Link>
                         <CardContent sx={{ p: 1 }}>
-                          <Link href={list?.c_url_link} target="_blank">
+                          <Link href={list?.c_url_link || '#'} target="_blank">
                             <Typography
                               fontFamily={"var(--anek-font)"}
                               className="textWrapper"

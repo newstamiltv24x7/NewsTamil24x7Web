@@ -122,17 +122,18 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
                 {Array.isArray(newsData) &&
                 newsData?.at(0)?.youtube_embed_id === "" ? (
                   <Link
-                    href={`/article/${
-                      newsData?.at(0)?.story_desk_created_name
-                    }`}
+                    href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                   >
                     <Box overflow={"hidden"} height={286} borderRadius={"6px"}>
                       <Image
-                      fetchPriority="high" rel="preload"
+                        priority
+                        fetchPriority="high"
                         src={newsData?.at(0)?.story_cover_image_url}
-                        alt={newsData?.at(0)?.news_image_caption}
+                        alt={newsData?.at(0)?.news_image_caption || "hero news image"}
                         width={1800}
                         height={900}
+                        quality={80}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 900px"
                         style={{
                           width: "100%",
                           height: "100%",
@@ -174,9 +175,7 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
                   sx={{ cursor: "pointer" }}
                 >
                   <Link
-                    href={`/article/${
-                      newsData?.at(0)?.story_desk_created_name
-                    }`}
+                    href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                   >
                     {newsData?.at(0)?.story_title_name}
                   </Link>
@@ -193,9 +192,7 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
                   sx={{ cursor: "pointer" }}
                 >
                   <Link
-                    href={`/article/${
-                      newsData?.at(0)?.story_desk_created_name
-                    }`}
+                    href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                   >
                     {newsData?.at(0)?.story_sub_title_name}
                   </Link>

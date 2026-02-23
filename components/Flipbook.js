@@ -268,7 +268,7 @@ const FlipBookVertical = () => {
                   marginBottom={3}
                 >
                   <Link
-                    href={`/article/${currentData?.story_desk_created_name}`}
+                    href={`/article/${currentData?.story_desk_created_name || currentData?._id || '#'}`}
                   >
                     <Typography
                       fontFamily={"var(--arial-font)"}

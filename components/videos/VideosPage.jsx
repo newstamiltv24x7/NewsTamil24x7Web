@@ -417,7 +417,7 @@ function VideosPage({ trendingData }) {
                             backgroundImage: "none",
                           }}
                         >
-                          <Link href={list?.c_url_link} target="_blank">
+                          <Link href={list?.c_url_link || '#'} target="_blank">
                             <Image
                             fetchPriority="high" rel="preload"
                               src={list?.c_thumbanail_image}
@@ -452,7 +452,7 @@ function VideosPage({ trendingData }) {
                               sx={{ cursor: "pointer" }}
                               height={62}
                             >
-                              <Link href={list?.c_url_link} target="_blank">
+                              <Link href={list?.c_url_link || '#'} target="_blank">
                                 {list?.c_url_title}
                               </Link>
                             </Typography>
@@ -811,11 +811,12 @@ function VideosPage({ trendingData }) {
                   my={1}
                 >
                   <Link
-                    href={
-                      list?.c_cards_share_url !== ""
-                        ? list?.c_cards_share_url
-                        : ""
-                    }
+                    // href={
+                    //   list?.c_cards_share_url !== ""
+                    //     ? list?.c_cards_share_url
+                    //     : ""
+                    // }
+                    href={list?.c_cards_share_url || '#'}
                     target={list?.c_cards_share_url !== "" ? "_blank" : ""}
                   >
                     <Image

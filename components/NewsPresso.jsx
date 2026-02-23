@@ -248,7 +248,7 @@ function NewsPresso() {
                         </Box>
                         <Box textAlign={"center"}>
                           <Link
-                            href={`/article/${list?.story_desk_created_name}`}
+                            href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}
                           >
                             <Button
                               sx={{

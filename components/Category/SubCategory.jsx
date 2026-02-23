@@ -51,7 +51,7 @@ function SubCategory({
               pt={1}
             >
               <Link
-                href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
               >
                 {loader ? (
                   <Skeleton variant="rectangular" width={"100%"} height={344} />
@@ -103,7 +103,7 @@ function SubCategory({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {loader ? (
                     <Skeleton
@@ -128,7 +128,7 @@ function SubCategory({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {loader ? (
                     <Skeleton
@@ -396,7 +396,7 @@ function SubCategory({
               pt={1}
             >
               <Link
-                href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
               >
                 {newsList?.at(0)?.youtube_embed_id === "" ? (
                   <Image
@@ -442,7 +442,7 @@ function SubCategory({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {newsList?.at(0)?.story_title_name}
                 </Link>
@@ -459,7 +459,7 @@ function SubCategory({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {newsList?.at(0)?.story_sub_title_name}
                 </Link>

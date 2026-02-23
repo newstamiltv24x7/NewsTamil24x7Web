@@ -71,7 +71,7 @@ function MainWebStoryPage({ menuData, trendingData,viewControl,breakingControl,q
           <Grid item md={12} xs={6} sm={6}>
             <Box key={list?._id} p={0} pt={1} m={0}>
               <Box height={"auto"} border={"1px solid #cbcbcb"}>
-                <Link href={`/web-story/${list?.c_web_story_slug_name}`} target="_blank" replace>
+                <Link href={`/web-story/${list?.c_web_story_slug_name || list?._id || '#'}`} target="_blank" replace>
                   <Image
                   fetchPriority="high" rel="preload"
                     src={list?.c_web_story_cover_img}

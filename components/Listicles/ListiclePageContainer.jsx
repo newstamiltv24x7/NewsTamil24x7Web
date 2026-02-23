@@ -82,7 +82,7 @@ function ListiclePageContainer({ newsData, trendData, listicleRes ,viewControl }
                   <SwiperSlide key={list?._id}>
                     <Box>
                       <Box borderRadius={"6px"} overflow={"hidden"}>
-                        <Link href={`/article/${list?.story_desk_created_name}`}>
+                        <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
                           <Image fetchPriority="high" rel="preload"
                             src={list?.story_cover_image_url}
                             alt={list?.story_subject_name}

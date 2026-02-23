@@ -123,7 +123,7 @@ function MobileFooter() {
   return (
     <Box bgcolor={"#121212"} p={2}>
       <Box display={"grid"} sx={{ placeItems: "center" }} mb={2}>
-        <Image fetchPriority="high" rel="preload"
+        <Image
           src={Logo}
           alt="news-tamil-footer-logo"
           width={200}
@@ -161,10 +161,10 @@ function MobileFooter() {
                   lineHeight={0}
                 >
                   <Box border={"1px solid #fff"} p={0.5} borderRadius={5}>
-                  <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} style={{lineHeight:0}} target="_blank"><Image fetchPriority="high" rel="preload" src={PlayStore} alt="play" width={100} height={30} /></Link>
+                  <Link href={"https://play.google.com/store/apps/details?id=com.news.tamil24X7&hl=en"} style={{lineHeight:0}} target="_blank"><Image src={PlayStore} alt="play" width={100} height={30} /></Link>
                   </Box>
                   <Box border={"1px solid #fff"} p={0.5} borderRadius={5}>
-                  <Link href={"#"} target="_blank"><Image fetchPriority="high" rel="preload" src={AppStore} alt="app" width={100} height={30} style={{lineHeight:0}} /></Link>
+                  <Link href={"#"} target="_blank"><Image src={AppStore} alt="app" width={100} height={30} style={{lineHeight:0}} /></Link>
                   </Box>
                   
                   

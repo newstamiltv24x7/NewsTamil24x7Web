@@ -44,7 +44,7 @@ function HorizontalCard({ list, type ,viewControl }) {
       <Grid container py={1} position={"relative"}>
         <Grid item xs={type !== "secondaryCat" ? 7 : 8}>
           <Box pr={1}>
-            <Link href={`/article/${list?.story_desk_created_name}`}>
+            <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
               <Typography
                 fontFamily={"var(--anek-font)"}
                 className="textWrapper"
@@ -275,19 +275,18 @@ function HorizontalCard({ list, type ,viewControl }) {
             position={"relative"}
           >
             {/* {list?.youtube_embed_id === "" ? ( */}
-            <Link href={`/article/${list?.story_desk_created_name}`}>
+            <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
               <Image
-              fetchPriority="high" 
-              rel="preload"
                 src={list?.story_cover_image_url}
                 alt={list?.news_image_caption}
                 width={1200}
                 height={400}
                 loading="lazy"
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 300px"
                 style={{
                   width: "100%",
                   height: "100%",
-                  // height: "fit-content",
                   objectFit: "fill",
                   borderRadius: "6px",
                 }}

@@ -53,15 +53,15 @@ function BigCard({ list, index, type, page, viewControl }) {
         position={"relative"}
       >
         {/* {list?.youtube_embed_id === "" ? ( */}
-        <Link href={`/article/${list?.story_desk_created_name}`}>
+        <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
           <Image
-            fetchPriority="high"
-            rel="preload"
             src={list?.story_cover_image_url}
             alt={list?.news_image_caption}
             width={1200}
             height={type === "mainAd" ? 419 : 800}
             loading="lazy"
+            quality={75}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
             style={{
               width: "100%",
               height: "100%",
@@ -97,7 +97,7 @@ function BigCard({ list, index, type, page, viewControl }) {
           },
         }}
       >
-        <Link href={`/article/${list?.story_desk_created_name}`}>
+        <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
           <Typography
             fontFamily={"var(--anek-font)"}
             className="textWrapper"

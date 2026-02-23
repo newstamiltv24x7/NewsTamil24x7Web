@@ -16,8 +16,6 @@ import { CryptoFetcher } from "@/utils/libs";
 import axios from "axios";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { useState } from "react";
-import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 
@@ -138,8 +136,6 @@ export default function Home({
   viewControl
 }) {
   const pathname = usePathname(); 
-  
-  const [isLoading, setIsLoading] = useState(true);
   const jsonArticleLd = {
     "name":"News Tamil 24x7",
     "url":"https://www.newstamil.tv/",
@@ -198,14 +194,9 @@ export default function Home({
     ]
 }
 
-
-  useEffect(() => {
-    // Simulate a slight delay to ensure smooth loading transition
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, []);
+  // NOTE: isLoading+setTimeout removed — it caused CLS=1.0 by hiding
+  // SSR content for 300ms then reflowing the full layout on every page load.
+  // Data is already available from getServerSideProps, so we render directly.
   return (
     <>
       <Head>
@@ -234,9 +225,6 @@ export default function Home({
 
       {deviceType === "mobile" ? (
         <div>
-        {isLoading ? (
-        <div className="loading-skeleton"></div>
-      ) : (
         <MobileView
           menuData={menuData}
           orderedMenu={orderedMenu}
@@ -246,14 +234,9 @@ export default function Home({
           breakingControl={breakingControl}
           quickControl={quickControl}
         />
-        )
-        }
         </div>
       ) : (
         <div>
-          {isLoading ? (
-          <div className="loading-skeleton"></div>
-        ) : (
         <HomepageMainSection
           menuData={menuData}
           photosData={photosData}
@@ -264,10 +247,7 @@ export default function Home({
           breakingControl={breakingControl}
           viewControl={viewControl}
         />
-        )
-        }
         </div>
-        
       )}
     </>
   );

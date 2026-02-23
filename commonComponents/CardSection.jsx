@@ -64,16 +64,16 @@ console.log("hello",data);
       >
         {/* {data?.youtube_embed_id === "" ? ( */}
         <Link
-          href={`/article/${data?.story_desk_created_name}`}
+          href={`/article/${data?.story_desk_created_name || data?._id || '#'}`}
           style={{ position: "relative" }}
         >
           <Image
-            fetchPriority="high"
-            rel="preload"
             src={data?.story_cover_image_url}
             alt={data?.news_image_caption}
             width={1200}
             loading="lazy"
+            quality={75}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
             height={800}
             style={{
               width: "100%",
@@ -142,7 +142,7 @@ console.log("hello",data);
           overflow={"hidden"}
           height={section === "home" ? 46 : 66}
         >
-          <Link href={`/article/${data?.story_desk_created_name}`}>
+          <Link href={`/article/${data?.story_desk_created_name || data?._id || '#'}`}>
             {data?.story_title_name}
           </Link>
         </Typography>

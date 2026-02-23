@@ -107,7 +107,7 @@ function CategoryLeft({
               </Link>
               
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   <Typography
                 fontFamily={"var(--anek-font)"}
@@ -414,7 +414,7 @@ function CategoryLeft({
               pt={1}
             >
               <Link
-                href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
               >
                 {/* {newsList?.at(0)?.youtube_embed_id === "" ? ( */}
                 <Image
@@ -461,7 +461,7 @@ function CategoryLeft({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {newsList?.at(0)?.story_title_name}
                 </Link>

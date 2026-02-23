@@ -449,7 +449,7 @@ function MainAdSection({viewControl}) {
                   // boxShadow={"0px 0px 4px 0px rgba(0,0,0,0.75)"}
                 >
                   <Grid item md={9} xs={7} pr={{ xs: 1, sm: 1, md: 1 }}>
-                    <Link href={`/article/${list?.story_desk_created_name}`}>
+                    <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
                       <Typography
                         fontFamily={"var(--anek-font)"}
                         className="textWrapper"
@@ -671,7 +671,7 @@ function MainAdSection({viewControl}) {
                       borderRadius={"6px"}
                       overflow={"hidden"}
                     >
-                      <Link href={`/article/${list?.story_desk_created_name}`}>
+                      <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
                         <Image
                         fetchPriority="high" rel="preload"
                           src={list?.story_cover_image_url}

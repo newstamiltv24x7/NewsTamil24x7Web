@@ -159,7 +159,7 @@ function FirstCategory({viewControl}) {
         mt={2}
         bgcolor={mode === "dark" ? "#272626" : "#f1f1f1"}
       >
-        <Link href={`/news/${HomePageNews?.at(0)?.c_category_slug_english_name}`}>
+        <Link href={`/news/${HomePageNews?.at(0)?.c_category_slug_english_name || '#'}`}>
           <Button
             variant="outlined"
             sx={{

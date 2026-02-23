@@ -335,7 +335,7 @@ function MobileHomeCategory({viewControl}) {
                 borderBottom={"1px solid #313131"}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   <Box position={"relative"}>
                     <Image 
