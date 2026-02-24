@@ -321,8 +321,7 @@ function VideoSection({ postedData, postedLoading }) {
                             height={56}
                             style={{
                               position: "absolute",
-                              top: "25%",
-                              left: "45%",
+                              bottom: "8%",
                               cursor: "pointer",
                             }}
                           />

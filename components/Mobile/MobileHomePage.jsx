@@ -157,7 +157,7 @@ const GetJustNowCategory = async () => {
     mt:"8px",
     position: 'relative',
     width: '100%',
-    height: '45vw',
+    height: '55vw',
     maxWidth: '100vw',
     overflow: 'hidden',
     borderRadius: '5px',
