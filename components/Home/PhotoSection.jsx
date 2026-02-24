@@ -92,9 +92,9 @@ function PhotoSection({ photosData }) {
                         position={"absolute"}
                         bottom={0}
                         p={"6px"}
-                        right={15}
+                        right={5}
                         bgcolor={"#fb6002"}
-                        borderRadius={"0 0 0 0"}
+                        borderRadius={"3px"}
                       >
                         <IoImageOutline />
                         <Typography

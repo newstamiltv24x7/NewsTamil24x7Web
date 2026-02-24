@@ -81,7 +81,7 @@ function BigCard({ list, index, type, page, viewControl }) {
                 cursor: "pointer",
                 position: "absolute",
                 left: 10,
-                bottom: 10,
+                bottom: 0,
               }}
             />
           )}
