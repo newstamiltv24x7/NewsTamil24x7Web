@@ -2,6 +2,7 @@ import HomepageLayout from "@/layouts/HomepageLayout";
 import { Box, Grid, IconButton } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { addMainNews } from "@/redux/reducer/homePageReducer";
 import { useDispatch } from "react-redux";
 import {
@@ -282,9 +283,8 @@ return (
         overflow: "hidden",
         gap:"10px",
       }} maxWidth={1440}>
-         <Box onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
+         {/* <Box onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
         <Link href={youtube_link[current] || '#'}>
-      {/* Above-the-fold hero slider: eager load + high fetch priority for LCP */}
       <img
         src={images[current]}
         alt="Live event"
@@ -294,7 +294,21 @@ return (
         height={450}
         style={{ width: "100%", height: "100%", borderRadius:"5px",transition: "none", transform: "scale(1)" }}
       />
-        </Link>
+        </Link> */}
+        <Box onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} style={{ flex: 1, minWidth: 0, position: "relative", border: "5px solid #ff6600", borderRadius:"10px"}}>
+          <Link href={youtube_link[current] || '#'}>
+        {/* Above-the-fold hero slider: use Next/Image for responsive LCP delivery */}
+        <div style={{position: 'relative', width: '100%', height: '100%', borderRadius: 5, overflow: 'hidden'}}>
+          <Image
+            src={images[current]}
+            alt="Live event"
+            fill
+            priority
+            sizes="(max-width:600px) 100vw, (max-width:1200px) 50vw, 720px"
+            style={{ objectFit: 'cover', transition: 'none', transform: 'scale(1)' }}
+          />
+        </div>
+          </Link>
       <Box
         style={{
           position: "absolute",
