@@ -88,6 +88,7 @@ function MobileCards() {
                     alt="newstamil-cards"
                     height={800}
                     width={1200}
+                    sizes="100vw"
                     style={{
                       width: "100%",
                       height: "100%",

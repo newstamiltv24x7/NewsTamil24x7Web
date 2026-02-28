@@ -342,8 +342,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={newsList?.at(0)?.story_cover_image_url}
                       alt={newsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -667,8 +669,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={secondNewsList?.at(0)?.story_cover_image_url}
                       alt={secondNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -992,8 +996,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={thirdNewsList?.at(0)?.story_cover_image_url}
                       alt={thirdNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -1317,8 +1323,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={fourthNewsList?.at(0)?.story_cover_image_url}
                       alt={fourthNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -1642,8 +1650,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={fifthNewsList?.at(0)?.story_cover_image_url}
                       alt={fifthNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -1967,8 +1977,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={sixthNewsList?.at(0)?.story_cover_image_url}
                       alt={sixthNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -2292,8 +2304,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={seventhNewsList?.at(0)?.story_cover_image_url}
                       alt={seventhNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -2617,8 +2631,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={eighthNewsList?.at(0)?.story_cover_image_url}
                       alt={eighthNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -2942,8 +2958,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={ninethNewsList?.at(0)?.story_cover_image_url}
                       alt={ninethNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -3267,8 +3285,10 @@ function MobileHomeCategory({viewControl}) {
                     fetchPriority="high" rel="preload"
                       src={tenthNewsList?.at(0)?.story_cover_image_url}
                       alt={tenthNewsList?.at(0)?.story_subject_name}
-                      width={1800}
-                      height={900}
+                      width={750}
+                      height={420}
+                      sizes="100vw"
+                      loading="lazy"
                       style={{
                         width: "100%",
                         height: "100%",

@@ -1,8 +1,12 @@
-"use client";
+// NOTE: "use client" is an App Router directive and must NOT appear in
+// Next.js Pages Router files. Removing it prevents the bundler from
+// incorrectly treating this page as a client-only module and stops it
+// from pulling all transitive imports into the main JS bundle.
 import {
   getAllPhotos,
   getBreakingNews,
   getControls,
+  getHomeJustBefore,
   getHomeMenuApi,
   getHomeMenuApiList,
   getHomeTopSection,
@@ -51,6 +55,7 @@ export async function getServerSideProps(context) {
       shortsRes,
       breakingRes,
       seoRes,
+      liveEventRes,
     ] = await Promise.all([
       getHomeMenuApi(),
       getHomeMenuApiList({
@@ -68,7 +73,8 @@ export async function getServerSideProps(context) {
       getAllPhotos(),
       getWebstoriesList(),
       getBreakingNews(),
-      getSeoList()
+      getSeoList(),
+      getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
     ]);
     // Decrypt all responses where applicable
     const menuData = CryptoFetcher(menuRes?.payloadJson);
@@ -83,6 +89,15 @@ export async function getServerSideProps(context) {
       controlData?.[1]?.c_control_type?.toLowerCase() || "no";
     const breakingControl = controlData?.[0]?.c_control_type?.toLowerCase() || "no";
     const viewControl = controlData?.[2]?.c_control_type?.toLowerCase() || "no";
+
+    // Live-event slider: pre-fetch server-side so the LCP image needs no JS
+    const liveEventNews = CryptoFetcher(liveEventRes?.payloadJson)?.docs || [];
+    const liveEventImages = liveEventNews
+      .map((item) => item.story_cover_image_url)
+      .filter(Boolean);
+    const liveEventLinks = liveEventNews
+      .map((item) => item.youtube_embed_id)
+      .filter(Boolean);
 
     // SEO data extraction
     const seoResponse = seoRes?.data?.payloadJson?.at(0) || [];
@@ -99,7 +114,12 @@ export async function getServerSideProps(context) {
         deviceType: isMobile ? "mobile" : "desktop",
         quickControl,
         breakingControl,
-        viewControl
+        viewControl,
+        liveEventImages,
+        liveEventLinks,
+        // First live-event image — used as the <link rel="preload"> hint in <Head>
+        // so the browser fetches it in the earliest possible network round-trip.
+        lcpHeroImage: liveEventImages[0] || null,
       },
     };
   } catch (err) {
@@ -133,7 +153,10 @@ export default function Home({
   deviceType,
   quickControl,
   breakingControl,
-  viewControl
+  viewControl,
+  liveEventImages,
+  liveEventLinks,
+  lcpHeroImage,
 }) {
   const pathname = usePathname(); 
   const jsonArticleLd = {
@@ -200,6 +223,20 @@ export default function Home({
   return (
     <>
       <Head>
+        {/* Preload the LCP hero image so the browser fetches it in the very
+            first network round-trip — before any render-blocking resources.
+            fetchpriority="high" tells the browser this is the most important
+            resource on the page. This tag is emitted before GTM / ad scripts
+            because those are injected via next/script strategy="afterInteractive"
+            and therefore appear after </body> hydration, not in <head>. */}
+        {lcpHeroImage && (
+          <link
+            rel="preload"
+            as="image"
+            href={lcpHeroImage}
+            fetchpriority="high"
+          />
+        )}
         <title>{seoResponse?.c_seo_page_title}</title>
         <meta
           name="description"
@@ -246,6 +283,8 @@ export default function Home({
           quickControl={quickControl}
           breakingControl={breakingControl}
           viewControl={viewControl}
+          liveEventImages={liveEventImages}
+          liveEventLinks={liveEventLinks}
         />
         </div>
       )}

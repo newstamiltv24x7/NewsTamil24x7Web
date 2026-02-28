@@ -92,9 +92,10 @@ function MobileShorts() {
                         fetchPriority="high" rel="preload"
                           src={list?.c_thumbanail_image}
                           alt="newstamil-thumb-image"
-                          width={200}
-                          unoptimized
-                          height={250}
+                          width={320}
+                          height={570}
+                          loading="lazy"
+                          sizes="50vw"
                           style={{
                             width: "100%",
                             height: "auto",

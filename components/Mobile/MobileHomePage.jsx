@@ -481,7 +481,7 @@ const GetJustNowCategory = async () => {
           </Box>
           <Box p={2} pt={1} pb={0}>
             {Array.isArray(newsData) &&
-              newsData.slice(1, 15).map((list) => (
+              newsData.slice(1, 4).map((list) => (
                 <Box
                   key={list?._id}
                   borderBottom={"1px solid #313131"}
@@ -542,8 +542,10 @@ const GetJustNowCategory = async () => {
 >
   <Link href={special[current]?.url || '#'}>
     <img
-      src={special[current]?.image}
+      src={special[current]?.image?.replace('/upload/', '/upload/w_750,q_auto,f_auto/')}
       alt="Live event"
+      width={750}
+      height={421}
       style={{
         width: '100%',
         height: '100%',

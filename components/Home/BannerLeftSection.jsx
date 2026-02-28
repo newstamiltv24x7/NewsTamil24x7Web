@@ -1,46 +1,18 @@
-"use client";
-
-import {
-  Box,
-  ClickAwayListener,
-  Fade,
-  Grid,
-  Paper,
-  Popper,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+/**
+ * BannerLeftSection — React Server Component.
+ * No client-side state or effects live here.
+ * Interactive share popup is delegated to BannerShareButton (client component).
+ */
+import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
-import ShareIcon from "../../public/newsTamilIcons/icons/share.svg";
-import DarkShareIcon from "../../public/newsTamilIcons/icons/dark-share.svg";
 import CardSection from "@/commonComponents/CardSection";
 import Link from "next/link";
-import { getHours, shareCards } from "@/utils/libs";
-import { useTheme } from "@/theme/ThemeContext";
+import { getHours } from "@/utils/libs";
 import { FaRegEye } from "react-icons/fa6";
-
-import FacebookNew from "../../public/newsTamilIcons/icon-pack/Frame 1.svg";
-import WhatsAppNew from "../../public/newsTamilIcons/icon-pack/Frame 7.svg";
-import TwitterNew from "../../public/newsTamilIcons/icon-pack/Frame 2.svg";
-import YoutubeNew from "../../public/newsTamilIcons/icon-pack/Frame 6.svg";
-import TelegramNew from "../../public/newsTamilIcons/icon-pack/Frame 8.svg";
-import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
-import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
-import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 import CommonHeader from "@/commonComponents/CommonHeader";
+import BannerShareButton from "./BannerShareButton";
 
-function BannerLeftSection({ newsData, loading,viewControl }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-  const [placement, setPlacement] = React.useState();
-  const { mode } = useTheme();
-
-  const handleClick = (newPlacement, id) => (event) => {
-    setAnchorEl(event.currentTarget);
-    setOpen((prev) => placement !== newPlacement || !prev);
-    setPlacement(newPlacement);
-  };
+function BannerLeftSection({ newsData, loading, viewControl }) {
 
   return (
     <Box className="primary-news">
@@ -126,8 +98,9 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
                   >
                     <Box overflow={"hidden"} height={286} borderRadius={"6px"}>
                       <Image
-                        priority
+                        priority={true}
                         fetchPriority="high"
+                        loading="eager"
                         src={newsData?.at(0)?.story_cover_image_url}
                         alt={newsData?.at(0)?.news_image_caption || "hero news image"}
                         width={1800}
@@ -257,143 +230,12 @@ function BannerLeftSection({ newsData, loading,viewControl }) {
                     >
                       {getHours(newsData?.at(0)?.updatedAt)}
                     </Typography>
-                    <Box position={"relative"} top={3}>
-                      <Image
-                      fetchPriority="high" rel="preload"
-                        src={mode === "light" ? DarkShareIcon : ShareIcon}
-                        alt="share"
-                        width={17}
-                        height={17}
-                        style={{ cursor: "pointer" }}
-                        onClick={handleClick("left", newsData?.at(0)?._id)}
-                      />
-                    </Box>
+                    {/* Share popup — client-only interaction isolated in BannerShareButton */}
+                    <BannerShareButton
+                      slug={newsData?.at(0)?.story_desk_created_name}
+                      subTitle={newsData?.at(0)?.story_sub_title_name}
+                    />
                   </Box>
-                  <Popper
-                    sx={{ zIndex: 10 }}
-                    open={open}
-                    anchorEl={anchorEl}
-                    placement={placement}
-                    transition
-                  >
-                    {({ TransitionProps }) => (
-                      <Fade {...TransitionProps} timeout={350}>
-                        <Paper>
-                          <ClickAwayListener onClickAway={() => setOpen(false)}>
-                            <Box
-                              display={"flex"}
-                              alignItems={"center"}
-                              justifyContent={"flex-start"}
-                              gap={1}
-                              px={1}
-                              py={1}
-                              mt={-1}
-                              // height={30}
-                              borderRadius={"0 0 4px 4px"}
-                              width={"fit-content"}
-                              position={"relative"}
-                              top={0}
-                              bgcolor={"#dedede"}
-                              sx={{
-                                "& img": {
-                                  cursor: "pointer",
-                                },
-                              }}
-                            >
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={FacebookNew}
-                                alt="fb"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "fb",
-                                    newsData?.at(0)?.story_desk_created_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={WhatsAppNew}
-                                alt="watsapp-image"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards("wp", newsData?.at(0)?.story_desk_created_name)
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={TwitterNew}
-                                alt="twitter-image"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "x",
-                                    newsData?.at(0)?.story_desk_created_name,
-                                    newsData?.at(0)?.story_sub_title_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={YoutubeNew}
-                                alt="youtube-image"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("yt")}
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={TelegramNew}
-                                alt="telegram-image"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "tele",
-                                    newsData?.at(0)?.story_desk_created_name,
-                                    newsData?.at(0)?.story_sub_title_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={InstagramNew}
-                                alt="instagram-image"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("insta")}
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={ThreadsNew}
-                                alt="threads-image"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("td")}
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={LinkedinNew}
-                                alt="linked-image"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "lk",
-                                    newsData?.at(0)?.story_desk_created_name
-                                  )
-                                }
-                              />
-                            </Box>
-                          </ClickAwayListener>
-                        </Paper>
-                      </Fade>
-                    )}
-                  </Popper>
                 </Box>
                 <hr
                   style={{

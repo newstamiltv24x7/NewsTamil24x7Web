@@ -1,35 +1,71 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useEffect, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Mousewheel, Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import { Autoplay, Navigation } from "swiper/modules";
+// CSS is already imported globally in pages/_app.js — no duplicate imports here.
 import Link from "next/link";
 
 function VerticalSwiper({ breakingData }) {
+  const swiperRef = useRef(null);
 
+  useEffect(() => {
+    // Immediately stop autoplay that Swiper starts on mount.
+    // Re-enable it only when the browser has spare CPU cycles so the
+    // Swiper animation never blocks the initial page render.
+    const swiper = swiperRef.current;
+    if (swiper && !swiper.destroyed) {
+      swiper.autoplay.stop();
+    }
 
-    useEffect(() => {
-        // Ensure Swiper initializes after DOM is ready
-        setTimeout(() => {
-          document.querySelector(".swiper-button-prev").classList.remove("swiper-button-disabled");
-          document.querySelector(".swiper-button-next").classList.remove("swiper-button-disabled");
-        }, 1000);
-      }, []);
+    const rIC = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 300));
+    const cIC = window.cancelIdleCallback   ?? clearTimeout;
+
+    const handle = rIC(
+      () => {
+        const s = swiperRef.current;
+        if (s && !s.destroyed) s.autoplay.start();
+      },
+      { timeout: 2000 } // fall back after 2 s even if CPU stays busy
+    );
+
+    return () => cIC(handle);
+  }, []);
 
 
   function getFirst120Chars(text) {
     return text.slice(0, 100);
   }
   return (
-    <Box sx={{ height: "50px", position: "relative" }} >
-     {/* Custom navigation buttons */}
-     <div className="swiper-button-prev swiper-button-custom"></div>
-      <div className="swiper-button-next swiper-button-custom"></div>
+    /*
+     * CLS fix: give the Swiper container a fixed, explicit height and
+     * aspect-ratio so the browser can reserve the exact space before the
+     * Swiper JS bundle is parsed and the component hydrates.
+     * aspect-ratio keeps the reserve alive even at varying viewport widths.
+     */
+    <Box
+      sx={{
+        position: "relative",
+        height: "50px",
+        minHeight: "50px",          // never collapses to 0 during hydration
+        /* approx 28:1 (full-width header at ~1440 px / 50 px tall) */
+        aspectRatio: "28 / 1",
+        overflow: "hidden",
+        contain: "layout style",    // prevent this subtree from causing reflows
+      }}
+    >
+      {/* Custom navigation buttons */}
+      <div className="swiper-button-prev swiper-button-custom" />
+      <div className="swiper-button-next swiper-button-custom" />
       <Swiper
-        // modules={[Pagination, Mousewheel]}
+        onSwiper={(swiper) => {
+          // Capture the imperative instance so the rIC effect can call
+          // swiper.autoplay.start() / stop() without a re-render.
+          swiperRef.current = swiper;
+        }}
         direction="vertical"
-        autoplay={{ delay: 2500 }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
         loop={true}
         modules={[Autoplay, Navigation]}
         slidesPerView={1}
@@ -38,7 +74,7 @@ function VerticalSwiper({ breakingData }) {
           prevEl: ".swiper-button-prev",
           nextEl: ".swiper-button-next",
         }}
-        style={{ height: "100%" }} 
+        style={{ height: "100%" }}
       >
         {Array.isArray(breakingData) && breakingData?.length > 0 && breakingData.map((list, index) => (
           <SwiperSlide

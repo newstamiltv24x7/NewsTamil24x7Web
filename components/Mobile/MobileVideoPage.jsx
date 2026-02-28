@@ -188,8 +188,10 @@ function MobileVideoPage({ menuData, trendingData,breakingControl,viewControl,qu
                     <Image
                     fetchPriority="high" rel="preload"
                       src={list?.c_thumbanail_image}
-                      height={900}
-                      width={1000}
+                      height={420}
+                      width={750}
+                      loading="lazy"
+                      sizes="100vw"
                       alt={list?.c_url_title}
                       style={{
                         width: "100%",

@@ -98,6 +98,7 @@ function MobileCardsPage(props) {
                   alt="newstamil-cards-image"
                   height={800}
                   width={1200}
+                  sizes="100vw"
                   style={{ width: "100%", height: "100%", borderRadius: "8px" }}
                 />
               </Box>

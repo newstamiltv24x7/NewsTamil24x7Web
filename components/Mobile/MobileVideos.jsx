@@ -36,7 +36,7 @@ function MobileVideos() {
     try {
       const body = {
         n_page: 1,
-        n_limit: 5,
+        n_limit: 3,
         c_search_term: "",
         c_video_type: "posted",
         c_youtube_type: "video",
@@ -86,11 +86,10 @@ function MobileVideos() {
                   fetchPriority="high" rel="preload"
                     src={list?.c_thumbanail_image}
                     alt="newstamil-thumb-image"
-                    width={1200}
-                    // loading="lazy"
-                    height={800}
-                    // quality={80}
-                    unoptimized
+                    width={750}
+                    height={420}
+                    loading="lazy"
+                    sizes="100vw"
                     style={{
                       width: "100%",
                       height: "220px",

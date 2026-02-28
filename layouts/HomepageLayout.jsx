@@ -10,13 +10,40 @@ import {
 } from "react-icons/md";
 import { AiOutlineYoutube } from "react-icons/ai";
 import Link from "next/link";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import dynamic from "next/dynamic";
 import { addUserData } from "@/redux/reducer/userReducer";
 import { useDispatch } from "react-redux";
 import { getDeviceId } from "@/commonComponents/WebApiFunction/ApiFunctions";
 
-import VerticalSwiper from "@/commonComponents/VerticalSwiper";
+/**
+ * VerticalSwiper is loaded client-side only (ssr: false) so the ~120 kB
+ * Swiper bundle is never blocking the server render or the main thread
+ * during initial page load.
+ *
+ * The loading placeholder reserves the identical 50 px height so the
+ * browser never needs to re-flow the breaking-news bar — eliminating the
+ * CLS shift that occurs when the real Swiper mounts.
+ */
+const VerticalSwiper = dynamic(
+  () => import("@/commonComponents/VerticalSwiper"),
+  {
+    ssr: false,
+    loading: () => (
+      <Box
+        sx={{
+          height: "50px",
+          minHeight: "50px",
+          aspectRatio: "28 / 1",
+          display: "flex",
+          alignItems: "center",
+          px: 3,
+        }}
+      >
+        <Skeleton variant="text" width="100%" height={20} sx={{ bgcolor: "#cbcbcb" }} />
+      </Box>
+    ),
+  }
+);
 
 function HomepageLayout({
   children,
