@@ -125,8 +125,8 @@ function MobileVideos() {
                   <Link href={list?.c_url_link} target="_blank">
                     <Typography
                       component={"p"}
-                      fontSize={18}
-                      fontWeight={700}
+                      fontSize={15}
+                      fontWeight={540}
                       className="textWrapper"
                       fontFamily={"var(--anek-font) !important"}
                     >

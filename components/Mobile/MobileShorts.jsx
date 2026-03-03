@@ -120,10 +120,10 @@ function MobileShorts() {
                         <Typography
                           fontFamily={"var(--anek-font)"}
                           className="textWrapper"
-                          fontSize={16}
+                          fontSize={15}
                           lineHeight={1.3}
                           component={"p"}
-                          fontWeight={550}
+                          fontWeight={500}
                           sx={{ color: "inherit" }}
                           // height={70}
                         >
