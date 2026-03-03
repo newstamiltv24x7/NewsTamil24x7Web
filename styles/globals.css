@@ -1,8 +1,12 @@
 :root {
-  --anek-font: "Anek Tamil", sans-serif;
+  /* Tamil system fonts: Latha/Vijaya (Windows), Nirmala UI (Win 8+),
+     Tamil Sangam MN/InaiMathi (macOS/iOS), Noto Sans Tamil (Android/Linux) */
+  --anek-font: "Latha", "Vijaya", "Nirmala UI", "Tamil Sangam MN", "InaiMathi", "Noto Sans Tamil", sans-serif;
   --arial-font: "Arial", sans-serif;
-  --amster-font: "New Amsterdam", sans-serif;
-  --oswald-font: "Oswald", sans-serif;
+  /* New Amsterdam replaced with system serif display fonts */
+  --amster-font: "Palatino Linotype", "Book Antiqua", "Georgia", serif;
+  /* Oswald replaced with system condensed/narrow fonts */
+  --oswald-font: "Arial Narrow", "Arial", sans-serif;
 }
 
 .textWrapper {
@@ -118,27 +122,13 @@
 } */
 
 .photo-card::after {
-  position: absolute;
-  content: "";
-  width: 95%;
-  top: 0%;
-  bottom: -10px;
-  left: 2%;
-  border-radius: 10px;
-  background-color: #666666;
-  z-index: -1;
+  /* Decorative background removed to avoid showing behind thumbnails/carousels */
+  display: none;
 }
 
 .photo-card::before {
-  position: absolute;
-  content: "";
-  width: 88%;
-  top: 0%;
-  bottom: -16px;
-  left: 6%;
-  border-radius: 10px;
-  background-color: #4e4e4e;
-  z-index: -2;
+  /* Decorative background removed to avoid showing behind thumbnails/carousels */
+  display: none;
 }
 
 /* ::-webkit-scrollbar {
@@ -363,22 +353,21 @@ iframe {
 }
 
 .liveTvBox::before {
-  content: "v";
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  z-index: -2;
-  font-size: 37px;
-  transform: translateX(-45%);
+  /* Hide decorative pseudo-element that can overlap images */
+  display: none;
 }
 
 .mobile-nav ::-webkit-scrollbar {
   height: 2px;
 }
 
-img:hover {
+/* img:hover scale removed — it triggered CLS on touch devices and forced
+   compositing on every image (including the LCP hero).  Use the class
+   `.hover-zoom` selectively on cards/thumbnails where the effect is wanted. */
+.hover-zoom:hover img {
   transform: scale(1.03);
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
 }
 
 hr {

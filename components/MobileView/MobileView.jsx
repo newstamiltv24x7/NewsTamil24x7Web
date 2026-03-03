@@ -1,7 +1,7 @@
 "use client";
 
 import MobilepageLayout from "@/layouts/MobilepageLayout";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, memo } from "react";
 import { addMainNews } from "@/redux/reducer/homePageReducer";
 import { useDispatch } from "react-redux";
 import dynamic from "next/dynamic";
@@ -43,7 +43,7 @@ function MobileView({
     GetHomeTrendingNews();
   }, []);
 
-  const GetHomeTopNews = async () => {
+  const GetHomeTopNews = useCallback(async () => {
     try {
       const result = await getHomeTopSection({
         n_page: 1,
@@ -57,9 +57,9 @@ function MobileView({
       setNewsLoading(false);
       console.log(err);
     }
-  };
+  }, []);
 
-  const GetHomeTrendingNews = async () => {
+  const GetHomeTrendingNews = useCallback(async () => {
     try {
       const result = await getHomeLatest({
         n_page: 1,
@@ -73,7 +73,7 @@ function MobileView({
       console.log(err);
       setTrendLoading(false);
     }
-  };
+  }, []);
 
   return (
     <MobilepageLayout menuData={menuData} trendingData={trendingData} breakingControl={breakingControl} quickControl={quickControl}>
@@ -93,4 +93,4 @@ function MobileView({
   );
 }
 
-export default MobileView;
+export default memo(MobileView);

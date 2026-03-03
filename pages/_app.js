@@ -2,20 +2,36 @@ import "@/styles/globals.css";
 import ThemeContextProvider from "@/theme/ThemeContext";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdSense from "@/components/AdSense";
-import NotificationSetup from "@/components/Notification";
-import "react-multi-carousel/lib/styles.css";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { SessionProvider } from "next-auth/react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ClientErrorHandler from "@/components/ClientErrorHandler";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+import { memo } from "react";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
+// ── Lazy-load non-critical components ──────────────────────────────────
+// AdSense, NotificationSetup and ToastContainer are not part of the
+// critical render path.  Loading them lazily removes their JS from the
+// main bundle and prevents them from competing with LCP/FCP.
+const AdSense = dynamic(() => import("@/components/AdSense"), { ssr: false });
+const NotificationSetup = dynamic(() => import("@/components/Notification"), { ssr: false });
+const ToastContainer = dynamic(
+  () => import("react-toastify").then((mod) => mod.ToastContainer),
+  { ssr: false }
+);
+
+// ── Carousel / Swiper CSS ──────────────────────────────────────────────
+// Moved from global (blocking) imports to dynamic imports so these
+// ~45 kB of CSS don't block first paint on pages that don't use them.
+if (typeof window !== "undefined") {
+  import("react-multi-carousel/lib/styles.css");
+  import("swiper/css");
+  import("swiper/css/navigation");
+  import("swiper/css/pagination");
+}
+
+function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <ThemeContextProvider>
       <SessionProvider session={session}>
@@ -56,3 +72,5 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     </ThemeContextProvider>
   );
 }
+
+export default memo(App);

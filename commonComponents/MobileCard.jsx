@@ -51,7 +51,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
                 fontSize={14}
                 lineHeight={1.4}
                 component={"h2"}
-                fontWeight={550}
+                fontWeight={500}
                 sx={{ wordBreak: "break-word" }}
               >
                 {list?.story_title_name}
@@ -59,26 +59,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
             </Link>
 
             <Box>
-              <Box>
-                <Typography
-                  fontFamily={"var(--anek-font)"}
-                  className=""
-                  fontSize={13}
-                  lineHeight={1.3}
-                  component={"p"}
-                  fontWeight={550}
-                  sx={{
-                    color: "#fb6002",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  mt={0.7}
-                  // width={"40%"}
-                >
-                  {list?.story_subject_name}
-                </Typography>
-              </Box>
+              
 
               <Box
                 display={"flex"}
@@ -86,7 +67,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
                 alignItems={"center"}
                 mt={1}
               >
-                 {viewControl === "yes" && 
+                 {/* {viewControl === "yes" && 
                 <Box
                   display={"flex"}
                   justifyContent={"center"}
@@ -98,7 +79,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
                 >
                   <FaRegEye /> {list?.view_count}
                 </Box>
-                }
+                } */}
                 <Typography
                   fontFamily={"var(--anek-font)"}
                   className="textWrapper"

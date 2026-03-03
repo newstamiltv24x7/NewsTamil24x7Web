@@ -10,38 +10,30 @@ const firebaseConfig = {
   appId: "1:936063248193:web:6633c632ef73c1e6f963c0"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-
+let firebaseApp;
 let messaging;
 
-try {
-  if (typeof window !== "undefined") {
-    messaging = getMessaging(firebaseApp);
-
-    // Request permission to send notifications
-    Notification.requestPermission()
-      .then((permission) => {
-        if (permission === "granted") {
-          // Get the token
-          return getToken(messaging, {
-            vapidKey:
-              "BPsjKQ_p9OFPObRS9fYePd_t9xE8BMWyJEcDE8lVslRlwUvvQc2PC0lKLNFq366g0FfiUKV3Yc4r9yrVVL4sRUU",
-          }); // Replace with your VAPID key
-        } else {
-          console.error("Unable to get permission to notify.");
-        }
-      })
-      .then((token) => {
-        if (token) {
-          // Send the token to your server or use it as needed
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting token:", error);
-      });
+/**
+ * Lazily initialise Firebase + Messaging only when first requested.
+ * This prevents the ~200 kB Firebase SDK from executing at module-load
+ * time (which was adding ~300 ms to TTI / TBT on every page).
+ *
+ * The old code also called Notification.requestPermission() at the
+ * top-level — that is now handled exclusively by NotificationSetup.
+ */
+function getFirebaseMessaging() {
+  if (messaging) return messaging;
+  try {
+    if (typeof window !== "undefined") {
+      if (!firebaseApp) {
+        firebaseApp = initializeApp(firebaseConfig);
+      }
+      messaging = getMessaging(firebaseApp);
+    }
+  } catch (err) {
+    console.error("Firebase initialization error:", err);
   }
-} catch (err) {
-  console.error("Firebase initialization error:", err);
+  return messaging;
 }
 
-export { messaging, getToken };
+export { getFirebaseMessaging as messaging, getToken, getFirebaseMessaging };

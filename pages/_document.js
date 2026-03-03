@@ -7,21 +7,33 @@ export default function Document() {
         {/* Google site Verification */}
         <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION} />
 
-        {/* ── Font performance — preconnect then load all weights in one request ──
-            Loading fonts via <link> instead of CSS @import avoids a render-blocking
-            round-trip and lets the browser discover the resource earlier (LCP + FCP). */}
+        {/* ── Font performance ──────────────────────────────────────────
+            1. preconnect to Google Fonts servers
+            2. Preload the CSS as a high-priority fetch
+            3. Load the stylesheet asynchronously via media="print" hack
+               so it never blocks first paint (saves ~200 ms FCP).
+            display=swap shows fallback text immediately (no FOIT).
+           ─────────────────────────────────────────────────────────── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Combined stylesheet — single network request for all three font families.
-            display=optional prevents invisible text during font load (CLS fix). */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&family=New+Amsterdam&family=Oswald:wght@200..700&display=swap"
+        />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&family=New+Amsterdam&family=Oswald:wght@200..700&display=optional"
+          href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&family=New+Amsterdam&family=Oswald:wght@200..700&display=swap"
+          media="print"
+          onLoad="this.media='all'"
         />
-
-        {/* GTM + GA scripts are intentionally NOT placed here.
-            They are injected via next/script in pages/_app.js with
-            strategy="afterInteractive" so they never block first paint. */}
+        {/* Fallback for no-JS */}
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&family=New+Amsterdam&family=Oswald:wght@200..700&display=swap"
+          />
+        </noscript>
       </Head>
       <body>
         <Main />

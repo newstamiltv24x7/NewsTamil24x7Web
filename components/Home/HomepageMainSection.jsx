@@ -1,7 +1,7 @@
 import HomepageLayout from "@/layouts/HomepageLayout";
 import { Box, Grid } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { addMainNews } from "@/redux/reducer/homePageReducer";
 import { useDispatch } from "react-redux";
@@ -104,17 +104,38 @@ function HomepageMainSection({
   const videoSectionRef = useRef(null);
   const shortsSectionRef = useRef(null);
 
+  // ── Stable layout props — memoised to prevent HomepageLayout re-renders ──
+  const layoutProps = useMemo(() => ({
+    menuData,
+    breakingData,
+    quickControl,
+    breakingControl,
+    viewControl,
+  }), [menuData, breakingData, quickControl, breakingControl, viewControl]);
+
   useEffect(() => {
     dispatch(addMainNews(orderedMenu));
-    GetHomeTopNews();
-    GetYoutubeLiveVideos();
-    GetYoutubePostedVideos();
-    GetYoutubeShorts();
-    GetAllCards();
-    GetHomeTrendingNews();
+
+    // Batch critical above-the-fold fetches together
+    Promise.all([GetHomeTopNews(), GetHomeTrendingNews()]);
+
+    // Defer below-the-fold fetches so they don't compete with LCP
+    const idleId = typeof requestIdleCallback !== "undefined"
+      ? requestIdleCallback(() => {
+          GetYoutubeLiveVideos();
+          GetAllCards();
+        })
+      : setTimeout(() => {
+          GetYoutubeLiveVideos();
+          GetAllCards();
+        }, 1500);
+
+    return () => {
+      if (typeof cancelIdleCallback !== "undefined") cancelIdleCallback(idleId);
+    };
   }, []);
 
-  const GetHomeTopNews = async () => {
+  const GetHomeTopNews = useCallback(async () => {
     try {
       setNewsLoading(true);
       const result = await getHomeTopSection({
@@ -129,9 +150,9 @@ function HomepageMainSection({
       console.log(err);
       setNewsLoading(false);
     }
-  };
+  }, []);
 
-  const GetHomeTrendingNews = async () => {
+  const GetHomeTrendingNews = useCallback(async () => {
     try {
       const result = await getHomeLatest({
         n_page: 1,
@@ -145,7 +166,7 @@ function HomepageMainSection({
       console.log(err);
       setTrendLoading(false);
     }
-  };
+  }, []);
 
   // IntersectionObserver for lazy loading sections
   useEffect(() => {
@@ -178,7 +199,7 @@ function HomepageMainSection({
     };
   }, []);
 
-  const GetYoutubeLiveVideos = async () => {
+  const GetYoutubeLiveVideos = useCallback(async () => {
     try {
       const body = {
         n_page: 1,
@@ -194,9 +215,9 @@ function HomepageMainSection({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [dispatch]);
 
-  const GetAllCards = async () => {
+  const GetAllCards = useCallback(async () => {
     try {
       const body = {
         n_page: 1,
@@ -210,9 +231,9 @@ function HomepageMainSection({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
 
-  const GetYoutubePostedVideos = async () => {
+  const GetYoutubePostedVideos = useCallback(async () => {
     try {
       const body = {
         n_page: 1,
@@ -228,9 +249,9 @@ function HomepageMainSection({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
 
-  const GetYoutubeShorts = async () => {
+  const GetYoutubeShorts = useCallback(async () => {
     try {
       const body = {
         n_page: 1,
@@ -245,40 +266,12 @@ function HomepageMainSection({
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
 
   return (
     <HomepageLayout
-      menuData={menuData}
-      breakingData={breakingData}
-      quickControl={quickControl}
-      breakingControl={breakingControl}
-      viewControl={viewControl}
+      {...layoutProps}
     >
-      {/*
-       * ── Breaking-news banner / LCP section ──────────────────────────────
-       *
-       * Layout:
-       *   ┌─────────────────────────────────────────────────────────────┐
-       *   │  Outer Box  (aspect-ratio: 16/9, max-height: 400px)         │
-       *   │  ┌──────────────────────────┐  ┌──────────────────────────┐ │
-       *   │  │  Static priority <Image> │  │  YouTube placeholder      │ │
-       *   │  │  (z-index 0 — SSR LCP)   │  │  (z-index 0)              │ │
-       *   │  └──────────────────────────┘  └──────────────────────────┘ │
-       *   │  ┌─────────────────────────────────────────────────────────┐ │
-       *   │  │  Dynamic <LiveEventSlider>  (z-index 1 — client only)   │ │
-       *   │  └─────────────────────────────────────────────────────────┘ │
-       *   └─────────────────────────────────────────────────────────────┘
-       *
-       * The static image is in the initial HTML → browser pre-fetches it
-       * immediately → LCP fires as soon as the image arrives.
-       * The dynamic slider loads later and overlays it; because both reference
-       * the same URL the browser serves it from the in-memory cache — no
-       * duplicate network request.
-       *
-       * The fixed aspect-ratio outer wrapper reserves exactly the right amount
-       * of vertical space on every viewport width → CLS = 0.
-       * ──────────────────────────────────────────────────────────────────── */}
       <Box
         mx={{ md: "inherit", lg: "auto" }}
         maxWidth={1440}
@@ -292,12 +285,6 @@ function HomepageMainSection({
           mb: 3,
         }}
       >
-        {/* ── Static SSR LCP image ──────────────────────────────────────
-             Rendered in the initial server HTML so the browser starts
-             downloading it immediately, without waiting for JS to run.
-             priority / fetchPriority="high" / loading="eager" are all
-             required for the browser to treat this as the LCP element.
-             ────────────────────────────────────────────────────────── */}
         {liveEventImages[0] && (
           <Box
             sx={{
@@ -309,38 +296,6 @@ function HomepageMainSection({
               zIndex: 0,
             }}
           >
-            {/* Left panel: LCP image */}
-            <Box
-              sx={{
-                flex: 1,
-                minWidth: 0,
-                position: "relative",
-                border: "5px solid #ff6600",
-                borderRadius: "10px",
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                src={liveEventImages[0]}
-                alt="Breaking news — top story"
-                fill
-                priority
-                fetchPriority="high"
-                loading="eager"
-                sizes="(max-width:600px) 100vw, (max-width:1200px) 50vw, 720px"
-                style={{ objectFit: "cover" }}
-              />
-            </Box>
-            {/* Right panel: placeholder while YouTube embed JS loads */}
-            <Box
-              sx={{
-                flex: 1,
-                minWidth: 0,
-                border: "5px solid red",
-                borderRadius: "10px",
-                background: "#111",
-              }}
-            />
           </Box>
         )}
 
@@ -459,4 +414,4 @@ function HomepageMainSection({
   );
 }
 
-export default HomepageMainSection;
+export default memo(HomepageMainSection);

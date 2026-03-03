@@ -1,6 +1,6 @@
 import { getAllYoutubeVideos, getHomeJustBefore } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import { CryptoFetcher, getHours, shareCards } from "@/utils/libs";
-import { AccordionSummary, Skeleton, Typography } from "@mui/material";
+import { Skeleton, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -10,8 +10,7 @@ import MobileCard from "@/commonComponents/MobileCard";
 import ViewAllBtn from "@/commonComponents/ViewAllBtn";
 import { useTheme } from "@/theme/ThemeContext";
 import { FaRegEye } from "react-icons/fa6";
-import { Box, IconButton, useMediaQuery } from '@mui/material';
-import { FaChevronLeft, FaChevronRight, FaRegCaretSquareDown } from 'react-icons/fa';
+import { Box } from '@mui/material';
 import FacebookNew from "../../public/newsTamilIcons/icon-pack/Frame 1.svg";
 import WhatsAppNew from "../../public/newsTamilIcons/icon-pack/Frame 7.svg";
 import TwitterNew from "../../public/newsTamilIcons/icon-pack/Frame 2.svg";
@@ -20,12 +19,10 @@ import TelegramNew from "../../public/newsTamilIcons/icon-pack/Frame 8.svg";
 import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
 import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
-import CommonHeader from "@/commonComponents/CommonHeader";
 
 function MobileHomePage({ newsData, newsLoading,viewControl }) {
   const [liveData, setLiveData] = useState({});
   const [loading, setLoading] = useState(true);
-  const NEWSLIST = Array.isArray(newsData) && newsData?.at(0)?.data;
   const [shareOpen, setShareOpen] = useState(false);
   const [newsId, setNewsId] = useState("");
   const handleSetId = (id) => {
@@ -59,8 +56,6 @@ function MobileHomePage({ newsData, newsLoading,viewControl }) {
   useEffect(() => {
     GetYoutubeLiveVideos();
   }, []);
-const isMobile = useMediaQuery('(max-width:600px)');
-
 const [images, setImages] = useState([]);
 const [youtube_link, setYoutube_link] = useState([]);
   const [current, setCurrent] = useState(0);
@@ -104,20 +99,9 @@ const GetJustNowCategory = async () => {
     fetchImages();
   }, []);
 
-  const goPrev = () => setCurrent((prev) => (prev > 0 ? prev - 1 : images.length - 1));
-  const goNext = () => setCurrent((prev) => (prev < images.length - 1 ? prev + 1 : 0));
-
   if (images.length === 0) return <div>Loading images...</div>;
 
   
-      const special = [
-  {alt:"Spot Light",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_SPOTLIGHT_1_flwr97.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CgTt7cgU3fQ4gss5nfWVtUG"},
-  {alt:"Cine Snacks",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_CINE-SNACKS_1_zl3iqf.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChrEdKka8CpSVJmg0zHO4an"},
-  {alt:"ARVR",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394474/jpeg-optimizer_AR-VR_1_zjcgs0.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChvCb2Mlu-E40meHQEm2q-r"},
-{alt:"News Focus",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394471/jpeg-optimizer_TOP-STORIES_1_eodnlr.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChtH2xNJC1zW2sW9QnDpbya"},
-  {alt:"Nigazhthagavu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394472/jpeg-optimizer_NIGAZHTHAGAVU_1_yxxpoa.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27CieyLWFltaxSeTqmbfVqgh0"},
-{alt:"Kazhugu",image:"https://res.cloudinary.com/dtwcgfmar/image/upload/v1771394473/jpeg-optimizer_KAZHUGU_1_tj9kka.jpg",url:"https://www.youtube.com/playlist?list=PLRn1jCNh27ChU2d2FxnH81NgW48SPz6Ev"},
-];
   return (
     <>
     <Box
@@ -151,73 +135,6 @@ const GetJustNowCategory = async () => {
       }}
     />
   )}
-</Box>
-    <Box
-  sx={{
-    mt:"8px",
-    position: 'relative',
-    width: '100%',
-    height: '55vw',
-    maxWidth: '100vw',
-    overflow: 'hidden',
-    borderRadius: '5px',
-  }}
-><Link href={youtube_link[current] || '#'}>
-  <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-    <Image
-      src={images[current]}
-      alt={"Live event image"}
-      fill
-      sizes="100vw"
-      priority
-      style={{ objectFit: 'cover', borderRadius: '5px', display: 'block' }}
-    />
-  </Box>
-</Link>
-  <Box
-    sx={{
-      position: 'absolute',
-      right: '10px',
-      bottom: '10px',
-      display: 'flex',
-      gap: 1,
-    }}
-  >
-    <IconButton
-  onClick={goPrev}
-  sx={{
-    background: 'rgba(255,255,255,0.6)',
-    width: 30,
-    height: 30,
-    '&:hover': {
-      background: 'rgba(255,255,255,0.8)', // Slightly less transparent on hover (optional)
-    },
-    '&:active': {
-      background: 'rgba(255,255,255,0.6)', // Keep same as normal if you want no change
-    }
-  }}
-  aria-label="previous"
->
-  <FaChevronLeft size={20} />
-</IconButton>
-    <IconButton
-      onClick={goNext}
-      sx={{
-         background: 'rgba(255,255,255,0.6)',
-    width: 30,
-    height: 30,
-    '&:hover': {
-      background: 'rgba(255,255,255,0.8)', // Slightly less transparent on hover (optional)
-    },
-    '&:active': {
-      background: 'rgba(255,255,255,0.6)', // Keep same as normal if you want no change
-    }
-      }}
-      aria-label="next"
-    >
-      <FaChevronRight size={20} />
-    </IconButton>
-  </Box>
 </Box>
       
       {newsLoading ? (
@@ -506,92 +423,7 @@ const GetJustNowCategory = async () => {
           <ViewAllBtn link={""} />
         </Box>
       )}
-<AccordionSummary
-            expandIcon={<FaRegCaretSquareDown />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-            className="accordion-content"
-            sx={{
-              "&MuiAccordionSummary-content": {
-                m: 0,
-              },
-            }}
-          >
-            <Box
-              borderLeft={"4px solid #fb6002"}
-              pl={1}
-              fontWeight={700}
-              textTransform={"uppercase"}
-              fontFamily={"var(--anek-font)"}
-            >
-              Special Programmes
-            </Box>
-          </AccordionSummary>
-<Box
-  sx={{
-    px:"5vw",
-    mb:"5vw",
-    minWidth: 0,
-    position: 'relative',
-    width: '100%',
-    maxWidth: '100vw',
-    height: '45vw',
-    borderRadius: '10px',
-    overflow: 'hidden',
-  }}
->
-  <Link href={special[current]?.url || '#'}>
-    <img
-      src={special[current]?.image?.replace('/upload/', '/upload/w_750,q_auto,f_auto/')}
-      alt="Live event"
-      width={750}
-      height={421}
-      style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        borderRadius: '10px',
-        display: 'block',
-      }}
-    />
-  </Link>
-  <Box
-    sx={{
-      position: 'absolute',
-      right: 10,
-      bottom: 10,
-      display: 'flex',
-      gap: 1 ,
-    }}
-  >
-    <IconButton
-      onClick={goPrev}
-      sx={{
-        background: '#fb6002',
-        width: 40,
-        height: 40,
-        '&:hover': { background: '#fb6002' },
-        '&:active': { background: '#fb6002' },
-      }}
-      aria-label="previous"
-    >
-      <FaChevronLeft size={ 20} />
-    </IconButton>
-    <IconButton
-      onClick={goNext}
-      sx={{
-        background: '#fb6002',
-        width: 40,
-        height: 40,
-        '&:hover': { background: '#fb6002' },
-        '&:active': { background: '#fb6002' },
-      }}
-      aria-label="next"
-    >
-      <FaChevronRight size={20} />
-    </IconButton>
-  </Box>
-</Box>
+
     </>
   );
 }

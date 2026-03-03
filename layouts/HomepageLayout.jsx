@@ -1,15 +1,11 @@
 import Footer from "@/commonComponents/Footer";
-import LiveTvPop from "@/commonComponents/LiveTvPop";
 import Navbar from "@/commonComponents/Navbar";
-import { Box, Button, Grid, Skeleton, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { Box, Grid, Skeleton, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useMemo, useState, memo } from "react";
 import {
   MdOutlineKeyboardDoubleArrowDown,
   MdOutlineKeyboardDoubleArrowUp,
 } from "react-icons/md";
-import { AiOutlineYoutube } from "react-icons/ai";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { addUserData } from "@/redux/reducer/userReducer";
 import { useDispatch } from "react-redux";
@@ -55,12 +51,8 @@ function HomepageLayout({
   viewControl
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [open, setOpen] = useState(true);
-  const [subPop, setSubPop] = useState(false);
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [flag, setFlag] = useState(false);
-  const [path, setPath] = useState("");
 
   const AddDevice = async () => {
     try {
@@ -73,24 +65,10 @@ function HomepageLayout({
   
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 300);
     };
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
-
-    window.location.pathname === "/" &&
-      setTimeout(() => {
-        setSubPop(true);
-      }, 6000);
-
-    window.addEventListener("scroll", toggleVisibility);
-    setPath(window.location.pathname);
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
 
     const getToken = sessionStorage.getItem("Token");
     const userData = JSON.parse(getToken) ?? {};
@@ -110,17 +88,13 @@ function HomepageLayout({
     <div>
       <Navbar menuData={menuData} quickControl={quickControl} />
       {breakingControl !== "no" && (
-        // position={"fixed"} zIndex={999} backgroundColor={"#fff"} width={"100%"}
-           <Box   borderBottom={"0.5px solid #3b3b3b"}>
+           <Box borderBottom={"0.5px solid #3b3b3b"} sx={{ minHeight: 50 }}>
           <Box
             px={2}
             maxWidth={1440}
             mt={quickControl === "no" ? 19 : 21}
             mx={"auto"}
           >
-            {loading ? (
-              <Skeleton variant="rectangular" width={"100%"} height={50} />
-            ) : (
               <>
                 {Array.isArray(breakingData) && breakingData?.length > 0 && (
                   <Box
@@ -165,68 +139,11 @@ function HomepageLayout({
                         className="breaking-btn-wrapper"
                       >
                         <VerticalSwiper breakingData={breakingData} />
-                        {/* <Box
-                          sx={{
-                            height: "48px",
-                            overflow: "hidden",
-                          }}
-                          position={"relative"}
-                        >
-                          <div className="swiper-button-prev swiper-button-custom"></div>
-                          <div className="swiper-button-next swiper-button-custom"></div>
-                          <Swiper
-                            direction="vertical"
-                            autoplay={{ delay: 7500 }}
-                            loop={true}
-                            modules={[Autoplay, Navigation]}
-                            slidesPerView={1}
-                            spaceBetween={20}
-                            style={{ height: "100%" }}
-                            navigation={{
-                              prevEl: ".swiper-button-prev",
-                              nextEl: ".swiper-button-next",
-                            }}
-                          >
-                            {Array.isArray(breakingData) && breakingData?.length > 0 &&
-                              breakingData.map((item, index) => (
-                                <SwiperSlide
-                                  key={index}
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#000",
-                                  }}
-                                >
-                                  <Link href={`/article/${item?.redirect_url}`}>
-                                    <Typography
-                                      color={"#000"}
-                                      textTransform={"uppercase"}
-                                      textAlign={"center"}
-                                      fontWeight={700}
-                                      fontSize={15}
-                                      lineHeight={1.5}
-                                      px={3}
-                                      sx={{
-                                        wordSpacing: "2px",
-                                      }}
-                                      fontFamily={"var(--anek-font)"}
-                                      borderRadius={"0 6px 6px 0"}
-                                      className="textWrapperOne"
-                                    >
-                                      {item?.title}
-                                    </Typography>
-                                  </Link>
-                                </SwiperSlide>
-                              ))}
-                          </Swiper>
-                        </Box> */}
                       </Grid>
                     </Grid>
                   </Box>
                 )}
               </>
-            )}
           </Box>
         </Box>
         

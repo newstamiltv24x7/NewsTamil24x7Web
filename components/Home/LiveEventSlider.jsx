@@ -129,7 +129,7 @@ export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
         </Box>
       </Box>
 
-      {/* ── Right: YouTube live embed ───────────────────────────────────── */}
+      {/* ── Right: YouTube live embed — lazy loaded ────────────────────── */}
       <Box style={{ flex: 1, minWidth: 0, position: "relative" }}>
         <div
           style={{
@@ -149,6 +149,7 @@ export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
+            loading="lazy"
             style={{
               position: "absolute",
               top: 0,

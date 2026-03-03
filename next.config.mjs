@@ -71,11 +71,33 @@ const nextConfig = {
   webpack(config) {
     config.optimization.splitChunks = {
       chunks: "all",
+      maxInitialRequests: 25,
+      minSize: 20000,
       cacheGroups: {
+        // ── Heavy libraries that should NOT be in the main bundle ──
+        firebase: {
+          test: /[\\/]node_modules[\\/](firebase|@firebase)[\\/]/,
+          name: "firebase",
+          chunks: "all",
+          priority: 40,
+        },
+        mui: {
+          test: /[\\/]node_modules[\\/](@mui|@emotion)[\\/]/,
+          name: "mui",
+          chunks: "all",
+          priority: 30,
+        },
+        swiper: {
+          test: /[\\/]node_modules[\\/](swiper|react-multi-carousel)[\\/]/,
+          name: "swiper",
+          chunks: "all",
+          priority: 20,
+        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
           chunks: "all",
+          priority: 10,
         },
       },
     };
