@@ -27,18 +27,27 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
             sx={{ position: "relative", width: "100%", aspectRatio: "16/9" }}
           >
             <Link href={`/article/${list?.story_desk_created_name}`}>
-              <Image
-                src={list?.story_cover_image_url}
-                alt="cover_image"
-                fill
-                sizes="(max-width:600px) 50vw, (max-width:900px) 33vw, 261px"
-                quality={60}
-                loading="lazy"
+              <div
                 style={{
-                  objectFit: "cover",
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
                   borderRadius: "6px",
+                  overflow: "hidden",
                 }}
-              />
+              >
+                <Image
+                  src={list?.story_cover_image_url}
+                  alt="cover_image"
+                  fill
+                  sizes="(max-width:600px) 50vw, (max-width:900px) 33vw, 261px"
+                  quality={60}
+                  loading="lazy"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
             </Link>
           </Box>
         </Grid>

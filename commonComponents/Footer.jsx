@@ -127,6 +127,7 @@ function Footer() {
       borderTop={"1px solid #666666"}
       bgcolor={"#121212"}
       color={"#fff"}
+      sx={{ minHeight: { xs: 320, md: 140 } }}
     >
       <Box
         maxWidth={1440}

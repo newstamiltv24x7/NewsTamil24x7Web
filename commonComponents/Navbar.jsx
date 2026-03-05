@@ -321,7 +321,6 @@ const dateString = new Date().toLocaleString();
                         },
                         fontSize: "16px",
                         fontWeight: 600,
-                        marginRight:2,
                         color:
                           mainPath === item?.c_category_slug_english_name
                             ? "#572300ff"

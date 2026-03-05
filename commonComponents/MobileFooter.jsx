@@ -121,13 +121,13 @@ function MobileFooter() {
   ];
 
   return (
-    <Box bgcolor={"#121212"} p={2}>
+    <Box bgcolor={"#121212"} p={2} sx={{ minHeight: 220 }}>
       <Box display={"grid"} sx={{ placeItems: "center" }} mb={2}>
         <Image
           src={Logo}
           alt="news-tamil-footer-logo"
           width={200}
-          height={400}
+          height={100}
           onClick={() =>
             window.scrollTo({
               top: 0,
@@ -136,7 +136,7 @@ function MobileFooter() {
           }
           style={{
             objectFit: "contain",
-            height: "100%",
+            height: "auto",
             position: "relative",
             top: 3,
           }}

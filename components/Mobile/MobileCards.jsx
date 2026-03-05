@@ -86,8 +86,8 @@ function MobileCards() {
                   fetchPriority="high" rel="preload"
                     src={list?.c_cards_img_url}
                     alt="newstamil-cards"
-                    height={800}
-                    width={1200}
+                    height={606}
+                    width={643}
                     sizes="100vw"
                     style={{
                       width: "100%",

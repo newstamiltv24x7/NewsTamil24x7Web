@@ -3,7 +3,7 @@
  * No client-side state or effects live here.
  * Interactive share popup is delegated to BannerShareButton (client component).
  */
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Skeleton } from "@mui/material";
 import Image from "next/image";
 import CardSection from "@/commonComponents/CardSection";
 import Link from "next/link";
@@ -17,46 +17,43 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
   return (
     <Box className="primary-news">
       {loading && (
-        // <Grid container spacing={2}>
-        //   <Grid item xs={12} sm={12} md={6}>
-        //     <Skeleton
-        //       variant="rectangular"
-        //       height={286}
-        //       width={"100%"}
-        //       sx={{ bgcolor: "#cbcbcb" }}
-        //     />
-        //   </Grid>
-        //   <Grid item xs={12} sm={12} md={6} px={2}>
-        //     <Grid container spacing={2}>
-        //       {[0, 1, 2, 3].map((list) => (
-        //         <Grid item xs={12} sm={12} md={6} key={list}>
-        //           <Skeleton
-        //             variant="rectangular"
-        //             height={137}
-        //             width={"100%"}
-        //             sx={{ bgcolor: "#cbcbcb" }}
-        //           />
-        //         </Grid>
-        //       ))}
-        //     </Grid>
-        //   </Grid>
-        //   <Grid item xs={12} sm={12} md={12} pr={2}>
-        //     <Grid container spacing={2}>
-        //       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((list) => (
-        //         <Grid item xs={12} sm={12} md={3} key={list}>
-        //           <Skeleton
-        //             variant="rectangular"
-        //             height={150}
-        //             width={"100%"}
-        //             sx={{ bgcolor: "#cbcbcb" }}
-        //           />
-        //         </Grid>
-        //       ))}
-        //     </Grid>
-        //   </Grid>
-        // </Grid>
         <Grid container spacing={2}>
-          
+          <Grid item xs={12} sm={12} md={6}>
+            <Skeleton
+              variant="rectangular"
+              height={286}
+              width={"100%"}
+              sx={{ bgcolor: "#cbcbcb" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} px={2}>
+            <Grid container spacing={2}>
+              {[0, 1, 2, 3].map((list) => (
+                <Grid item xs={12} sm={12} md={6} key={list}>
+                  <Skeleton
+                    variant="rectangular"
+                    height={137}
+                    width={"100%"}
+                    sx={{ bgcolor: "#cbcbcb" }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} pr={2}>
+            <Grid container spacing={2}>
+              {Array.from({ length: 12 }).map((_, i) => (
+                <Grid item xs={12} sm={12} md={3} key={i}>
+                  <Skeleton
+                    variant="rectangular"
+                    height={150}
+                    width={"100%"}
+                    sx={{ bgcolor: "#cbcbcb" }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
         </Grid>
       )}
       <Box pr={1.3}>
@@ -103,8 +100,8 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
                         loading="eager"
                         src={newsData?.at(0)?.story_cover_image_url}
                         alt={newsData?.at(0)?.news_image_caption || "hero news image"}
-                        width={1800}
-                        height={900}
+                        width={1280}
+                        height={720}
                         quality={80}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 900px"
                         style={{
@@ -159,7 +156,7 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
                   fontSize={15}
                   lineHeight={1.5}
                   component={"h2"}
-                  fontWeight={550}
+                  fontWeight={530}
                   pt={"10px"}
                   height={56}
                   sx={{ cursor: "pointer" }}

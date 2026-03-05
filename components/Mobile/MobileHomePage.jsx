@@ -263,8 +263,8 @@ const GetJustNowCategory = async () => {
                 fetchPriority="high" rel="preload"
                   src={newsData?.at(0)?.story_cover_image_url}
                   alt={newsData?.at(0)?.story_subject_name}
-                  width={1800}
-                  height={900}
+                  width={721}
+                  height={405}
                   style={{
                     width: "100%",
                     height: "100%",
