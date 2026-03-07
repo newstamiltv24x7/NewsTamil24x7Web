@@ -33,6 +33,7 @@ import { FaMoon, FaSquareRss, FaSun, FaUser } from "react-icons/fa6";
 import { CgLogOut, CgMenuLeft } from "react-icons/cg";
 import QuickLinkSection from "./QuickLinkSection";
 import { useSelector } from "react-redux";
+import { useRef } from "react";
 import { CryptoFetcher, stringAvatar } from "@/utils/libs";
 import FacebookNew from "../public/newsTamilIcons/icon-pack/Frame 1.svg";
 import WhatsAppNew from "../public/newsTamilIcons/icon-pack/Frame 7.svg";
@@ -75,9 +76,32 @@ function Navbar(props) {
 const dateString = new Date().toLocaleString();
 
   // compute spacer to prevent page content from sliding under the fixed/sticky headers
-  const headerOffset = quickControl === "no" ? 90 : list?.length > 0 ? 105 : 90;
-  const navBarHeight = 64; // approximate height of the orange nav bar
-  const spacerHeight = headerOffset + navBarHeight;
+  const darkBarRef = useRef(null);
+  const navBarRef = useRef(null);
+  const [spacerHeight, setSpacerHeight] = React.useState(0);
+
+  React.useEffect(() => {
+    // Prefer to use the nav element's actual document offset (offsetTop) plus its height.
+    // This accounts for any `top` CSS applied to the fixed AppBar and avoids double-counting.
+    const compute = () => {
+      const navEl = navBarRef?.current;
+      if (navEl) {
+        const top = navEl.offsetTop ?? 0;
+        const h = navEl.offsetHeight ?? 64;
+        setSpacerHeight(top + h);
+        return;
+      }
+      // fallback to measured stacked heights
+      const topH = darkBarRef?.current?.offsetHeight ?? 0;
+      const navH = navBarRef?.current?.offsetHeight ?? 64;
+      setSpacerHeight(topH + navH);
+    };
+    compute();
+    // Recalculate on resize in case of responsive changes
+    const handleResize = () => compute();
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
+  }, [list, quickControl]);
 
 
   const handleClick = (event, item) => {
@@ -182,6 +206,7 @@ const dateString = new Date().toLocaleString();
       </AppBar>
 
       <AppBar
+  ref={darkBarRef}
   sx={{
     pb: 1,
     bgcolor: "#121212",
@@ -256,6 +281,7 @@ const dateString = new Date().toLocaleString();
 </AppBar>
       <AppBar
         component="nav"
+        ref={navBarRef}
         sx={{
           top: quickControl === "no" ? 90 : list?.length > 0 ? 105 : 90,
           background: "linear-gradient(165deg, #ff6600ff 0%, #ff992c 100%)",
@@ -776,13 +802,17 @@ const dateString = new Date().toLocaleString();
           </Popper>
         </Box>
       </Box>
-      {/* Spacer to prevent page content from appearing behind the fixed header/nav */}
-      <Box
-        sx={{
-          height: `${spacerHeight}px`,
-          display: { xs: "none", sm: "block", md: "block" },
-        }}
-      />
+      {/* Spacer to prevent page content from appearing behind the fixed header/nav.
+          Can be disabled by passing `disableSpacer` prop (used on homepage when the
+          top sections manage their own offset). */}
+      {!props.disableSpacer && (
+        <Box
+          sx={{
+            height: `${spacerHeight}px`,
+            display: { xs: "none", sm: "block", md: "block" },
+          }}
+        />
+      )}
     </Box>
   );
 }

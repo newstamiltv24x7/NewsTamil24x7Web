@@ -48,7 +48,8 @@ function HomepageLayout({
   breakingData,
   quickControl,
   breakingControl,
-  viewControl
+  viewControl,
+  disableSpacer = false // control navbar spacer from parent
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
@@ -86,18 +87,19 @@ function HomepageLayout({
 
   return (
     <div>
-      <Navbar menuData={menuData} quickControl={quickControl} />
-      {breakingControl !== "no" && (
-           <Box borderBottom={"0.5px solid #3b3b3b"} sx={{ minHeight: 50 }}>
-          <Box
-            px={2}
-            maxWidth={1440}
-            mt={quickControl === "no" ? 19 : 21}
-            mx={"auto"}
-          >
+      <Navbar menuData={menuData} quickControl={quickControl} disableSpacer={disableSpacer} />
+      {breakingControl !== "no" &&
+        Array.isArray(breakingData) &&
+        breakingData.length > 0 && (
+          <Box borderBottom={"0.5px solid #3b3b3b"} sx={{ minHeight: 50 }}>
+            <Box
+              px={2}
+              maxWidth={1440}
+              mt={quickControl === "no" ? 19 : 21}
+              mx={"auto"}
+            >
               <>
-                {Array.isArray(breakingData) && breakingData?.length > 0 && (
-                  <Box
+                <Box
                     bgcolor={"#fff"}
                     borderRadius={"6px"}
                     borderLeft={"6px solid red"}
@@ -141,13 +143,10 @@ function HomepageLayout({
                         <VerticalSwiper breakingData={breakingData} />
                       </Grid>
                     </Grid>
-                  </Box>
-                )}
-              </>
+                </Box>
+            </>
           </Box>
         </Box>
-        
-       
       )}
 
       {isVisible && (
