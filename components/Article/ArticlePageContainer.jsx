@@ -148,6 +148,7 @@ function ArticlePageContainer({
     setDevice(localStorage.getItem("_id"));
   }, []);
 
+
   // useEffect(() => {
   //   flag && device !== "" && GetNewsCount();
   // }, [flag, device]);
@@ -468,7 +469,7 @@ function ArticlePageContainer({
                 lineHeight={1.5}
                 component={"h1"}
                 fontWeight={600}
-                sx={{ wordBreak: "break-word", userSelect: "none" }}
+                sx={{ wordBreak: "break-word", userSelect: "none", color: mode === "light" ? "#000" : "#fff" }}
               >
                 {NEWSDATA?.at(0)?.story_title_name}
               </Typography>

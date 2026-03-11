@@ -71,7 +71,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             lineHeight={1.5}
             component={"h1"}
             fontWeight={600}
-            sx={{ wordBreak: "break-word" }}
+            sx={{ wordBreak: "break-word", color: mode === "light" ? "#000" : "#fff" }}
           >
             {singleNews?.at(0)?.story_title_name}
           </Typography>

@@ -49,7 +49,7 @@ function HomepageLayout({
   quickControl,
   breakingControl,
   viewControl,
-  disableSpacer = false // control navbar spacer from parent
+  disableSpacer = false // control navbar spacer from parent (also disables top margin below header)
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
@@ -195,15 +195,14 @@ function HomepageLayout({
           <MdOutlineKeyboardDoubleArrowDown color="#000" fontSize={30} />
         </Box>
       )}
-      {page === "category" ? (
-        <Box position={"relative"} mt={breakingControl === "no" ? 21 : 1.3}>
-          {children}
-        </Box>
-      ) : (
-        <Box position={"relative"} mt={breakingControl === "no" ? 21 : 1.3}>
-          {children}
-        </Box>
-      )}
+      {/* content wrapper – the Navbar spacer already offsets content below the
+          fixed header bars, so no additional top margin is needed here. */}
+      <Box
+        position={"relative"}
+        mt={0}
+      >
+        {children}
+      </Box>
 {/* 
       {path === "/" && isVisible && open && (
         <Box position={"fixed"} left={10} bottom={10} zIndex={10}>

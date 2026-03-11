@@ -271,7 +271,6 @@ function HomepageMainSection({
   return (
     <HomepageLayout
       {...layoutProps}
-      disableSpacer={true} // homepage doesn't need extra nav offset
     >
       <Box
         mx={{ md: "inherit", lg: "auto" }}

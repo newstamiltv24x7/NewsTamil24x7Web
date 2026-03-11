@@ -81,17 +81,21 @@ const dateString = new Date().toLocaleString();
   const [spacerHeight, setSpacerHeight] = React.useState(0);
 
   React.useEffect(() => {
-    // Prefer to use the nav element's actual document offset (offsetTop) plus its height.
-    // This accounts for any `top` CSS applied to the fixed AppBar and avoids double-counting.
+    // compute spacer height based on the actual heights of the fixed bars
+    // (dark bar + main nav).  Previously we included `offsetTop` which was
+    // the `top` CSS value on the nav bar.  That double-counted the empty
+    // offset and created a large blank gap underneath the header, especially
+    // on pages without a breaking‑news banner.  Using the element heights
+    // directly keeps the spacer just as tall as the two bars themselves.
     const compute = () => {
       const navEl = navBarRef?.current;
       if (navEl) {
-        const top = navEl.offsetTop ?? 0;
-        const h = navEl.offsetHeight ?? 64;
-        setSpacerHeight(top + h);
+        const navH = navEl.offsetHeight ?? 64;
+        const darkH = darkBarRef?.current?.offsetHeight ?? 0;
+        setSpacerHeight(navH + darkH);
         return;
       }
-      // fallback to measured stacked heights
+      // fallback to measured stacked heights if nav element isn't available
       const topH = darkBarRef?.current?.offsetHeight ?? 0;
       const navH = navBarRef?.current?.offsetHeight ?? 64;
       setSpacerHeight(topH + navH);
@@ -170,6 +174,7 @@ const dateString = new Date().toLocaleString();
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
+        data-dark-bar="true"
         sx={{
           display: { xs: "block", md: "none", sm: "block" },
         }}
@@ -207,6 +212,7 @@ const dateString = new Date().toLocaleString();
 
       <AppBar
   ref={darkBarRef}
+  data-dark-bar="true"
   sx={{
     pb: 1,
     bgcolor: "#121212",
@@ -282,6 +288,7 @@ const dateString = new Date().toLocaleString();
       <AppBar
         component="nav"
         ref={navBarRef}
+        data-main-nav="true"
         sx={{
           top: quickControl === "no" ? 90 : list?.length > 0 ? 105 : 90,
           background: "linear-gradient(165deg, #ff6600ff 0%, #ff992c 100%)",
