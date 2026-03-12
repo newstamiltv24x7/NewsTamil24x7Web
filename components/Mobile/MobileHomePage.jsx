@@ -88,20 +88,20 @@ const GetJustNowCategory = async () => {
       const newsArray = await GetJustNowCategory();
       const imgUrls = newsArray
         .map((item) => item.story_cover_image_url)
-        .filter(Boolean); // Remove empty/undefined
+        .filter(Boolean);
       setImages(imgUrls);
       const youtubeUrls = newsArray
         .map((item) => item.youtube_embed_id)
-        .filter(Boolean); // Remove empty/undefined
+        .filter(Boolean);
       setYoutube_link(youtubeUrls);
-      setCurrent(0); // Reset to first image
+      setCurrent(0);
     };
     fetchImages();
   }, []);
 
-  if (images.length === 0) return <div>Loading images...</div>;
+  // NOTE: Do NOT early-return here based on `images` — that hides the entire
+  // page until the async fetch resolves and causes a CLS > 1.0 on mobile.
 
-  
   return (
     <>
     <Box
@@ -238,8 +238,9 @@ const GetJustNowCategory = async () => {
               </Box>
             </Box>
 <Link href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}>
-              <Box position={"relative"}>
-                
+              {/* aspect-ratio reserves the correct height before the image
+                  downloads → eliminates the layout shift on the hero card */}
+              <Box position={"relative"} sx={{ aspectRatio: "16/9", width: "100%" }}>
                  {viewControl === "yes" && 
                 <Box
                   position={"absolute"}
@@ -268,7 +269,7 @@ const GetJustNowCategory = async () => {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "contain",
+                    objectFit: "cover",
                     cursor: "pointer",
                   }}
                 />

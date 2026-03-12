@@ -90,11 +90,12 @@ useEffect(() => {
                             engTitle=""
                             url="#"
                           />
-         <Box style={{ minWidth: 0, position: "relative"}}><Link href={images[current]?.url || '#'}>
+         {/* aspectRatio pre-reserves the height so the image never shifts layout */}
+         <Box style={{ minWidth: 0, position: "relative", aspectRatio: "16/9", width: "100%" }}><Link href={images[current]?.url || '#'}>
   <img
     src={images[current].image}
     alt="Live event"
-    style={{ width: "100%", height: "100%",borderRadius:"10px" }}
+    style={{ width: "100%", height: "100%", borderRadius:"10px", display: "block" }}
   /></Link>
   <Box
     style={{

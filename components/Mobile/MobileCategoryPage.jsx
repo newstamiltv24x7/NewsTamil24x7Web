@@ -169,7 +169,8 @@ function MobileCategoryPage({
               <Link
                 href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
               >
-                <Box position={"relative"}>
+                {/* aspectRatio reserves height before the image loads → no CLS */}
+                <Box position={"relative"} sx={{ aspectRatio: "16/9", width: "100%" }}>
                   <Image 
                   fetchPriority="high" rel="preload"
                     src={newsList?.at(0)?.story_cover_image_url}
@@ -179,7 +180,7 @@ function MobileCategoryPage({
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "contain",
+                      objectFit: "cover",
                       cursor: "pointer",
                     }}
                   />

@@ -214,20 +214,14 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             />
           </Box>
 
-          <Box borderRadius={"6px"} overflow={"hidden"} height={"auto"} mb={2}>
+          {/* aspectRatio reserves space before the image/iframe loads → no CLS */}
+          <Box borderRadius={"6px"} overflow={"hidden"} sx={{ aspectRatio: "3/2", width: "100%" }} mb={2}>
             {singleNews?.at(0)?.youtube_embed_id === "" ? (
-              <Box borderRadius={"6px"} overflow={"hidden"} py={1}>
+              <Box borderRadius={"6px"} overflow={"hidden"} sx={{ width: "100%", height: "100%" }}>
                 <Image
                 fetchPriority="high" rel="preload"
                   src={singleNews?.at(0)?.story_cover_image_url}
                   alt={singleNews?.at(0)?.story_subject_name}
-                  // width={100}
-                  // height={100}
-                  // style={{
-                  //   width: "100%",
-                  //   height: "auto",
-                  //   borderRadius: "6px",
-                  // }}
                   width={1200}
             loading="lazy"
             height={800}
@@ -241,7 +235,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
                 />
               </Box>
             ) : (
-              <Box height={200}>
+              <Box sx={{ width: "100%", height: "100%" }}>
                 <iframe
                   width="100%"
                   height="100%"
