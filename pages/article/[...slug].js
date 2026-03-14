@@ -34,6 +34,14 @@ export async function getServerSideProps(response) {
     )
   );
 
+  // Allow CDN/edge caches to serve the page for 5 min and revalidate in the
+  // background for up to 10 min — dramatically reduces origin TTFB for
+  // returning visitors and crawlers without sacrificing content freshness.
+  response.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=300, stale-while-revalidate=600"
+  );
+
   try {
     const [
       menuRes,

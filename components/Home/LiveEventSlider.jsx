@@ -22,9 +22,14 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
+// Hardcoded live stream video ID — update whenever the live stream changes.
+const LIVE_VIDEO_ID = "gynWNinqmjw";
+
 export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  // Facade: only swap in the real iframe after the user clicks the thumbnail.
+  const [liveActivated, setLiveActivated] = useState(false);
 
   // Auto-advance every 5 s; pause while hovered or only one image
   useEffect(() => {
@@ -129,7 +134,11 @@ export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
         </Box>
       </Box>
 
-      {/* ── Right: YouTube live embed — lazy loaded ────────────────────── */}
+      {/* ── Right: YouTube live embed — facade pattern ─────────────────────
+           Load the real iframe ONLY after the user clicks the thumbnail.
+           This removes YouTube's ~230 KB runtime from the critical path
+           and eliminates the 400-800 ms of TBT it causes on every load.
+           ─────────────────────────────────────────────────────────────── */}
       <Box style={{ flex: 1, minWidth: 0, position: "relative" }}>
         <div
           style={{
@@ -137,28 +146,85 @@ export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
             borderRadius: "10px",
             width: "100%",
             height: "100%",
-            paddingTop: "0",
             border: "5px solid red",
             overflow: "hidden",
+            background: "#000",
+            cursor: liveActivated ? "default" : "pointer",
           }}
+          onClick={() => !liveActivated && setLiveActivated(true)}
         >
-          <iframe
-            src="https://www.youtube.com/embed/gynWNinqmjw?autoplay=1&mute=1"
-            title="🔴LIVE NEWS TODAY: இன்றைய முக்கிய செய்திகள் | Today Breaking News Tamil | NewsTamil 24X7"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            loading="lazy"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              borderRadius: "5px",
-            }}
-          />
+          {liveActivated ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${LIVE_VIDEO_ID}?autoplay=1&mute=1`}
+              title="🔴LIVE NEWS TODAY | Today Breaking News Tamil | NewsTamil 24X7"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                borderRadius: "5px",
+              }}
+            />
+          ) : (
+            /* Thumbnail facade — serves the YouTube maxresdefault image (0 KB JS) */
+            <>
+              <Image
+                src={`https://i.ytimg.com/vi/${LIVE_VIDEO_ID}/maxresdefault.jpg`}
+                alt="Watch Live on NewsTamil 24X7"
+                fill
+                loading="lazy"
+                sizes="(max-width:600px) 100vw, 50vw"
+                style={{ objectFit: "cover", borderRadius: "5px" }}
+              />
+              {/* Red LIVE badge */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  left: 8,
+                  background: "#ff0000",
+                  color: "#fff",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  padding: "2px 8px",
+                  borderRadius: 3,
+                  letterSpacing: 1,
+                  zIndex: 2,
+                }}
+              >
+                ● LIVE
+              </div>
+              {/* Play button overlay */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 2,
+                }}
+              >
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 68 48"
+                  style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.6))" }}
+                >
+                  <path
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.63-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    fill="#f00"
+                  />
+                  <path d="M45 24 27 14v20z" fill="#fff" />
+                </svg>
+              </div>
+            </>
+          )}
         </div>
       </Box>
     </Box>

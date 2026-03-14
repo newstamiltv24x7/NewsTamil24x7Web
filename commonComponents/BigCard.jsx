@@ -71,8 +71,6 @@ function BigCard({ list, index, type, page, viewControl }) {
           />
           {list?.youtube_embed_id !== "" && (
             <Image
-              fetchPriority="high"
-              rel="preload"
               src={PlayBtn}
               alt="play-button"
               width={32}
@@ -169,8 +167,6 @@ function BigCard({ list, index, type, page, viewControl }) {
                 {getHours(list?.updatedAt)}
               </Typography>
               <Image
-                fetchPriority="high"
-                rel="preload"
                 src={mode === "light" ? DarkShareIcon : ShareIcon}
                 alt="share"
                 width={18}

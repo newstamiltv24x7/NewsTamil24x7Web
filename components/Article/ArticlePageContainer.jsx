@@ -234,7 +234,7 @@ function ArticlePageContainer({
                     alignItems={"center"}
                     gap={1}
                   >
-                    <Image  fetchPriority="high" rel="preload" src={TV} alt="tv" width={30} height={30} />
+                    <Image src={TV} alt="tv" width={30} height={30} />
                     <Typography
                       fontFamily={"var(--anek-font)"}
                       fontSize={18}
@@ -364,9 +364,7 @@ function ArticlePageContainer({
                     alignItems={"center"}
                     gap={1}
                   >
-                    <Image 
-                    fetchPriority="high" 
-                    rel="preload" src={Book} alt="tv" width={30} height={30} />
+                    <Image src={Book} alt="tv" width={30} height={30} />
                     <Typography
                       fontFamily={"var(--arial-font)"}
                       fontSize={18}
@@ -732,16 +730,17 @@ function ArticlePageContainer({
                   mb={2}
                 >
                   {NEWSDATA?.at(0)?.youtube_embed_id === "" ? (
-                    <Image 
-                    fetchPriority="high" 
-                    rel="preload"
+                    <Image
+                      priority
+                      fetchPriority="high"
                       src={NEWSDATA?.at(0)?.story_cover_image_url}
                       alt={NEWSDATA?.at(0)?.news_image_caption}
                       width={1200}
                       height={800}
                       style={{
                         width: "100%",
-                        height: "auto",
+                        height: "100%",
+                        objectFit: "cover",
                         borderRadius: "6px",
                       }}
                     />
@@ -749,6 +748,7 @@ function ArticlePageContainer({
                     <iframe
                       width="100%"
                       height="100%"
+                      loading="lazy"
                       src={`${
                         NEWSDATA?.at(0)?.youtube_embed_id
                       }?rel=0&amp;autoplay=1&mute=1`}

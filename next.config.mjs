@@ -55,8 +55,9 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
-    // Serve WebP first, AVIF for supporting browsers — best compression+quality
-    formats: ["image/webp", "image/avif"],
+    // Prefer AVIF (30-50% smaller than WebP) when the browser supports it;
+    // fall back to WebP for older browsers.
+    formats: ["image/avif", "image/webp"],
     loader: "default",
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
@@ -68,6 +69,36 @@ const nextConfig = {
       destination: "/:path*",
     },
   ],
+  // ── HTTP response headers ────────────────────────────────────────────
+  // Next.js already sets immutable Cache-Control on /_next/static/* in
+  // production.  Add security headers and a generous cache for media.
+  async headers() {
+    return [
+      {
+        // All routes — security hardening
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+      {
+        // Optimised images served by Next.js image optimizer
+        source: "/_next/image(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+    ];
+  },
   webpack(config) {
     config.optimization.splitChunks = {
       chunks: "all",
@@ -78,7 +109,9 @@ const nextConfig = {
         firebase: {
           test: /[\\/]node_modules[\\/](firebase|@firebase)[\\/]/,
           name: "firebase",
-          chunks: "all",
+          // Firebase is always dynamically imported (lazy), so "async" keeps it
+          // out of the initial JS bundles served on first page load.
+          chunks: "async",
           priority: 40,
         },
         mui: {
@@ -88,9 +121,10 @@ const nextConfig = {
           priority: 30,
         },
         swiper: {
-          test: /[\\/]node_modules[\\/](swiper|react-multi-carousel)[\\/]/,
+          test: /[\\/]node_modules[\\/](swiper|react-multi-carousel|embla-carousel)[\\/]/,
           name: "swiper",
-          chunks: "all",
+          // Swiper/embla/carousel are only used in dynamic-imported sections
+          chunks: "async",
           priority: 20,
         },
         vendors: {

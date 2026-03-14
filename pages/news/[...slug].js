@@ -23,6 +23,14 @@ export async function getServerSideProps(response) {
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
     )
   );
+
+  // Cache category pages at the CDN/edge for 2 min; serve stale for 5 min
+  // while revalidating in the background — keeps TTFB fast for repeat visitors.
+  response.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=120, stale-while-revalidate=300"
+  );
+
   try {
     const res = await getHomeMenuApi();
     const decrypted = CryptoFetcher(res?.payloadJson);

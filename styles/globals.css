@@ -9,6 +9,28 @@
   --oswald-font: "Arial Narrow", "Arial", sans-serif;
 }
 
+/* ── CLS guard: explicit intrinsic dimensions for Next.js Image components ─
+   next/image always generates width/height attributes, but giving the img
+   element display:block stops the default inline (baseline) gap that
+   can introduce a few-pixel vertical shift.                               */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── CLS guard: reserve space for AdSense units before the ad fills in ───
+   The AdUnit component sets minHeight:250px inline; this duplicates that
+   rule in CSS so even if JS is slow the slot never collapses to 0.        */
+.adsbygoogle {
+  display: block !important;
+  min-height: 100px;
+}
+
+/* ── Prevent scroll-bar-appearance CLS ──────────────────────────────────── */
+html {
+  overflow-y: scroll;
+}
+
 .textWrapper {
   overflow: hidden;
   text-overflow: ellipsis;

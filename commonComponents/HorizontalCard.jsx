@@ -133,8 +133,6 @@ function HorizontalCard({ list, type ,viewControl }) {
                     {getHours(list?.updatedAt)}
                   </Typography>
                   <Image
-                  fetchPriority="high" 
-                  rel="preload"
                     src={mode === "light" ? DarkShareIcon : ShareIcon}
                     alt="share"
                     width={18}
@@ -293,8 +291,6 @@ function HorizontalCard({ list, type ,viewControl }) {
               />
               {list?.youtube_embed_id !== "" && (
                 <Image
-                fetchPriority="high" 
-                rel="preload"
                   src={PlayBtn}
                   alt="button"
                   width={32}

@@ -24,6 +24,13 @@ export async function getServerSideProps(context) {
       UA
     );
 
+  // Allow CDN/edge to cache this listing page for 2 min; serve stale while
+  // revalidating in the background for up to 5 min.
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=120, stale-while-revalidate=300"
+  );
+
   try {
     // Use Promise.all to fetch multiple data concurrently
     const [

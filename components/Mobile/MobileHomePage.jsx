@@ -237,9 +237,8 @@ const GetJustNowCategory = async () => {
                 </Box>
               </Box>
             </Box>
-<Link href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}>
-              {/* aspect-ratio reserves the correct height before the image
-                  downloads → eliminates the layout shift on the hero card */}
+{/* <Link href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}>
+  
               <Box position={"relative"} sx={{ aspectRatio: "16/9", width: "100%" }}>
                  {viewControl === "yes" && 
                 <Box
@@ -274,7 +273,7 @@ const GetJustNowCategory = async () => {
                   }}
                 />
               </Box>
-            </Link>
+            </Link> */}
             {newsData?.at(0)?._id === newsId && shareOpen && (
               <Box
                 display={"flex"}

@@ -69,9 +69,13 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
           <Grid item xs={12} sm={12} md={6}>
             <Box display={{ xs: "block", sm: "block", md: "none" }}>
               <Box width={"100%"} height={{ xs: 222 }} mb={3}>
+                {/* loading="lazy" defers this iframe until it scrolls into view.
+                    On desktop it is CSS-hidden (md:none) so this also prevents
+                    YouTube's ~230 KB runtime from loading on desktop pages. */}
                 <iframe
                   width="100%"
                   height="100%"
+                  loading="lazy"
                   src="https://www.youtube.com/embed/OpRSTmkeO_U?si=pk-aRmYDUfG0MMy2?autoplay=1"
                   title="YouTube video player"
                   frameBorder="0"

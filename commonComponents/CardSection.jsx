@@ -104,8 +104,6 @@ console.log("hello",data);
           )}
           {data?.youtube_embed_id !== "" && (
             <Image
-              fetchPriority="high"
-              rel="preload"
               src={PlayBtn}
               alt="button"
               width={32}
@@ -193,8 +191,6 @@ console.log("hello",data);
               {getHours(data?.updatedAt)}
             </Typography>
             <Image
-              fetchPriority="high"
-              rel="preload"
               src={mode === "light" ? DarkShareIcon : ShareIcon}
               alt="share"
               width={17}
