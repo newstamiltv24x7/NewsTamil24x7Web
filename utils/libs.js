@@ -41,7 +41,9 @@ export function convertTime(value) {
 }
 
 export function getHours(value) {
+  if (!value) return "";
   const givenTimestamp = new Date(value);
+  if (isNaN(givenTimestamp.getTime())) return "";
   const currentTime = new Date();
   const timeDifferenceMs = currentTime - givenTimestamp;
 

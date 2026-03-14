@@ -25,6 +25,8 @@ function BigCard({ list, index, type, page, viewControl }) {
   const [shareOpen, setShareOpen] = React.useState(false);
   const [newsId, setNewsId] = React.useState("");
 
+  if (!list) return null;
+
   const handleSetId = (id) => {
     if (id === newsId) {
       setShareOpen(!shareOpen);
@@ -54,9 +56,10 @@ function BigCard({ list, index, type, page, viewControl }) {
       >
         {/* {list?.youtube_embed_id === "" ? ( */}
         <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
+          {list?.story_cover_image_url ? (
           <Image
             src={list?.story_cover_image_url}
-            alt={list?.news_image_caption}
+            alt={list?.news_image_caption || "news image"}
             width={1200}
             height={type === "mainAd" ? 419 : 800}
             loading="lazy"
@@ -69,6 +72,16 @@ function BigCard({ list, index, type, page, viewControl }) {
               borderRadius: "6px",
             }}
           />
+          ) : (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                bgcolor: "#e0e0e0",
+                borderRadius: "6px",
+              }}
+            />
+          )}
           {list?.youtube_embed_id !== "" && (
             <Image
               src={PlayBtn}

@@ -86,7 +86,9 @@ function AdditionalSection({viewControl}) {
             <Grid container spacing={2} position={"relative"}>
               <Grid item md={6} xs={12} sm={12} mt={2}>
                 <Box pr={3} className="border-class" position={"relative"}>
+                  {secondNewsList?.at(0) && (
                   <BigCard list={secondNewsList?.at(0)} type="mainAd" viewControl={viewControl} />
+                  )}
                   <Box display={"grid"} sx={{ placeItems: "center" }}>
                     <hr
                       style={{
