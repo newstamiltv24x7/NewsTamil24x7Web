@@ -7,6 +7,7 @@ import {
   getBreakingNews,
   getControls,
   getHomeJustBefore,
+  getHomeLatest,
   getHomeMenuApi,
   getHomeMenuApiList,
   getHomeTopSection,
@@ -57,14 +58,14 @@ export async function getServerSideProps(context) {
     const [
       menuRes,
       menuOrderRes,
-      // newsRes,
       controlRes,
-      // trendingRes,
       photosRes,
       shortsRes,
       breakingRes,
       seoRes,
       liveEventRes,
+      topNewsRes,
+      trendingRes,
     ] = await Promise.all([
       getHomeMenuApi(),
       getHomeMenuApiList({
@@ -73,24 +74,23 @@ export async function getServerSideProps(context) {
         c_search_term: "",
         spl_category: "1",
       }),
-      // getHomeTopSection({
-      //   n_page: 1,
-      //   n_limit: 20,
-      //   main_category_id: "cf336f838e81",
-      // }),
       getControls(),
       getAllPhotos(),
       getWebstoriesList(),
       getBreakingNews(),
       getSeoList(),
       getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
+      // Pre-fetch above-the-fold article data server-side so the LCP image
+      // URL is present in the initial HTML — eliminates the 20+ s wait from
+      // useEffect → API → state → render that caused LCP = 29 s.
+      getHomeTopSection({ n_page: 1, n_limit: 14, main_category_id: "cf336f838e81" }),
+      getHomeLatest({ n_page: 1, n_limit: 6, trending_news: 1 }),
     ]);
     // Decrypt all responses where applicable
     const menuData = CryptoFetcher(menuRes?.payloadJson);
     const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
     const photosData = CryptoFetcher(photosRes?.payloadJson) || [];
     const webstoriesData = CryptoFetcher(shortsRes?.payloadJson) || [];
-    // const breakingData = CryptoFetcher(breakingRes?.payloadJson) || [];
     const breakingData = breakingRes?.payloadJson || [];
 
     const controlData = CryptoFetcher(controlRes?.payloadJson);
@@ -108,13 +108,22 @@ export async function getServerSideProps(context) {
       .map((item) => item.youtube_embed_id)
       .filter(Boolean);
 
+    // Above-the-fold article data — pre-fetched server-side so the LCP
+    // image URL is in the initial HTML and needs no client-side API round-trip.
+    const topNewsData = CryptoFetcher(topNewsRes?.payloadJson)?.docs || [];
+    const trendingNewsData = CryptoFetcher(trendingRes?.payloadJson)?.docs || [];
+
     // SEO data extraction
     const seoResponse = seoRes?.data?.payloadJson?.at(0) || [];
+
+    // Use the first article cover image as the LCP preload hint — this is the
+    // image the browser will paint first on the main content area.
+    const lcpHeroImage =
+      topNewsData?.[0]?.story_cover_image_url || liveEventImages[0] || null;
 
     return {
       props: {
         menuData: menuData || [],
-        // trendingData,
         photosData,
         webstoriesData,
         breakingData,
@@ -126,9 +135,10 @@ export async function getServerSideProps(context) {
         viewControl,
         liveEventImages,
         liveEventLinks,
-        // First live-event image — used as the <link rel="preload"> hint in <Head>
-        // so the browser fetches it in the earliest possible network round-trip.
-        lcpHeroImage: liveEventImages[0] || null,
+        // SSR article data — eliminates client-side fetch waterfall for LCP images
+        initialNewsData: topNewsData,
+        initialTrendingData: trendingNewsData,
+        lcpHeroImage,
       },
     };
   } catch (err) {
@@ -136,7 +146,6 @@ export async function getServerSideProps(context) {
     return {
       props: {
         menuData: [],
-        // trendingData: [],
         photosData: [],
         webstoriesData: [],
         seoResponse: [],
@@ -146,7 +155,11 @@ export async function getServerSideProps(context) {
         quickControl: "no",
         breakingControl: "no",
         viewControl: "no",
-        
+        liveEventImages: [],
+        liveEventLinks: [],
+        initialNewsData: [],
+        initialTrendingData: [],
+        lcpHeroImage: null,
       },
     };
   }
@@ -165,6 +178,8 @@ export default function Home({
   viewControl,
   liveEventImages,
   liveEventLinks,
+  initialNewsData,
+  initialTrendingData,
   lcpHeroImage,
 }) {
   const pathname = usePathname(); 
@@ -294,6 +309,8 @@ export default function Home({
           viewControl={viewControl}
           liveEventImages={liveEventImages}
           liveEventLinks={liveEventLinks}
+          initialNewsData={initialNewsData}
+          initialTrendingData={initialTrendingData}
         />
         </div>
       )}

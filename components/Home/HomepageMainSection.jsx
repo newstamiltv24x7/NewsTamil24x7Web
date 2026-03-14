@@ -87,6 +87,9 @@ function HomepageMainSection({
   // Pre-fetched server-side; consumed by LiveEventSlider (client component)
   liveEventImages = [],
   liveEventLinks = [],
+  // SSR article data — avoids client-side fetch waterfall for LCP images
+  initialNewsData = [],
+  initialTrendingData = [],
 }) {
   const dispatch = useDispatch();
   const [liveData, setLiveData] = useState({});
@@ -95,10 +98,11 @@ function HomepageMainSection({
   const [postedLoading, setPostedLoading] = useState(true);
   const [shortsData, setShortsData] = useState([]);
   const [cardData, setCardData] = useState([]);
-  const [newsData, setNewsData] = useState(false);
-  const [trendingData, setTrendingData] = useState(false);
-  const [newsLoading, setNewsLoading] = useState(true);
-  const [trendLoading, setTrendLoading] = useState(true);
+  // Seed state from SSR data so images render on first paint
+  const [newsData, setNewsData] = useState(initialNewsData.length > 0 ? initialNewsData : false);
+  const [trendingData, setTrendingData] = useState(initialTrendingData.length > 0 ? initialTrendingData : false);
+  const [newsLoading, setNewsLoading] = useState(initialNewsData.length === 0);
+  const [trendLoading, setTrendLoading] = useState(initialTrendingData.length === 0);
 
   // Refs for lazy-loaded components
   const videoSectionRef = useRef(null);
@@ -116,8 +120,18 @@ function HomepageMainSection({
   useEffect(() => {
     dispatch(addMainNews(orderedMenu));
 
-    // Batch critical above-the-fold fetches together
-    Promise.all([GetHomeTopNews(), GetHomeTrendingNews()]);
+    // If SSR already provided the above-the-fold article data, skip redundant
+    // client-side fetches — they would only re-fetch what we already have.
+    const needsNews = initialNewsData.length === 0;
+    const needsTrending = initialTrendingData.length === 0;
+
+    if (needsNews || needsTrending) {
+      // Batch critical above-the-fold fetches together
+      Promise.all([
+        needsNews ? GetHomeTopNews() : Promise.resolve(),
+        needsTrending ? GetHomeTrendingNews() : Promise.resolve(),
+      ]);
+    }
 
     // Defer below-the-fold fetches so they don't compete with LCP
     const idleId = typeof requestIdleCallback !== "undefined"
