@@ -14,12 +14,9 @@ import React from "react";
 import Custom404 from "../404";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import ArticlePageContainer from "@/components/Article/ArticlePageContainer";
 
-// Dynamic imports for lazy loading
-const ArticlePageContainer = dynamic(
-  () => import("@/components/Article/ArticlePageContainer"),
-  { ssr: false }
-);
+// MobileArticlePage is client-only (uses browser APIs at module level)
 const MobileArticlePage = dynamic(
   () => import("@/components/Mobile/MobileArticlePage"),
   { ssr: false }
@@ -48,7 +45,6 @@ export async function getServerSideProps(response) {
       trendingResponse,
       controlRes,
       seoRes,
-      newsRes,
       slugRes,
       youtubeRes,
       breakingRes,
@@ -56,12 +52,11 @@ export async function getServerSideProps(response) {
       getHomeMenuApi(),
       getHomeLatest({
         n_page: 1,
-        n_limit: 6,
+        n_limit: 10,
         trending_news: 1
       }),
       getControls(),
       getNewsSeo(slugify),
-      getHomeLatest({ n_page: 1, n_limit: 10, trending_news: 1 }),
       getParticularNews(slugify),
       getAllYoutubeVideos({
         n_page: 1,
@@ -77,16 +72,14 @@ export async function getServerSideProps(response) {
     const decryptedTrend = CryptoFetcher(trendingResponse?.payloadJson);
     const controlData = CryptoFetcher(controlRes?.payloadJson);
     const decryptedSlug = CryptoFetcher(slugRes?.payloadJson);
-    const decryptedNews = CryptoFetcher(newsRes?.payloadJson);
     const decryptedVideos = CryptoFetcher(youtubeRes?.payloadJson)?.at(0)?.data;
-    // const breakingData = CryptoFetcher(breakingRes?.payloadJson);
     const breakingData = breakingRes?.payloadJson;
 
     return {
       props: {
         menuData: decrypted?.length > 0 ? decrypted : [],
         trendingData: decryptedTrend?.docs ?? [],
-        newsData: decryptedNews?.docs ?? [],
+        newsData: decryptedTrend?.docs ?? [],
         singleNews: decryptedSlug?.length > 0 ? decryptedSlug : [],
         youtubeData: decryptedVideos?.length > 0 ? decryptedVideos : [],
         breakingData: breakingData?.length > 0 ? breakingData : [],
@@ -132,9 +125,6 @@ function Page({
   breakingControl,
   viewControl,
 }) {
-
-  console.log(trendingData)
-
 
   const navigate = useRouter();
   const pathname = usePathname(); 

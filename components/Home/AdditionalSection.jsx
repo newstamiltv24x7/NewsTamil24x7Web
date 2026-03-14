@@ -4,70 +4,64 @@ import HorizontalCard from "@/commonComponents/HorizontalCard";
 import {  getHomeSports, getHomeTechnology } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 const CryptoJS = require("crypto-js");
 const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
 
-function AdditionalSection({viewControl}) {
-  const HomePageNews = useSelector((state) => state.HomePageNewsReducer?.data);
-  const SecondCategoryId = HomePageNews?.at(8)?.c_category_id;
-  const ThirdCategoryId = HomePageNews?.at(9)?.c_category_id;
+function AdditionalSection({viewControl, orderedMenu = []}) {
+  const SecondCategoryId = orderedMenu?.at(8)?.c_category_id;
+  const ThirdCategoryId = orderedMenu?.at(9)?.c_category_id;
   const [secondNewsList, setSecondNewsList] = useState([]);
   const [thirdNewsList, setThirdNewsList] = useState([]);
 
   const GetSecondCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: SecondCategoryId,
-        };
+    if (!SecondCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: SecondCategoryId,
+      };
       
-        const response = await getHomeSports(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          // setSecondNewsList(result?.at(0)?.data);
-          setSecondNewsList(result?.docs);
-        } else {
-          setSecondNewsList([]);
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeSports(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        setSecondNewsList(result?.docs);
+      } else {
+        setSecondNewsList([]);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetThirdCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: ThirdCategoryId,
-        };
+    if (!ThirdCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: ThirdCategoryId,
+      };
        
-        const response = await getHomeTechnology(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          // setThirdNewsList(result?.at(0)?.data);
-          setThirdNewsList(result?.docs);
-        } else {
-          setThirdNewsList([]);
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeTechnology(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        setThirdNewsList(result?.docs);
+      } else {
+        setThirdNewsList([]);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
     GetSecondCategory();
     GetThirdCategory();
-  }, [HomePageNews]);
+  }, [SecondCategoryId]);
 
   return (
     <Box mt={6}>
@@ -79,9 +73,9 @@ function AdditionalSection({viewControl}) {
             pr={1}
           >
             <CommonHeader
-              title={HomePageNews?.at(8)?.c_category_name}
-              engTitle={`More ${HomePageNews?.at(8)?.c_category_name} News`}
-              url={HomePageNews?.at(8)?.c_category_slug_english_name}
+              title={orderedMenu?.at(8)?.c_category_name}
+              engTitle={`More ${orderedMenu?.at(8)?.c_category_name} News`}
+              url={orderedMenu?.at(8)?.c_category_slug_english_name}
             />
             <Grid container spacing={2} position={"relative"}>
               <Grid item md={6} xs={12} sm={12} mt={2}>
@@ -148,9 +142,9 @@ function AdditionalSection({viewControl}) {
               pr={1}
             >
               <CommonHeader
-                title={HomePageNews?.at(9)?.c_category_name}
-                engTitle={`More ${HomePageNews?.at(9)?.c_category_name} News`}
-                url={HomePageNews?.at(9)?.c_category_slug_english_name}
+                title={orderedMenu?.at(9)?.c_category_name}
+                engTitle={`More ${orderedMenu?.at(9)?.c_category_name} News`}
+                url={orderedMenu?.at(9)?.c_category_slug_english_name}
               />
               <Grid container spacing={2} position={"relative"}>
                 <Grid item md={6} xs={12} sm={12} mt={2}>

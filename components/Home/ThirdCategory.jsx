@@ -32,12 +32,11 @@ const newsReducer = (state, action) => {
   }
 };
 
-function ThirdCategory({viewControl}) {
-  const HomePageNews = useSelector((state) => state.HomePageNewsReducer?.data);
-  const FirstCategoryId = HomePageNews?.at(10)?.c_category_id;
-  const SecondCategoryId = HomePageNews?.at(11)?.c_category_id;
-  const ThirdCategoryId = HomePageNews?.at(12)?.c_category_id;
-  const FourthCategoryId = HomePageNews?.at(13)?.c_category_id;
+function ThirdCategory({viewControl, orderedMenu = []}) {
+  const FirstCategoryId = orderedMenu?.at(10)?.c_category_id;
+  const SecondCategoryId = orderedMenu?.at(11)?.c_category_id;
+  const ThirdCategoryId = orderedMenu?.at(12)?.c_category_id;
+  const FourthCategoryId = orderedMenu?.at(13)?.c_category_id;
 
   const [state, dispatch] = useReducer(newsReducer, initialState);
   const [titleArr, setTitleArr] = useState([]);
@@ -45,95 +44,90 @@ function ThirdCategory({viewControl}) {
   const { mode } = useTheme();
 
   const GetFirstCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: FirstCategoryId,
-        };
+    if (!FirstCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: FirstCategoryId,
+      };
        
-        const response = await getHomeDistrictNews(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          dispatch({ type: "SET_ARRAY5", payload: result?.docs });
-        } else {
-          // setLoader(false);
-          dispatch({ type: "SET_ARRAY5", payload: [] });
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeDistrictNews(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        dispatch({ type: "SET_ARRAY5", payload: result?.docs });
+      } else {
+        dispatch({ type: "SET_ARRAY5", payload: [] });
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetSecondCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: SecondCategoryId,
-        };
+    if (!SecondCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: SecondCategoryId,
+      };
       
-        const response = await getHomeJustBefore(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          dispatch({ type: "SET_ARRAY6", payload: result?.docs });
-        } else {
-          dispatch({ type: "SET_ARRAY6", payload: [] });
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeJustBefore(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        dispatch({ type: "SET_ARRAY6", payload: result?.docs });
+      } else {
+        dispatch({ type: "SET_ARRAY6", payload: [] });
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetThirdCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: ThirdCategoryId,
-        };
+    if (!ThirdCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: ThirdCategoryId,
+      };
         
-        const response = await getHomeBigStories(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          dispatch({ type: "SET_ARRAY7", payload: result?.docs });
-        } else {
-          dispatch({ type: "SET_ARRAY7", payload: [] });
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeBigStories(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        dispatch({ type: "SET_ARRAY7", payload: result?.docs });
+      } else {
+        dispatch({ type: "SET_ARRAY7", payload: [] });
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetFourthCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 5,
-          main_category_id: FourthCategoryId,
-        };
+    if (!FourthCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 5,
+        main_category_id: FourthCategoryId,
+      };
         
-        const response = await getHomeWorld(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          dispatch({ type: "SET_ARRAY8", payload: result?.docs });
-        } else {
-          dispatch({ type: "SET_ARRAY8", payload: [] });
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeWorld(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        dispatch({ type: "SET_ARRAY8", payload: result?.docs });
+      } else {
+        dispatch({ type: "SET_ARRAY8", payload: [] });
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -142,7 +136,7 @@ function ThirdCategory({viewControl}) {
     GetSecondCategory();
     GetThirdCategory();
     GetFourthCategory();
-  }, [HomePageNews]);
+  }, [FirstCategoryId]);
 
   useEffect(() => {
     const List = [
@@ -175,13 +169,13 @@ function ThirdCategory({viewControl}) {
 
   const getTitle = (index) => {
     if (index === 0) {
-      return `${HomePageNews?.at(10)?.c_category_name}`;
+      return `${orderedMenu?.at(10)?.c_category_name}`;
     } else if (index === 1) {
-      return `${HomePageNews?.at(11)?.c_category_name}`;
+      return `${orderedMenu?.at(11)?.c_category_name}`;
     } else if (index === 2) {
-      return `${HomePageNews?.at(12)?.c_category_name}`;
+      return `${orderedMenu?.at(12)?.c_category_name}`;
     } else if (index === 3) {
-      return `${HomePageNews?.at(13)?.c_category_name}`;
+      return `${orderedMenu?.at(13)?.c_category_name}`;
     } else {
       return ``;
     }
@@ -189,13 +183,13 @@ function ThirdCategory({viewControl}) {
 
   const getRedirectLink = (index) => {
     if (index === 0) {
-      return `${HomePageNews?.at(10)?.c_category_slug_english_name}`;
+      return `${orderedMenu?.at(10)?.c_category_slug_english_name}`;
     } else if (index === 1) {
-      return `${HomePageNews?.at(11)?.c_category_slug_english_name}`;
+      return `${orderedMenu?.at(11)?.c_category_slug_english_name}`;
     } else if (index === 2) {
-      return `${HomePageNews?.at(12)?.c_category_slug_english_name}`;
+      return `${orderedMenu?.at(12)?.c_category_slug_english_name}`;
     } else if (index === 3) {
-      return `${HomePageNews?.at(13)?.c_category_slug_english_name}`;
+      return `${orderedMenu?.at(13)?.c_category_slug_english_name}`;
     } else {
       return ``;
     }

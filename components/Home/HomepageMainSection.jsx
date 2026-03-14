@@ -342,7 +342,7 @@ function HomepageMainSection({
             </Box>
 
              {/*<----------------------- FIRST CAEGORY SECTION START ----------------->*/}
-            <FirstCategory viewControl ={viewControl}/>
+            <FirstCategory viewControl={viewControl} orderedMenu={orderedMenu} />
              {/*<----------------------- FIRST CAEGORY SECTION END ----------------->*/}
           </Grid>
 
@@ -367,7 +367,7 @@ function HomepageMainSection({
 
         {/*<----------------------- COLUMN THREE/FOUR SECTION START ----------------->*/}
         <Box my={0}>
-          <MainAdSection viewControl={viewControl} />
+          <MainAdSection viewControl={viewControl} orderedMenu={orderedMenu} />
         </Box>
          {/*<----------------------- COLUMN THREE/FOUR SECTION END ----------------->*/}
 
@@ -394,13 +394,13 @@ function HomepageMainSection({
 
         {/*<----------------------- COLUMN FOUR SECTION START ----------------->*/}
         <Box my={1}>
-          <SecondaryCategory viewControl={viewControl} />
+          <SecondaryCategory viewControl={viewControl} orderedMenu={orderedMenu} />
         </Box>
         {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
 
         {/*<----------------------- COLUMN TWO SECTION START ----------------->*/}
         <Box my={1}>
-          <AdditionalSection viewControl={viewControl} />
+          <AdditionalSection viewControl={viewControl} orderedMenu={orderedMenu} />
         </Box>
         {/*<----------------------- COLUMN TWO SECTION END ----------------->*/}
 
@@ -418,7 +418,7 @@ function HomepageMainSection({
 
         {/*<----------------------- COLUMN FOUR SECTION START ----------------->*/}
         <Box my={1}>
-          <ThirdCategory viewControl={viewControl} />
+          <ThirdCategory viewControl={viewControl} orderedMenu={orderedMenu} />
         </Box>
         {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
 

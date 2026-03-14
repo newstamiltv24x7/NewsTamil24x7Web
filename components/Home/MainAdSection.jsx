@@ -34,11 +34,10 @@ import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 const CryptoJS = require("crypto-js");
 const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
 
-function MainAdSection({viewControl}) {
-  const HomePageNews = useSelector((state) => state.HomePageNewsReducer?.data);
-  const FirstCategoryId = HomePageNews?.at(1)?.c_category_id;
-  const SecondCategoryId = HomePageNews?.at(2)?.c_category_id;
-  const ThirdCategoryId = HomePageNews?.at(3)?.c_category_id;
+function MainAdSection({viewControl, orderedMenu = []}) {
+  const FirstCategoryId = orderedMenu?.at(1)?.c_category_id;
+  const SecondCategoryId = orderedMenu?.at(2)?.c_category_id;
+  const ThirdCategoryId = orderedMenu?.at(3)?.c_category_id;
   const [newsList, setNewsList] = useState([]);
   const [secondNewsList, setSecondNewsList] = useState([]);
   const [thirdNewsList, setThirdNewsList] = useState([]);
@@ -57,75 +56,68 @@ function MainAdSection({viewControl}) {
   };
 
   const GetFirstCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 10,
-          main_category_id: FirstCategoryId,
-        };
+    if (!FirstCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 10,
+        main_category_id: FirstCategoryId,
+      };
        
-        const response = await getHomeIN(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          // setNewsList(result?.at(0)?.data);
-          setNewsList(result?.docs);
-        } else {
-          // setLoader(false);
-          setNewsList([]);
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeIN(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        setNewsList(result?.docs);
+      } else {
+        setNewsList([]);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetSecondCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 10,
-          main_category_id: SecondCategoryId,
-        };
+    if (!SecondCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 10,
+        main_category_id: SecondCategoryId,
+      };
       
-        const response = await getHomeCinema(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          // setSecondNewsList(result?.at(0)?.data);
-          setSecondNewsList(result?.docs);
-        } else {
-          setSecondNewsList([]);
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomeCinema(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        setSecondNewsList(result?.docs);
+      } else {
+        setSecondNewsList([]);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const GetThirdCategory = async () => {
-    if (HomePageNews?.length > 0) {
-      try {
-        const body = {
-          n_page: 1,
-          n_limit: 10,
-          main_category_id: ThirdCategoryId,
-        };
+    if (!ThirdCategoryId) return;
+    try {
+      const body = {
+        n_page: 1,
+        n_limit: 10,
+        main_category_id: ThirdCategoryId,
+      };
        
-        const response = await getHomePolitics(body);
-        if (response?.payloadJson?.length > 0) {
-          const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-          const result = JSON.parse(firstNews);
-          // setThirdNewsList(result?.at(0)?.data);
-          setThirdNewsList(result?.docs);
-        } else {
-          setThirdNewsList([]);
-        }
-      } catch (err) {
-        console.log(err);
+      const response = await getHomePolitics(body);
+      if (response?.payloadJson?.length > 0) {
+        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
+        const result = JSON.parse(firstNews);
+        setThirdNewsList(result?.docs);
+      } else {
+        setThirdNewsList([]);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -133,7 +125,7 @@ function MainAdSection({viewControl}) {
     GetFirstCategory();
     GetSecondCategory();
     GetThirdCategory();
-  }, [HomePageNews]);
+  }, [FirstCategoryId]);
 
   return (
     <Box>
@@ -150,9 +142,9 @@ function MainAdSection({viewControl}) {
         <Grid item md={6} xs={12} sm={12}>
           <Box pt={1}>
             <CommonHeader
-              title={HomePageNews?.at(1)?.c_category_name}
-              engTitle={`More ${HomePageNews?.at(1)?.c_category_name} News`}
-              url={HomePageNews?.at(1)?.c_category_slug_english_name}
+              title={orderedMenu?.at(1)?.c_category_name}
+              engTitle={`More ${orderedMenu?.at(1)?.c_category_name} News`}
+              url={orderedMenu?.at(1)?.c_category_slug_english_name}
             />
             <Box mt={2}>
               <Card
@@ -702,7 +694,7 @@ function MainAdSection({viewControl}) {
             >
               <Link
                 href={`/news/${
-                  HomePageNews?.at(1)?.c_category_slug_english_name
+                  orderedMenu?.at(1)?.c_category_slug_english_name
                 }`}
               >
                 <Button
@@ -743,9 +735,9 @@ function MainAdSection({viewControl}) {
               pr={1}
             >
               <CommonHeader
-                title={HomePageNews?.at(2)?.c_category_name}
-                engTitle={`More ${HomePageNews?.at(2)?.c_category_name} News`}
-                url={HomePageNews?.at(2)?.c_category_slug_english_name}
+                title={orderedMenu?.at(2)?.c_category_name}
+                engTitle={`More ${orderedMenu?.at(2)?.c_category_name} News`}
+                url={orderedMenu?.at(2)?.c_category_slug_english_name}
               />
               <Grid container spacing={2} position={"relative"}>
                 <Grid item md={6} xs={12} sm={12} mt={2}>
@@ -827,9 +819,9 @@ function MainAdSection({viewControl}) {
               pr={1}
             >
               <CommonHeader
-                title={HomePageNews?.at(3)?.c_category_name}
-                engTitle={`More ${HomePageNews?.at(3)?.c_category_name} News`}
-                url={HomePageNews?.at(3)?.c_category_slug_english_name}
+                title={orderedMenu?.at(3)?.c_category_name}
+                engTitle={`More ${orderedMenu?.at(3)?.c_category_name} News`}
+                url={orderedMenu?.at(3)?.c_category_slug_english_name}
               />
               <Grid container spacing={2} position={"relative"}>
                 <Grid item md={6} xs={12} sm={12} mt={2}>
