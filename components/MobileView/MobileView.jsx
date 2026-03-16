@@ -11,6 +11,7 @@ import {
 } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import { CryptoFetcher } from "@/utils/libs";
 import MobileBottomCategory from "../Mobile/MobileBottomCategory";
+import ManualImageAds from "../Ads/ManualImageAds";
 const MobileHomeCategory = dynamic(() =>
   import("../Mobile/MobileHomeCategory")
 );
@@ -83,6 +84,7 @@ function MobileView({
         viewControl={viewControl}
       />
       <MobileHomeCategory viewControl={viewControl} />
+      <ManualImageAds device="mobile" title="Manual Mobile Ads" />
       {/* <MobileWebStories webstoriesData={webstoriesData} /> */}
       <MobileShorts />
       <MobileVideos />

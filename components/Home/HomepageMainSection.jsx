@@ -14,6 +14,7 @@ import {
 import { CryptoFetcher } from "@/utils/libs";
 import { addLiveVideo } from "@/redux/reducer/liveVideoReducer";
 import AdUnit from "../Ads/AdUnit";
+import ManualImageAds from "../Ads/ManualImageAds";
 import ThirdCategory from "./ThirdCategory";
 
 /**
@@ -366,6 +367,10 @@ function HomepageMainSection({
         </Grid>
 
         {/*<----------------------- COLUMN THREE/FOUR SECTION START ----------------->*/}
+        <Box my={2}>
+          <ManualImageAds device="desktop" title="Manual Desktop Ads" />
+        </Box>
+
         <Box my={0}>
           <MainAdSection viewControl={viewControl} orderedMenu={orderedMenu} />
         </Box>
