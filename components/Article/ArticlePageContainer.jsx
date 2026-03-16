@@ -45,6 +45,7 @@ import {
   getNewsVisitCount,
 } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import AdUnit from "../Ads/AdUnit";
+import ManualImageAds from "../Ads/ManualImageAds";
 import dayjs from "dayjs";
 import Custom404 from "@/pages/404";
 
@@ -345,6 +346,9 @@ function ArticlePageContainer({
                       </SwiperSlide>
                     ))}
                 </Swiper>
+              </Box>
+              <Box mt={2}>
+                <ManualImageAds device="desktop" title="Article Sponsored" />
               </Box>
               <Box
                 border={"1px solid #666666"}

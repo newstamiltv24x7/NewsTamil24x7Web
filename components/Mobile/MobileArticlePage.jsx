@@ -20,6 +20,7 @@ import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
 import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 import Custom404 from "@/pages/404";
+import ManualImageAds from "../Ads/ManualImageAds";
 
 function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewControl, breakingControl,quickControl }) {
   // const NewsData = newsData?.at(0)?.data;
@@ -310,6 +311,9 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
                 __html: singleNews?.at(0)?.story_details,
               }}
             ></div>
+          </Box>
+          <Box mt={2}>
+            <ManualImageAds device="mobile" title="Article Sponsored" />
           </Box>
         </Box>
         <Box
