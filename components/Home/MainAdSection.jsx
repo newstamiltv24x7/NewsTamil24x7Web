@@ -129,603 +129,228 @@ function MainAdSection({viewControl, orderedMenu = []}) {
 
   return (
     <Box>
-      <Grid container spacing={2}>
-        <Grid
-          item
-          md={3}
-          xs={12}
-          sm={12}
+      <Box
+        display={"flex"}
+        alignItems={"flex-start"}
+        gap={2}
+        flexDirection={{ xs: "column", sm: "column", md: "row" }}
+      >
+        <Box
+          width={320}
+          minWidth={320}
+          height={480}
+          overflow={"hidden"}
           display={{ xs: "none", sm: "none", md: "block" }}
         >
-          <AdUnit />
-        </Grid>
-        <Grid item md={6} xs={12} sm={12}>
-          <Box pt={1}>
+         <img
+                    src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/320_x_480_inaej5.jpg"
+                    width="320"
+                    height="480"
+                    alt="Advertisement"
+                    loading="lazy"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "auto",
+                    }}
+                    onError={(event) => {
+                      const adCard = event.currentTarget.closest("a");
+                      if (adCard) adCard.style.display = "none";
+                    }}
+                  />
+        </Box>
+        <Box flex={1} minWidth={0}>
+          <Box
+            pt={1}
+            height={{ xs: "auto", sm: "auto", md: 480 }}
+            display={"flex"}
+            flexDirection={"column"}
+          >
             <CommonHeader
               title={orderedMenu?.at(1)?.c_category_name}
               engTitle={`More ${orderedMenu?.at(1)?.c_category_name} News`}
               url={orderedMenu?.at(1)?.c_category_slug_english_name}
             />
-            <Box mt={2}>
+            <Box
+              mt={2}
+              flex={1}
+              minHeight={0}
+              display={"grid"}
+              gridTemplateColumns={{ xs: "1fr", sm: "1fr", md: "1.15fr 1fr" }}
+              gap={2}
+            >
               <Card
                 sx={{
-                  boxShadow: "none",
-                  backgroundImage: "none",
                   boxShadow:
                     mode === "dark"
                       ? "0px 0px 4px 0px #fff"
                       : "0px 0px 4px 0px #000",
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: 0,
                 }}
               >
-                <Box borderRadius={"6px"} overflow={"hidden"}>
-                  <Link
-                    href={`/article/${
-                      newsList?.at(0)?.story_desk_created_name
-                    }`}
-                  >
-                    <Box borderRadius={"6px"} overflow={"hidden"} height={400}>
-                      <Image
-                      fetchPriority="high" rel="preload"
-                        src={newsList?.at(0)?.story_cover_image_url}
-                        alt="newstamil-cover-image"
-                        width={100}
-                        height={400}
-                        unoptimized
-                        style={{
-                          width: "100%",
-                          objectFit: "cover",
-                          borderRadius: "8px 8px 0 0 ",
-                        }}
-                      />
-                    </Box>
-                  </Link>
-                </Box>
-                <CardContent
-                  sx={{
-                    pt: 1.4,
-                    px: 1,
-                    pb: "2px",
-                    "&.MuiCardContent-root:last-child": {
-                      paddingBottom: 2,
-                    },
-                  }}
+                <Link
+                  href={`/article/${
+                    newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || "#"
+                  }`}
                 >
+                  <Box borderRadius={"6px"} overflow={"hidden"} height={{ xs: 220, md: 320 }}>
+                    <Image
+                      fetchPriority="high"
+                      rel="preload"
+                      src={newsList?.at(0)?.story_cover_image_url}
+                      alt="newstamil-cover-image"
+                      width={1200}
+                      height={600}
+                      unoptimized
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                </Link>
+                <CardContent sx={{ px: 1.2, py: 1, "&.MuiCardContent-root:last-child": { pb: 1.2 } }}>
                   <Link
                     href={`/article/${
-                      newsList?.at(0)?.story_desk_created_name
+                      newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || "#"
                     }`}
                   >
                     <Typography
                       fontFamily={"var(--anek-font)"}
-                      className="textWrapper"
                       fontSize={18}
-                      lineHeight={1.5}
-                      component={"h1"}
-                      fontWeight={550}
+                      lineHeight={1.4}
+                      component={"h2"}
+                      fontWeight={600}
+                      sx={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
                     >
                       {newsList?.at(0)?.story_title_name}
                     </Typography>
-                    <Typography
-                      fontFamily={"var(--anek-font)"}
-                      className="textWrapper"
-                      fontSize={14}
-                      lineHeight={1.5}
-                      component={"h2"}
-                      fontWeight={400}
-                      pt={1.4}
-                      height={72}
-                    >
-                      {newsList?.at(0)?.story_sub_title_name}
-                    </Typography>
                   </Link>
-                  <Box
-                    display={"flex"}
-                    gap={1}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
-                    mt={1}
+                  <Typography
+                    fontFamily={"var(--anek-font)"}
+                    fontSize={12}
+                    lineHeight={1.3}
+                    component={"span"}
+                    fontWeight={400}
+                    mt={0.7}
+                    display={"block"}
                   >
-                    <Typography
-                      fontFamily={"var(--anek-font)"}
-                      className="textWrapper"
-                      fontSize={14}
-                      lineHeight={1.3}
-                      component={"p"}
-                      fontWeight={650}
-                      sx={{
-                        color: "#fb6002",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {newsList?.at(0)?.story_subject_name}
-                    </Typography>
-                    <Box
-                      display={"flex"}
-                      justifyContent={"start"}
-                      alignItems={"center"}
-                      gap={2}
-                      position={"relative"}
-                    >
-                       {viewControl === "yes" && 
-                      <Box
-                        display={"flex"}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        gap={1}
-                        fontFamily={"var(--anek-font)"}
-                        fontSize={14}
-                        fontWeight={300}
-                      >
-                        <FaRegEye
-                          style={{
-                            opacity: 0.8,
-                            position: "relative",
-                            top: -1,
-                          }}
-                        />{" "}
-                        {newsList?.at(0)?.view_count}
-                      </Box>
-                      }
-                      <Typography
-                        fontFamily={"var(--anek-font)"}
-                        className="textWrapper"
-                        fontSize={12}
-                        lineHeight={1.3}
-                        component={"span"}
-                        fontWeight={300}
-                        // sx={{ color: "#fff" }}
-                      >
-                        {getHours(newsList?.at(0)?.updatedAt)}
-                      </Typography>
-                      <Image
-                      fetchPriority="high" rel="preload"
-                        src={mode === "light" ? DarkShareIcon : ShareIcon}
-                        alt="share"
-                        width={18}
-                        height={18}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleSetId(newsList?.at(0)?._id)}
-                      />
-                      {newsList?.at(0)?._id === newsId && shareOpen && (
-                        <ClickAwayListener
-                          onClickAway={() => setShareOpen(false)}
-                        >
-                          <Box
-                            display={"flex"}
-                            alignItems={"center"}
-                            justifyContent={"flex-start"}
-                            // flexDirection={"column"}
-                            gap={1}
-                            p={1}
-                            // height={30}
-                            borderRadius={"6px"}
-                            position={"absolute"}
-                            bottom={10}
-                            right={"13%"}
-                            bgcolor={"#dedede"}
-                            border={"1px solid #fff"}
-                            boxShadow={"0px 0px 10px 0px rgba(0,0,0,0.75)"}
-                            sx={{
-                              "& img": {
-                                cursor: "pointer",
-                              },
-                            }}
-                          >
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={FacebookNew}
-                              alt="fb"
-                              width={24}
-                              height={24}
-                              onClick={() =>
-                                shareCards(
-                                  "fb",
-                                  newsList?.at(0)?.story_desk_created_name
-                                )
-                              }
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={WhatsAppNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() =>
-                                shareCards(
-                                  "wp",
-                                  newsList?.at(0)?.story_desk_created_name
-                                )
-                              }
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={TwitterNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() =>
-                                shareCards(
-                                  "x",
-                                  newsList?.at(0)?.story_desk_created_name,
-                                  newsList?.at(0)?.story_sub_title_name
-                                )
-                              }
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={YoutubeNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() => shareCards("yt")}
-                            />
-
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={TelegramNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() =>
-                                shareCards(
-                                  "tele",
-                                  newsList?.at(0)?.story_desk_created_name,
-                                  newsList?.at(0)?.story_sub_title_name
-                                )
-                              }
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={InstagramNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() => shareCards("insta")}
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={ThreadsNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() => shareCards("td")}
-                            />
-                            <Image
-                            fetchPriority="high" rel="preload"
-                              src={LinkedinNew}
-                              alt="wp"
-                              width={24}
-                              height={24}
-                              onClick={() =>
-                                shareCards(
-                                  "lk",
-                                  newsList?.at(0)?.story_desk_created_name
-                                )
-                              }
-                            />
-                          </Box>
-                        </ClickAwayListener>
-                      )}
-                    </Box>
-                  </Box>
-                  {/* <Box display={"grid"} sx={{ placeItems: "center" }}>
-                    <hr
-                      style={{
-                        width: "100%",
-                        border: "0.5px solid #666666",
-                        margin: "16px 0 0px 0",
-                      }}
-                    />
-                  </Box> */}
+                    {getHours(newsList?.at(0)?.updatedAt)}
+                  </Typography>
                 </CardContent>
               </Card>
-            </Box>
-            <>
-            {Array.isArray(newsList) &&
-              newsList?.slice(1, 6)?.map((list) => (
-                <Grid
-                  container
-                  mt={2}
-                  p={1}
-                  borderRadius={"8px"}
-                  key={list?._id}
-                  // border={"1px solid #666666"}
-                  sx={{
-                    boxShadow:
-                      mode === "dark"
-                        ? "0px 0px 4px 0px #fff"
-                        : "0px 0px 4px 0px #000",
-                  }}
-                  // boxShadow={"0px 0px 4px 0px rgba(0,0,0,0.75)"}
-                >
-                  <Grid item md={9} xs={7} pr={{ xs: 1, sm: 1, md: 1 }}>
-                    <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
-                      <Typography
-                        fontFamily={"var(--anek-font)"}
-                        className="textWrapper"
-                        fontSize={18}
-                        lineHeight={1.5}
-                        component={"h2"}
-                        fontWeight={550}
-                      >
-                        {list?.story_title_name}
-                      </Typography>
-                      <Box display={{ xs: "none", sm: "none", md: "block" }}>
-                        <Typography
-                          fontFamily={"var(--anek-font)"}
-                          className="textWrapperTwo"
-                          fontSize={14}
-                          lineHeight={1.5}
-                          component={"p"}
-                          fontWeight={500}
-                          height={42}
-                          mt={1}
-                        >
-                          {list?.story_sub_title_name}
-                        </Typography>
-                      </Box>
-                    </Link>
+
+              <Box display={"flex"} flexDirection={"column"} gap={1} minHeight={0}>
+                {Array.isArray(newsList) &&
+                  newsList?.slice(1, 5)?.map((list) => (
                     <Box
-                      display={"flex"}
-                      gap={1}
-                      alignItems={"center"}
-                      justifyContent={"space-between"}
-                      mt={1}
-                      flexWrap={"wrap"}
+                      key={list?._id}
+                      p={1}
+                      borderRadius={"8px"}
+                      sx={{
+                        boxShadow:
+                          mode === "dark"
+                            ? "0px 0px 4px 0px #fff"
+                            : "0px 0px 4px 0px #000",
+                      }}
                     >
-                      <Box>
-                        <Typography
-                          fontFamily={"var(--anek-font)"}
-                          // className="textWrapper"
-                          fontSize={14}
-                          lineHeight={1.3}
-                          component={"p"}
-                          fontWeight={650}
-                          sx={{
-                            color: "#fb6002",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {list?.story_subject_name}
-                        </Typography>
-                      </Box>
-                      <Box
-                        display={"flex"}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        gap={2}
-                        position={"relative"}
-                      >
-                         {viewControl === "yes" && 
-                        <Box
-                          display={"flex"}
-                          justifyContent={"center"}
-                          alignItems={"center"}
-                          gap={1}
-                          fontFamily={"var(--anek-font)"}
-                          fontSize={14}
-                          fontWeight={300}
-                        >
-                          <FaRegEye style={{ opacity: 0.8, position: "relative", top: -1 }} />{" "}
-                          {list?.view_count}
-                        </Box>
-                        }
-                        <Typography
-                          fontFamily={"var(--anek-font)"}
-                          className="textWrapper"
-                          fontSize={12}
-                          lineHeight={1.3}
-                          component={"span"}
-                          fontWeight={300}
-                          // sx={{ color: "#fff" }}
-                        >
-                          {getHours(list?.updatedAt)}
-                        </Typography>
-                        <Image
-                        fetchPriority="high" rel="preload"
-                          src={mode === "light" ? DarkShareIcon : ShareIcon}
-                          alt="share"
-                          width={18}
-                          height={18}
-                          style={{ cursor: "pointer" }}
-                          onClick={() => handleSetId(list?._id)}
-                        />
-                        {list?._id === newsId && shareOpen && (
-                          <ClickAwayListener
-                            onClickAway={() => setShareOpen(false)}
-                          >
-                            <Box
-                              display={"flex"}
-                              alignItems={"center"}
-                              justifyContent={"flex-start"}
-                              // flexDirection={"column"}
-                              gap={1}
-                              p={1}
-                              // height={30}
-                              borderRadius={"6px"}
-                              position={"absolute"}
-                              bottom={5}
-                              right={"13%"}
-                              bgcolor={"#dedede"}
-                              border={"1px solid #fff"}
-                              boxShadow={"0px 0px 10px 0px rgba(0,0,0,0.75)"}
+                      <Grid container spacing={1} alignItems={"center"}>
+                        <Grid item xs={8}>
+                          <Link href={`/article/${list?.story_desk_created_name || list?._id || "#"}`}>
+                            <Typography
+                              fontFamily={"var(--anek-font)"}
+                              fontSize={14}
+                              lineHeight={1.35}
+                              component={"h3"}
+                              fontWeight={550}
                               sx={{
-                                "& img": {
-                                  cursor: "pointer",
-                                },
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
                               }}
                             >
+                              {list?.story_title_name}
+                            </Typography>
+                          </Link>
+                          <Typography
+                            fontFamily={"var(--anek-font)"}
+                            fontSize={11}
+                            lineHeight={1.2}
+                            component={"span"}
+                            fontWeight={400}
+                            mt={0.5}
+                            display={"block"}
+                          >
+                            {getHours(list?.updatedAt)}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Link href={`/article/${list?.story_desk_created_name || list?._id || "#"}`}>
+                            <Box height={76} borderRadius={"6px"} overflow={"hidden"}>
                               <Image
-                              fetchPriority="high" rel="preload"
-                                src={FacebookNew}
-                                alt="fb"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "fb",
-                                    list?.story_desk_created_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={WhatsAppNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "wp",
-                                    list?.story_desk_created_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={TwitterNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "x",
-                                    list?.story_desk_created_name,
-                                    list?.story_sub_title_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={YoutubeNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("yt")}
-                              />
-
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={TelegramNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "tele",
-                                    list?.story_desk_created_name,
-                                    list?.story_sub_title_name
-                                  )
-                                }
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={InstagramNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("insta")}
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={ThreadsNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() => shareCards("td")}
-                              />
-                              <Image
-                              fetchPriority="high" rel="preload"
-                                src={LinkedinNew}
-                                alt="wp"
-                                width={24}
-                                height={24}
-                                onClick={() =>
-                                  shareCards(
-                                    "lk",
-                                    list?.story_desk_created_name
-                                  )
-                                }
+                                fetchPriority="high"
+                                rel="preload"
+                                src={list?.story_cover_image_url}
+                                alt="newstamil-cover-image"
+                                width={240}
+                                height={160}
+                                loading="lazy"
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                }}
                               />
                             </Box>
-                          </ClickAwayListener>
-                        )}
-                      </Box>
+                          </Link>
+                        </Grid>
+                      </Grid>
                     </Box>
-                  </Grid>
-                  <Grid item md={3} xs={5}>
-                    <Box
-                      height={{ xs: 100, sm: 100, md: "auto" }}
-                      borderRadius={"6px"}
-                      overflow={"hidden"}
-                    >
-                      <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
-                        <Image
-                        fetchPriority="high" rel="preload"
-                          src={list?.story_cover_image_url}
-                          alt="newstamil-cover-image"
-                          width={1200}
-                          height={300}
-                          loading="lazy"
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            borderRadius: "8px",
-                          }}
-                        />
-                      </Link>
-                    </Box>
-                  </Grid>
-                </Grid>
-              ))}
-            </>
-           
-            <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              mt={2}
-              bgcolor={mode === "dark" ? "#272626" : "#f1f1f1"}
-            >
-              <Link
-                href={`/news/${
-                  orderedMenu?.at(1)?.c_category_slug_english_name
-                }`}
-              >
-                <Button
-                  variant="outlined"
-                  sx={{
-                    border: "1px solid transparent",
-                    color: "#fb6002",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      color: mode === "dark" ? "#fff" : "#000 !important",
-                      border: "1px solid transparent",
-                      bgcolor: "transparent",
-                    },
-                  }}
+                  ))}
+
+                <Box
+                  mt={"auto"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  bgcolor={mode === "dark" ? "#272626" : "#f1f1f1"}
                 >
-                  Read More
-                </Button>
-              </Link>
+                  <Link
+                    href={`/news/${
+                      orderedMenu?.at(1)?.c_category_slug_english_name
+                    }`}
+                  >
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        border: "1px solid transparent",
+                        color: "#fb6002",
+                        fontWeight: "bold",
+                        "&:hover": {
+                          color: mode === "dark" ? "#fff" : "#000 !important",
+                          border: "1px solid transparent",
+                          bgcolor: "transparent",
+                        },
+                      }}
+                    >
+                      Read More
+                    </Button>
+                  </Link>
+                </Box>
+              </Box>
             </Box>
           </Box>
-        </Grid>
-        <Grid
-          item
-          md={3}
-          sm={12}
-          xs={12}
-          display={{ xs: "none", sm: "none", md: "block" }}
-        >
-          <Box width={"100%"} height={"100%"} bgcolor={"#c7c7c7"} mt={2}></Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
       <Box mt={6}>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12} sm={12}>

@@ -287,6 +287,45 @@ function HomepageMainSection({
     <HomepageLayout
       {...layoutProps}
     >
+      <div
+        style={{
+          maxWidth: 1440,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          paddingBottom:"5px"
+        }}
+      >
+      <a
+            href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "block",
+              width: "100%",
+              overflow: "hidden",
+              background: "#f5f5f5",
+            }}
+          >
+            <img
+              src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/970_x_90_copy_gj6kgf.jpg"
+              width="970"
+              height="90"
+              alt="Advertisement"
+              loading="lazy"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+              }}
+              onError={(event) => {
+                const adCard = event.currentTarget.closest("a");
+                if (adCard) adCard.style.display = "none";
+              }}
+            />
+          </a>
+          </div>
       <Box
         mx={{ md: "inherit", lg: "auto" }}
         maxWidth={1440}
@@ -367,9 +406,7 @@ function HomepageMainSection({
         </Grid>
 
         {/*<----------------------- COLUMN THREE/FOUR SECTION START ----------------->*/}
-        <Box my={2}>
-          <ManualImageAds device="desktop" title="Manual Desktop Ads" />
-        </Box>
+        
 
         <Box my={0}>
           <MainAdSection viewControl={viewControl} orderedMenu={orderedMenu} />
@@ -414,7 +451,9 @@ function HomepageMainSection({
           <CardsPage cardData={cardData} viewControl={viewControl} />
         </Box>
         {/*<----------------------- CARDS SECTION END ----------------->*/}
-
+        <Box my={2}>
+          <ManualImageAds device="desktop" title="Manual Desktop Ads" />
+        </Box>
         {/*<----------------------- PHOTO SECTION START -----------------> */}
         <Box my={3}>
           <PhotoSection photosData={photosData} viewControl={viewControl} />

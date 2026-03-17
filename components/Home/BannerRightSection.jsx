@@ -384,6 +384,44 @@ useEffect(() => {
             </React.Fragment>
           ))}
       </Box>
+      <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+                paddingBottom:"5px"
+              }}
+            >
+            <a
+                  href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    overflow: "hidden",
+                    background: "#f5f5f5",
+                  }}
+                >
+                  <img
+                    src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666739/320_x_600_copy_emt1dg.jpg"
+                    width="320"
+                    height="600"
+                    alt="Advertisement"
+                    loading="lazy"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "auto",
+                    }}
+                    onError={(event) => {
+                      const adCard = event.currentTarget.closest("a");
+                      if (adCard) adCard.style.display = "none";
+                    }}
+                  />
+                </a>
+                </div>
       <Box mt={2}>
         <AdUnit />
         <AdUnit />

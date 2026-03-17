@@ -162,7 +162,45 @@ function ArticlePageContainer({
       breakingControl={breakingControl}
       viewControl={viewControl}
     >
-
+<div
+        style={{
+          maxWidth: 1440,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          paddingBottom:"5px"
+        }}
+      >
+      <a
+            href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "block",
+              width: "100%",
+              overflow: "hidden",
+              background: "#f5f5f5",
+            }}
+          >
+            <img
+              src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/970_x_90_copy_gj6kgf.jpg"
+              width="970"
+              height="90"
+              alt="Advertisement"
+              loading="lazy"
+              style={{
+                display: "block",
+                width: "100%",
+                height: "auto",
+              }}
+              onError={(event) => {
+                const adCard = event.currentTarget.closest("a");
+                if (adCard) adCard.style.display = "none";
+              }}
+            />
+          </a>
+          </div>
       {singleNews?.length === 0 ? (
         <>
         <Custom404 />
@@ -347,9 +385,9 @@ function ArticlePageContainer({
                     ))}
                 </Swiper>
               </Box>
-              <Box mt={2}>
+              {/* <Box mt={2}>
                 <ManualImageAds device="desktop" title="Article Sponsored" />
-              </Box>
+              </Box> */}
               <Box
                 border={"1px solid #666666"}
                 p={2}
