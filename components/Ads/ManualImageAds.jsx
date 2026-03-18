@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const DESKTOP_ADS = [
   {
@@ -51,19 +52,16 @@ function ManualImageAds({ device = "desktop", title = "Sponsored" }) {
               background: "#f5f5f5",
             }}
           >
-            <img
+            <Image
               src={ad.src}
+              alt={ad.alt}
               width={ad.width}
               height={ad.height}
-              alt={ad.alt}
+              sizes="(max-width: 768px) 100vw, 320px"
+              style={{ display: "block", width: "100%", height: "auto" }}
               loading="lazy"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-              }}
               onError={(event) => {
-                const adCard = event.currentTarget.closest("a");
+                const adCard = event?.target?.closest?.("a");
                 if (adCard) adCard.style.display = "none";
               }}
             />

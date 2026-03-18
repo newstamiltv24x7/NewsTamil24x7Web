@@ -289,7 +289,6 @@ function HomepageMainSection({
     >
       <div
         style={{
-          maxWidth: 1440,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -326,13 +325,12 @@ function HomepageMainSection({
             />
           </a>
           </div>
-      <Box
+      {/* <Box
         mx={{ md: "inherit", lg: "auto" }}
         maxWidth={1440}
         sx={{
           position: "relative",
           width: "100%",
-          /* aspect-ratio reserves the banner height before JS loads → 0 CLS */
           aspectRatio: "16/9",
           maxHeight: "400px",
           overflow: "hidden",
@@ -340,28 +338,33 @@ function HomepageMainSection({
         }}
       >
         {liveEventImages[0] && (
-          <Box
-            sx={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-              zIndex: 0,
-            }}
-          >
-          </Box>
+          // Static LCP image: render as next/image with `fill` and `priority`
+          // so it's present in the initial HTML and avoids waiting for client JS.
+          <>
+            <Box
+              sx={{
+                position: "absolute",
+                inset: 0,
+                zIndex: 0,
+              }}
+            >
+              <Image
+                src={liveEventImages[0]}
+                alt="hero"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                style={{ objectFit: "cover", objectPosition: "center" }}
+              />
+            </Box>
+          </>
         )}
 
-        {/* ── Interactive slider (client-only) ──────────────────────────
-             Positioned absolutely so it overlays the static image above.
-             Because ssr:false, this renders only on the client and its JS
-             bundle is excluded from the main-thread critical path.
-             ────────────────────────────────────────────────────────── */}
         <Box sx={{ position: "absolute", inset: 0, zIndex: 1 }}>
           <LiveEventSlider images={liveEventImages} youtubeLinks={liveEventLinks} />
         </Box>
-      </Box>
+      </Box> */}
       <Box
         maxWidth={1440}
         width={"100%"}
@@ -395,6 +398,8 @@ function HomepageMainSection({
               loading={loading}
               trendLoading={trendLoading}
               viewControl={viewControl}
+              liveEventImages={liveEventImages}
+              liveEventLinks={liveEventLinks}
             />
             <Box mt={2}>
               <AdUnit />

@@ -64,39 +64,52 @@ useEffect(() => {
   return (
     <Box>
       <Box display={{ xs: "none", sm: "none", md: "block" }}>
-        {/* <Box width={"100%"} height={190}>
+        <Box
+          width={"100%"}
+          sx={{
+            height: { md: "170px", xl: "190px" },
+            position: "relative",
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            overflow: "hidden",
+          }}
+        >
           {loading ? (
             <Skeleton
               variant="rectangular"
               width={"100%"}
-              height={190}
-              sx={{ bgcolor: "#c7c7c7" }}
+              sx={{ bgcolor: "#c7c7c7", height: { md: "170px", xl: "190px" } }}
             />
           ) : (
             <iframe
-              width="100%"
-              height="100%"
-              src={`${liveData?.c_url_web_link}?rel=0&amp;autoplay=1&mute=1`}
-              title="YouTube video player"
+              src="https://www.youtube.com/embed/gynWNinqmjw?autoplay=1&mute=1"
+              title="🔴LIVE NEWS TODAY | Today Breaking News Tamil | NewsTamil 24X7"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
-            ></iframe>
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", borderRadius: "5px" }}
+            />
           )}
-        </Box> */}
+        </Box>
         <CommonHeader
                             title="Special Programmes"
                             engTitle=""
                             url="#"
                           />
          {/* aspectRatio pre-reserves the height so the image never shifts layout */}
-         <Box style={{ minWidth: 0, position: "relative", aspectRatio: "16/9", width: "100%" }}><Link href={images[current]?.url || '#'}>
-  <img
-    src={images[current].image}
-    alt="Live event"
-    style={{ width: "100%", height: "100%", borderRadius:"10px", display: "block" }}
-  /></Link>
+         <Box style={{ minWidth: 0, position: "relative", aspectRatio: "16/9", width: "100%", borderRadius: "10px", overflow: "hidden" }}>
+           <Link href={images[current]?.url || '#'}>
+             <Image
+               src={images[current].image}
+               alt={images[current].alt || 'Live event'}
+               fill
+               priority
+               quality={75}
+               sizes="100vw"
+               style={{ objectFit: 'cover', borderRadius: '10px', display: 'block' }}
+             />
+           </Link>
   <Box
     style={{
       position: "absolute",
@@ -394,33 +407,30 @@ useEffect(() => {
               }}
             >
             <a
-                  href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    overflow: "hidden",
-                    background: "#f5f5f5",
-                  }}
-                >
-                  <img
-                    src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666739/320_x_600_copy_emt1dg.jpg"
-                    width="320"
-                    height="600"
-                    alt="Advertisement"
-                    loading="lazy"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      height: "auto",
-                    }}
-                    onError={(event) => {
-                      const adCard = event.currentTarget.closest("a");
-                      if (adCard) adCard.style.display = "none";
-                    }}
-                  />
-                </a>
+              href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "block",
+                width: "100%",
+                overflow: "hidden",
+                background: "#f5f5f5",
+              }}
+            >
+              <Image
+                src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666739/320_x_600_copy_emt1dg.jpg"
+                alt="Advertisement"
+                width={320}
+                height={600}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 320px"
+                style={{ display: "block", width: "100%", height: "auto" }}
+                onError={(event) => {
+                  const adCard = event?.target?.closest?.("a");
+                  if (adCard) adCard.style.display = "none";
+                }}
+              />
+            </a>
                 </div>
       <Box mt={2}>
         <AdUnit />
