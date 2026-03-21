@@ -164,7 +164,6 @@ function ArticlePageContainer({
     >
 <div
         style={{
-          maxWidth: 1440,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

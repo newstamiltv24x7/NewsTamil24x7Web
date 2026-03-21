@@ -319,18 +319,18 @@ const dateString = new Date().toLocaleString();
                 sx={{
                   display: {
                     xs: "none",
-                    sm: "block",
-                    // whiteSpace: "nowrap",
-                    // textOverflow: "ellipsis",
-                    // overflow: "hidden",
+                    sm: "flex",
                   },
-                  // ml: "-10px",
+                  alignItems: "center",
+                  flexWrap: "nowrap",
+                  overflow: "hidden",
                 }}
               >
                 {menuData?.slice(0, 8)?.map((item) => (
                   <Link
                     href={getNavLink(item?.c_category_slug_english_name)}
                     key={item?._id}
+                    style={{ whiteSpace: "nowrap" }}
                   >
                     <Button
                       endIcon={
@@ -352,7 +352,9 @@ const dateString = new Date().toLocaleString();
                           // borderBottom: "3px solid #ff992c"
                           // borderBottom: "2px solid #f79907",
                         },
-                        fontSize: "16px",
+                        fontSize: "calc(12px + 0.2vw)",
+                        px: { sm: 0.5, md: 1 },
+                        minWidth: "auto",
                         fontWeight: 600,
                         color:
                           mainPath === item?.c_category_slug_english_name
@@ -388,12 +390,16 @@ const dateString = new Date().toLocaleString();
            
                 <Box
                   component={"span"}
-                  position={"relative"}
-                  top={12}
-                  left={12}
+                  sx={{ 
+                    position: "relative", 
+                    display: "flex", 
+                    alignItems: "center",
+                    ml: 1,
+                    cursor: "pointer"
+                  }}
                   onMouseEnter={(e) => handle2Click(e)}
                 >
-                  <Image src={MenuMore} alt="more" width={32} height={32} />
+                  <Image src={MenuMore} alt="more" width={24} height={24} />
                 </Box>
               
               </Box>
@@ -418,24 +424,25 @@ const dateString = new Date().toLocaleString();
                 <Image src={Search} alt="more" width={24} height={24} />
               </Link>
               <Box
-    p={"0px 0px 0px 0px"}
-    borderRadius={"0 0 8px 8px"}
-    color={"#000"}
-  >
-    <Link href={"/short-news"}>
-      <Image
-        src={ShortNewsIcon}
-        alt="shorts-news-logo"
-        width={120}
-        style={{
-          objectFit: "contain",
-          width: "130px",
-          height: "40px",
-          position: "relative",
-        }}
-      />
-    </Link>
-  </Box>
+                p={"0px 0px 0px 0px"}
+                borderRadius={"0 0 8px 8px"}
+                color={"#000"}
+                sx={{ flexShrink: 0 }}
+              >
+                <Link href={"/short-news"}>
+                  <Image
+                    src={ShortNewsIcon}
+                    alt="shorts-news-logo"
+                    width={100}
+                    style={{
+                      objectFit: "contain",
+                      width: "110px",
+                      height: "34px",
+                      position: "relative",
+                    }}
+                  />
+                </Link>
+              </Box>
               {token ? (
                 <Avatar
                   sx={{ textTransform: "uppercase", cursor: "pointer" }}
