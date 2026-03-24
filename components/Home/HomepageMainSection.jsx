@@ -44,7 +44,7 @@ const FirstCategory = dynamic(() => import("./FirstCategory"), {
   loading: () => <Box sx={{ height: "500px", width: "100%" }} />,
 });
 const SecondaryCategory = dynamic(() => import("./SecondaryCategory"), {
-  ssr: false,
+  ssr: true, // Switched to true since we now pass SSR data
   loading: () => <Box sx={{ height: "400px", width: "100%" }} />,
 });
 const MainAdSection = dynamic(() => import("./MainAdSection"), {
@@ -60,7 +60,7 @@ const ShortSection = dynamic(() => import("./ShortSection"), {
   loading: () => <Box sx={{ height: "350px", width: "100%" }} />,
 });
 const WebStories = dynamic(() => import("./WebStories"), {
-  ssr: false,
+  ssr: true, // Switched to true since we have webstoriesData from SSR
   loading: () => <Box sx={{ height: "250px", width: "100%" }} />,
 });
 const AdditionalSection = dynamic(() => import("./AdditionalSection"), {
@@ -91,6 +91,10 @@ function HomepageMainSection({
   // SSR article data — avoids client-side fetch waterfall for LCP images
   initialNewsData = [],
   initialTrendingData = [],
+  districtNewsData = [],
+  justBeforeNewsData = [],
+  bigStoriesNewsData = [],
+  worldNewsData = [],
 }) {
   const dispatch = useDispatch();
   const [liveData, setLiveData] = useState({});
@@ -441,7 +445,14 @@ function HomepageMainSection({
 
         {/*<----------------------- COLUMN FOUR SECTION START ----------------->*/}
         <Box my={1}>
-          <SecondaryCategory viewControl={viewControl} orderedMenu={orderedMenu} />
+          <SecondaryCategory 
+            viewControl={viewControl} 
+            orderedMenu={orderedMenu} 
+            initialDistrictData={districtNewsData}
+            initialJustBeforeData={justBeforeNewsData}
+            initialBigStoriesData={bigStoriesNewsData}
+            initialWorldData={worldNewsData}
+          />
         </Box>
         {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
 

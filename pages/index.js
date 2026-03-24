@@ -6,11 +6,14 @@ import {
   getAllPhotos,
   getBreakingNews,
   getControls,
+  getHomeBigStories,
+  getHomeDistrictNews,
   getHomeJustBefore,
   getHomeLatest,
   getHomeMenuApi,
   getHomeMenuApiList,
   getHomeTopSection,
+  getHomeWorld,
   getSeoList,
   getWebstoriesList,
 } from "@/commonComponents/WebApiFunction/ApiFunctions";
@@ -54,72 +57,74 @@ export async function getServerSideProps(context) {
     );
 
   try {
-    // Use Promise.all to fetch multiple data concurrently
+    // 1. Fetch menu order first to get the category IDs for secondary news sections
+    const menuOrderRes = await getHomeMenuApiList({
+      n_page: 1,
+      n_limit: 50,
+      c_search_term: "",
+      spl_category: "1",
+    });
+    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
+
+    // 2. Map fixed category positions (matching components\Home\SecondaryCategory.jsx logic)
+    const firstCatId = orderedMenu?.at(4)?.c_category_id;
+    const thirdCatId = orderedMenu?.at(6)?.c_category_id;
+    const fourthCatId = orderedMenu?.at(7)?.c_category_id;
+
+    // 3. Batch all remaining fetches concurrently
     const [
       menuRes,
-      menuOrderRes,
       controlRes,
       photosRes,
       shortsRes,
       breakingRes,
       seoRes,
-      liveEventRes,
+      justBeforeRes, // for SecondaryCategory col 2
       topNewsRes,
       trendingRes,
+      districtRes,   // for SecondaryCategory col 1
+      bigStoriesRes, // for SecondaryCategory col 3
+      worldRes       // for SecondaryCategory col 4
     ] = await Promise.all([
       getHomeMenuApi(),
-      getHomeMenuApiList({
-        n_page: 1,
-        n_limit: 50,
-        c_search_term: "",
-        spl_category: "1",
-      }),
       getControls(),
       getAllPhotos(),
       getWebstoriesList(),
       getBreakingNews(),
       getSeoList(),
       getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
-      // Pre-fetch above-the-fold article data server-side so the LCP image
-      // URL is present in the initial HTML — eliminates the 20+ s wait from
-      // useEffect → API → state → render that caused LCP = 29 s.
       getHomeTopSection({ n_page: 1, n_limit: 14, main_category_id: "cf336f838e81" }),
       getHomeLatest({ n_page: 1, n_limit: 6, trending_news: 1 }),
+      firstCatId ? getHomeDistrictNews({ n_page: 1, n_limit: 5, main_category_id: firstCatId }) : Promise.resolve(null),
+      thirdCatId ? getHomeBigStories({ n_page: 1, n_limit: 5, main_category_id: thirdCatId }) : Promise.resolve(null),
+      fourthCatId ? getHomeWorld({ n_page: 1, n_limit: 5, main_category_id: fourthCatId }) : Promise.resolve(null),
     ]);
+
     // Decrypt all responses where applicable
     const menuData = CryptoFetcher(menuRes?.payloadJson);
-    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
     const photosData = CryptoFetcher(photosRes?.payloadJson) || [];
     const webstoriesData = CryptoFetcher(shortsRes?.payloadJson) || [];
     const breakingData = breakingRes?.payloadJson || [];
 
     const controlData = CryptoFetcher(controlRes?.payloadJson);
-    const quickControl =
-      controlData?.[1]?.c_control_type?.toLowerCase() || "no";
+    const quickControl = controlData?.[1]?.c_control_type?.toLowerCase() || "no";
     const breakingControl = controlData?.[0]?.c_control_type?.toLowerCase() || "no";
     const viewControl = controlData?.[2]?.c_control_type?.toLowerCase() || "no";
 
-    // Live-event slider: pre-fetch server-side so the LCP image needs no JS
-    const liveEventNews = CryptoFetcher(liveEventRes?.payloadJson)?.docs || [];
-    const liveEventImages = liveEventNews
-      .map((item) => item.story_cover_image_url)
-      .filter(Boolean);
-    const liveEventLinks = liveEventNews
-      .map((item) => item.youtube_embed_id)
-      .filter(Boolean);
+    // Secondary categories data extraction (matching logic in SecondaryCategory.jsx)
+    const districtNewsData = CryptoFetcher(districtRes?.payloadJson)?.docs || [];
+    const justBeforeNewsData = CryptoFetcher(justBeforeRes?.payloadJson)?.docs || [];
+    const bigStoriesNewsData = CryptoFetcher(bigStoriesRes?.payloadJson)?.docs || [];
+    const worldNewsData = CryptoFetcher(worldRes?.payloadJson)?.docs || [];
 
-    // Above-the-fold article data — pre-fetched server-side so the LCP
-    // image URL is in the initial HTML and needs no client-side API round-trip.
+    // Above-the-fold article data
     const topNewsData = CryptoFetcher(topNewsRes?.payloadJson)?.docs || [];
     const trendingNewsData = CryptoFetcher(trendingRes?.payloadJson)?.docs || [];
 
-    // SEO data extraction
+    // SEO data
     const seoResponse = seoRes?.data?.payloadJson?.at(0) || [];
 
-    // Use the first article cover image as the LCP preload hint — this is the
-    // image the browser will paint first on the main content area.
-    const lcpHeroImage =
-      topNewsData?.[0]?.story_cover_image_url || liveEventImages[0] || null;
+    const lcpHeroImage = topNewsData?.[0]?.story_cover_image_url || null;
 
     return {
       props: {
@@ -133,11 +138,14 @@ export async function getServerSideProps(context) {
         quickControl,
         breakingControl,
         viewControl,
-        liveEventImages,
-        liveEventLinks,
         // SSR article data — eliminates client-side fetch waterfall for LCP images
         initialNewsData: topNewsData,
         initialTrendingData: trendingNewsData,
+        // Secondary news data
+        districtNewsData,
+        justBeforeNewsData,
+        bigStoriesNewsData,
+        worldNewsData,
         lcpHeroImage,
       },
     };
@@ -180,6 +188,10 @@ export default function Home({
   liveEventLinks,
   initialNewsData,
   initialTrendingData,
+  districtNewsData,
+  justBeforeNewsData,
+  bigStoriesNewsData,
+  worldNewsData,
   lcpHeroImage,
 }) {
   const pathname = usePathname(); 
@@ -311,6 +323,10 @@ export default function Home({
           liveEventLinks={liveEventLinks}
           initialNewsData={initialNewsData}
           initialTrendingData={initialTrendingData}
+          districtNewsData={districtNewsData}
+          justBeforeNewsData={justBeforeNewsData}
+          bigStoriesNewsData={bigStoriesNewsData}
+          worldNewsData={worldNewsData}
         />
         </div>
       )}

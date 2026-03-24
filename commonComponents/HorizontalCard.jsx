@@ -280,11 +280,11 @@ function HorizontalCard({ list, type ,viewControl }) {
               <Image
                 src={list?.story_cover_image_url}
                 alt={list?.news_image_caption || "news image"}
-                width={1200}
-                height={400}
+                width={300}
+                height={200}
                 loading="lazy"
                 quality={75}
-                sizes="(max-width: 768px) 100vw, 300px"
+                sizes="(max-width: 768px) 30vw, 300px"
                 style={{
                   width: "100%",
                   height: "100%",

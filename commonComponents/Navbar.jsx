@@ -73,7 +73,11 @@ function Navbar(props) {
     }
   };
 
-const dateString = new Date().toLocaleString();
+  const [dateString, setDateString] = React.useState("");
+
+  React.useEffect(() => {
+    setDateString(new Date().toLocaleString());
+  }, []);
 
   // compute spacer to prevent page content from sliding under the fixed/sticky headers
   const darkBarRef = useRef(null);

@@ -364,7 +364,7 @@ function Footer() {
                 "Privacy Policy",
                 "Grievance Officer",
               ].map((list, index) => (
-                <Link href={getLink(list)}>
+                <Link key={list} href={getLink(list)}>
                   <Typography
                     fontFamily={"var(--anek-font)"}
                     borderRight={"4px solid #666666"}

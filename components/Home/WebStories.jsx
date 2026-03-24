@@ -62,7 +62,7 @@ function WebStories({ webstoriesData }) {
           cursor: "pointer",
         }}
       >
-        <Image fetchPriority="high" rel="preload" src={LeftArrow} alt="newstamil-left-aero" width={32} height={56} />
+        <Image src={LeftArrow} alt="newstamil-left-aero" width={32} height={56} />
       </button>
     );
   };
@@ -82,7 +82,7 @@ function WebStories({ webstoriesData }) {
           cursor: "pointer",
         }}
       >
-        <Image fetchPriority="high" rel="preload" src={RightArrow} alt="newstamil-right-aero" width={32} height={56} />
+        <Image src={RightArrow} alt="newstamil-right-aero" width={32} height={56} />
       </button>
     );
   };
@@ -134,12 +134,12 @@ function WebStories({ webstoriesData }) {
                         }}
                         target="_blank"
                       >
-                        <Image fetchPriority="high" rel="preload"
+                        <Image
                           src={list?.c_web_story_cover_img ?? ""}
                           alt="newstamil-cover-image"
-                          width={100}
-                          unoptimized
-                          height={100}
+                          width={300}
+                          height={400}
+                          loading="lazy"
                           style={{
                             width: "100%",
                             height: "400px",

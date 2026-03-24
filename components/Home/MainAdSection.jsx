@@ -197,9 +197,8 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                 >
                   <Box borderRadius={"6px"} overflow={"hidden"} height={{ xs: 220, md: 320 }}>
                     <Image
-                      fetchPriority="high"
-                      rel="preload"
-                      src={newsList?.at(0)?.story_cover_image_url}
+                      priority
+                      src={newsList?.at(0)?.story_cover_image_url || "/assets/images/default-news.png"}
                       alt="newstamil-cover-image"
                       width={1200}
                       height={600}
@@ -297,9 +296,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                           <Link href={`/article/${list?.story_desk_created_name || list?._id || "#"}`}>
                             <Box height={76} borderRadius={"6px"} overflow={"hidden"}>
                               <Image
-                                fetchPriority="high"
-                                rel="preload"
-                                src={list?.story_cover_image_url}
+                                src={list?.story_cover_image_url || "/assets/images/default-news.png"}
                                 alt="newstamil-cover-image"
                                 width={240}
                                 height={160}

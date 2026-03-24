@@ -104,9 +104,9 @@ useEffect(() => {
                src={images[current].image}
                alt={images[current].alt || 'Live event'}
                fill
-               priority
-               quality={75}
-               sizes="100vw"
+               loading="lazy"
+               quality={60}
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 30vw, 400px"
                style={{ objectFit: 'cover', borderRadius: '10px', display: 'block' }}
              />
            </Link>

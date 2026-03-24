@@ -60,8 +60,8 @@ function BigCard({ list, index, type, page, viewControl }) {
           <Image
             src={list?.story_cover_image_url}
             alt={list?.news_image_caption || "news image"}
-            width={1200}
-            height={type === "mainAd" ? 419 : 800}
+            width={600}
+            height={type === "mainAd" ? 419 : 400}
             loading="lazy"
             quality={75}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"

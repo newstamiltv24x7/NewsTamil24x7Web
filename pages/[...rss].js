@@ -76,10 +76,15 @@ const secondValue = rss?.[1];
       (secondValue) ?
         `${baseURL}/api/v1/web/rss_xml/list?sub=${secondValue}` : 
         `${baseURL}/api/v1/web/rss_xml/list?url=${fisrtValue}`
-      
-      
     );
-    const items = response.data?.payloadJson;
+    // The API might be returning the raw payload when encrypted response is disabled for RSS
+    // or it might be a nested object. Let's ensure we handle the structure.
+    let items = response.data?.payloadJson;
+    
+    // If payloadJson is missing, it might be that the API returned the array directly
+    if (!items && Array.isArray(response.data)) {
+        items = response.data;
+    }
 
     if (items && items.length > 0) {
       items.forEach((list) => {

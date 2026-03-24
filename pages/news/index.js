@@ -1,136 +1,16 @@
-"use client";
-
-import {
-  getAllPhotos,
-  getBreakingNews,
-  getControls,
-  getHomeMenuApi,
-  getHomeMenuApiList,
-  getHomeTopSection,
-  getSeoList,
-  getWebstoriesList,
-} from "@/commonComponents/WebApiFunction/ApiFunctions";
-import HomepageMainSection from "@/components/Home/HomepageMainSection";
-import MobileView from "@/components/MobileView/MobileView";
-import { CryptoFetcher } from "@/utils/libs";
-import axios from "axios";
-import Head from "next/head";
-import { usePathname } from "next/navigation";
-
-export async function getServerSideProps(context) {
-  const UA = context.req.headers["user-agent"];
-  const isMobile =
-    /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
-      UA
-    );
-
-  // Allow CDN/edge to cache this listing page for 2 min; serve stale while
-  // revalidating in the background for up to 5 min.
-  context.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=120, stale-while-revalidate=300"
-  );
-
-  try {
-    // Use Promise.all to fetch multiple data concurrently
-    const [
-      menuRes,
-      menuOrderRes,
-      // newsRes,
-      controlRes,
-      // trendingRes,
-      photosRes,
-      shortsRes,
-      breakingRes,
-      seoRes,
-    ] = await Promise.all([
-      getHomeMenuApi(),
-      getHomeMenuApiList({
-        n_page: 1,
-        n_limit: 50,
-        c_search_term: "",
-        spl_category: "1",
-      }),
-      // getHomeTopSection({
-      //   n_page: 1,
-      //   n_limit: 20,
-      //   main_category_id: "cf336f838e81",
-      // }),
-      getControls(),
-      getAllPhotos(),
-      getWebstoriesList(),
-      getBreakingNews(),
-      getSeoList(),
-    ]);
-
-    // Decrypt all responses where applicable
-    const menuData = CryptoFetcher(menuRes?.payloadJson);
-    const orderedMenu =
-      CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
-    // const newsData = CryptoFetcher(newsRes?.payloadJson) || [];
-    // const trendingData = CryptoFetcher(trendingRes?.payloadJson) || [];
-    const photosData = CryptoFetcher(photosRes?.payloadJson) || [];
-    const webstoriesData = CryptoFetcher(shortsRes?.payloadJson) || [];
-    // const breakingData = CryptoFetcher(breakingRes?.payloadJson) || [];
-    const breakingData = breakingRes?.payloadJson || [];
-
-    const controlData = CryptoFetcher(controlRes?.payloadJson);
-    const quickControl =
-      controlData?.[1]?.c_control_type?.toLowerCase() || "no";
-    const breakingControl = controlData?.[0]?.c_control_type?.toLowerCase() || "no";
-    const viewControl = controlData?.[2]?.c_control_type?.toLowerCase() || "no";
-
-    // SEO data extraction
-    const seoResponse = seoRes?.data?.payloadJson?.at(0) || [];
-
-    return {
-      props: {
-        menuData: menuData || [],
-        // trendingData,
-        photosData,
-        webstoriesData,
-        breakingData,
-        seoResponse,
-        orderedMenu,
-        deviceType: isMobile ? "mobile" : "desktop",
-        quickControl,
-        breakingControl,
-        viewControl
-      },
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        menuData: [],
-        // trendingData: [],
-        photosData: [],
-        webstoriesData: [],
-        seoResponse: [],
-        orderedMenu: [],
-        breakingData: [],
-        deviceType: "desktop",
-        quickControl: "no",
-        breakingControl: "no",
-        viewControl: "no",
-        
-      },
-    };
-  }
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/',
+      permanent: true,
+    },
+  };
 }
 
-export default function Home({
-  menuData,
-  photosData,
-  webstoriesData,
-  seoResponse,
-  orderedMenu,
-  breakingData,
-  deviceType,
-  quickControl,
-  breakingControl,
-  viewControl
-}) {
+export default function NewsRedirect() {
+  return null;
+}
+
   const pathname = usePathname(); 
 
   const jsonArticleLd = {
