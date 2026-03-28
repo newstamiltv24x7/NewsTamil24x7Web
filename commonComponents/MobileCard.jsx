@@ -26,7 +26,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
             overflow={"hidden"}
             sx={{ position: "relative", width: "100%", aspectRatio: "16/9" }}
           >
-            <Link href={`/article/${list?.story_desk_created_name}`}>
+            <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
               <div
                 style={{
                   position: "relative",
@@ -53,7 +53,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
         </Grid>
         <Grid item xs={7}>
           <Box pr={1}>
-            <Link href={`/article/${list?.story_desk_created_name}`}>
+            <Link href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}>
               <Typography
                 fontFamily={"var(--anek-font)"}
                 className="textWrapper"

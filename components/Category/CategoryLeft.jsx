@@ -46,7 +46,7 @@ function CategoryLeft({
       setShareOpen(true);
     }
   };
-
+console.log("hi",newsList?.at(0));
   return (
     <Box className="border-class-cat" position={"relative"}>
       {categoryName?.toLowerCase() !== "cinema" && (
@@ -59,7 +59,7 @@ function CategoryLeft({
               pt={1}
             >
               <Link
-                href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
               >
                 {loader ? (
                   <Skeleton variant="rectangular" width={"100%"} height={344} />
@@ -144,7 +144,7 @@ function CategoryLeft({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {loader ? (
                     <Skeleton
@@ -478,7 +478,7 @@ function CategoryLeft({
                 sx={{ cursor: "pointer" }}
               >
                 <Link
-                  href={`/article/${newsList?.at(0)?.story_desk_created_name}`}
+                  href={`/article/${newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || '#'}`}
                 >
                   {newsList?.at(0)?.story_sub_title_name}
                 </Link>

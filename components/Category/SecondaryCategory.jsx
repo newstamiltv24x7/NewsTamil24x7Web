@@ -240,7 +240,7 @@ function SecondaryCategory({
               >
                 <Link
                   href={`/article/${
-                    mainNewsArr?.at(0)?.story_desk_created_name
+                    mainNewsArr?.at(0)?.story_desk_created_name || mainNewsArr?.at(0)?._id || '#'
                   }`}
                 >
                   <Image
@@ -270,7 +270,7 @@ function SecondaryCategory({
                 >
                   <Link
                     href={`/article/${
-                      mainNewsArr?.at(0)?.story_desk_created_name
+                      mainNewsArr?.at(0)?.story_desk_created_name || mainNewsArr?.at(0)?._id || '#'
                     }`}
                   >
                     <Typography

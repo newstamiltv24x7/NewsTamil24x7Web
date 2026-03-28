@@ -364,7 +364,7 @@ function MobileNav(props) {
                       <Grid container spacing={1}>
                         <Grid item xs={3}>
                           <Link
-                            href={`/article/${list?.story_desk_created_name}`}
+                            href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}
                           >
                             <Image
                             fetchPriority="high" 
@@ -389,7 +389,7 @@ function MobileNav(props) {
                           sx={{ placeItems: "center" }}
                         >
                           <Link
-                            href={`/article/${list?.story_desk_created_name}`}
+                            href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}
                           >
                             <Typography
                               fontSize={14}
