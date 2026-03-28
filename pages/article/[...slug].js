@@ -153,8 +153,17 @@ function Page({
         url: "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png"
       }
     },
-    datePublished: `${seoData?.createdAt}`,
-    dateModified: `${seoData?.updatedAt}`,
+    datePublished: seoData?.createdAt
+      ? new Date(seoData.createdAt).toISOString()
+      : seoData?.createdAt,
+    dateModified: seoData?.updatedAt
+      ? new Date(seoData.updatedAt).toISOString()
+      : seoData?.updatedAt,
+    url: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`,
+    },
   }
 
   const jsonBreadcrumbLd = {
@@ -259,7 +268,7 @@ useEffect(() => {
         <meta property="og:site_name" content="news Tamil 24x7" />
         <meta name="description" content={seoData?.story_sub_title_name} />
         <meta name="keywords" content={seoData?.seo_tag} />
-        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale" content="ta_IN" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={seoData?.story_title_name} />
         <meta
@@ -280,6 +289,11 @@ useEffect(() => {
         />
         <meta name="twitter:image" content={seoData?.story_cover_image_url} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`} />
+        <link
+          rel="alternate"
+          hreflang="ta"
+          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`}
+        />
         {/* <link rel="canonical" href={seoData?.redirect_url} /> */}
         <link rel="icon" href="/favicon.ico" />
 
