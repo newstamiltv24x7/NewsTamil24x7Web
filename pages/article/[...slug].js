@@ -132,9 +132,14 @@ function Page({
 
   const jsonArticleLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "NewsArticle",
     headline: `${seoData?.story_title_name}`,
-    image: `${seoData?.story_cover_image_url}`,  
+    image: {
+      "@type": "ImageObject",
+      url: `${seoData?.story_cover_image_url}`,
+      width: "1200",
+      height: "675"
+    },
     author: {
       "@type": "Person",
       name: "NT WEB",
