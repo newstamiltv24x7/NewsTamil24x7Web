@@ -83,8 +83,8 @@ function MobileView({
         newsLoading={newsLoading}
         viewControl={viewControl}
       />
-      <MobileHomeCategory viewControl={viewControl} />
       <ManualImageAds device="mobile" title="Manual Mobile Ads" />
+      <MobileHomeCategory viewControl={viewControl} />      
       {/* <MobileWebStories webstoriesData={webstoriesData} /> */}
       <MobileShorts />
       <MobileVideos />

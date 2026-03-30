@@ -142,8 +142,8 @@ function Page({
     },
     author: {
       "@type": "Person",
-      name: "NT WEB",
-      url:"https://www.newstamil.tv/author/newstamil-web"
+      name: singleNews?.at(0)?.c_createdName || "NT WEB",
+      url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`,
     },  
     publisher: {
       "@type": "Organization",
@@ -222,9 +222,9 @@ function Page({
     },
     author:[{
       "@type":"Person",
-      givenName:"NT WEB",
-      name:"NT WEB",
-      url:"https://www.newstamil.tv/author/newstamil-web"
+      givenName: singleNews?.at(0)?.c_createdName || "NT WEB",
+      name: singleNews?.at(0)?.c_createdName || "NT WEB",
+      url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`
       }],
     keywords: `${seoData?.seo_keywords}`,
     thumbnailUrl: `${seoData?.story_cover_image_url}`,
@@ -286,8 +286,8 @@ useEffect(() => {
         />
         <meta property="og:image" content={seoData?.story_cover_image_url} />
         <meta property="og:url" content={seoData?.redirect_url} />
-        <meta property="og:image:width" content="750" />
-        <meta property="og:image:height" content="430" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="675" />
         <meta name="twitter:creator" content="@newstamil" />
         <meta name="twitter:site" content="@newstamil" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -301,6 +301,11 @@ useEffect(() => {
         <link
           rel="alternate"
           hreflang="ta"
+          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`}
+        />
+        <link
+          rel="alternate"
+          hreflang="ta-IN"
           href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`}
         />
         {/* <link rel="canonical" href={seoData?.redirect_url} /> */}
