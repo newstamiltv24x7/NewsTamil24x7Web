@@ -539,13 +539,14 @@ function ArticlePageContainer({
                 </Typography>
                 <Typography
                   fontFamily={"var(--arial-font)"}
-                  className=""
+                  className={""}
                   fontSize={12}
                   lineHeight={1.3}
-                  component={"p"}
+                  component={"time"}
+                  dateTime={NEWSDATA?.at(0)?.updatedAt || NEWSDATA?.at(0)?.createdAt}
                   fontWeight={400}
                 >
-                  Posted on: {convertTime(NEWSDATA?.at(0)?.updatedAt)}
+                  {convertTime(NEWSDATA?.at(0)?.updatedAt || NEWSDATA?.at(0)?.createdAt)}
                 </Typography>
                 {viewControl === "yes" && 
                 <Box

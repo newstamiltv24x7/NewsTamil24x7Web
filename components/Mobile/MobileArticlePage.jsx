@@ -259,14 +259,15 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
           >
             <Typography
               fontFamily={"var(--arial-font)"}
-              className=""
+              className={""}
               fontSize={13}
               lineHeight={1.3}
-              component={"p"}
+              component={"time"}
+              dateTime={singleNews?.at(0)?.updatedAt || singleNews?.at(0)?.createdAt}
               fontWeight={400}
               sx={{ opacity: 1 }}
             >
-              Posted on: {convertTime(singleNews?.at(0)?.updatedAt)}
+              {convertTime(singleNews?.at(0)?.updatedAt || singleNews?.at(0)?.createdAt)}
             </Typography>
             {viewControl === "yes" && 
             <Box
