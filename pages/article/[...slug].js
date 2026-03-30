@@ -247,6 +247,15 @@ function Page({
     "@context": "https://schema.org",
   };
 
+    const mergedJsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [jsonArticleLd, jsonBreadcrumbLd, jsonImageLd].map((obj) => {
+        const copy = { ...obj };
+        delete copy["@context"];
+        return copy;
+      }),
+    };
+
 
 useEffect(() => {
   if(seoData?.length === 0){
@@ -299,15 +308,7 @@ useEffect(() => {
 
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonArticleLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonBreadcrumbLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonImageLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(mergedJsonLd) }}
         />
       </Head>
 

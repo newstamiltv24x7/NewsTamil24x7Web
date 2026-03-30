@@ -253,6 +253,15 @@ export default function Home({
     ]
 }
 
+  const mergedJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [jsonArticleLd, jsonWebsiteLd, jsonBreadcrumbLd].map((obj) => {
+      const copy = { ...obj };
+      delete copy["@context"];
+      return copy;
+    }),
+  };
+
   // NOTE: isLoading+setTimeout removed — it caused CLS=1.0 by hiding
   // SSR content for 300ms then reflowing the full layout on every page load.
   // Data is already available from getServerSideProps, so we render directly.
@@ -284,15 +293,7 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonArticleLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonWebsiteLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonBreadcrumbLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(mergedJsonLd) }}
         />
       </Head>
 
