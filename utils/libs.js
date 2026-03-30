@@ -1,3 +1,4 @@
+import React from "react";
 import dayjs from "dayjs";
 const CryptoJS = require("crypto-js");
 
@@ -51,21 +52,27 @@ export function getHours(value) {
   const timeDifferenceHours = Math.floor(timeDifferenceMinutes / 60);
   const timeDifferenceDays = Math.floor(timeDifferenceHours / 24);
 
+  let computedString = "";
   if (timeDifferenceDays >= 1) {
-    return `${timeDifferenceDays} ${
+    computedString = `${timeDifferenceDays} ${
       timeDifferenceDays < 2 ? "day ago" : "days ago"
     }`;
-    // return dayjs(value).format("MMM DD, YYYY");
   } else if (timeDifferenceHours >= 1) {
     const remainingMinutes = timeDifferenceMinutes % 60;
-    return `${timeDifferenceHours} ${
+    computedString = `${timeDifferenceHours} ${
       timeDifferenceHours < 2 ? "hr" : "hrs"
     } ${remainingMinutes} ${remainingMinutes < 2 ? "min ago" : "mins ago"}`;
   } else {
-    return `${timeDifferenceMinutes} ${
+    computedString = `${timeDifferenceMinutes} ${
       timeDifferenceMinutes < 2 ? "min ago" : "mins ago"
     }`;
   }
+
+  return React.createElement(
+    "span",
+    { suppressHydrationWarning: true, "data-time": value },
+    computedString
+  );
 }
 
 export function stringToColor(string) {

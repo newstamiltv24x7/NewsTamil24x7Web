@@ -166,6 +166,12 @@ function Page({
     },
   }
 
+  const stripHtml = (html) =>
+    html ? String(html).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() : "";
+
+  // include a plain-text articleBody stripped of any HTML for schema
+  jsonArticleLd.articleBody = stripHtml(seoData?.story_details);
+
   const jsonBreadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -179,72 +185,15 @@ function Page({
     ],
   };
 
+  // keep a simple ImageObject for the cover image to avoid duplicating Article schema
   const jsonImageLd = {
-    headline: `${seoData?.story_title_name}`,
-    image: {
-      "@type": "ImageObject",
-      url: `${seoData?.story_cover_image_url}`,
-      width: "1200",
-      height: "675",
-    },
-    url: `${seoData?.redirect_url}`,
-    datePublished: `${seoData?.createdAt}`,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${seoData?.redirect_url}`,
-    },
-    publisher: {
-      "@type": "Organization",
-      "@context": "https://schema.org",
-      name: "News Tamil 24x7",
-      url: "https://www.newstamil.tv",
-      logo: {
-        "@context": "https://schema.org",
-        "@type": "ImageObject",
-        author: "News Tamil 24x7",
-        contentUrl:
-          "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
-        url: "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
-        name: "logo",
-        width: "",
-        height: "",
-      },
-      sameAs: [
-        "https://www.youtube.com/@NewsTamil24X7TV",
-        "https://www.facebook.com/newstamiltv24x7",
-        "https://x.com/newstamiltv24x7",
-        "https://www.linkedin.com/in/newstamil24x7/",
-        "https://t.me/newstamiltv24x7",
-        "https://news.google.com/publications/CAAqBwgKMK7avwswu_XWAw?hl=ta&gl=IN&ceid=IN%3Ata",
-        "https://m.dailyhunt.in/news/india/tamil/newstamil+24x7-epaper-newstamil/tamilnadu-updates-tamilnadu?mode=pwa",
-      ],
-      id: "https://www.newstamil.tv",
-    },
-    author:[{
-      "@type":"Person",
-      givenName: singleNews?.at(0)?.c_createdName || "NT WEB",
-      name: singleNews?.at(0)?.c_createdName || "NT WEB",
-      url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`
-      }],
-    keywords: `${seoData?.seo_keywords}`,
-    thumbnailUrl: `${seoData?.story_cover_image_url}`,
-    articleBody: `${seoData?.story_details}`,
-    dateCreated: `${seoData?.createdAt}`,
-    dateModified: `${seoData?.updatedAt}`,
-    name: `${seoData?.story_sub_title_name}`,
-    isPartOf: {
-      "@type": "WebPage",
-      url: `${seoData?.redirect_url}`,
-      primaryImageOfPage: {
-        "@type": "ImageObject",
-        url: `${seoData?.story_cover_image_url}`,
-        width: "1200",
-        height: "675",
-      },
-    },
-    articleSection: `${seoData?.story_subject_name}`,
-    "@type": "Article",
     "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: `${seoData?.story_cover_image_url}`,
+    url: `${seoData?.story_cover_image_url}`,
+    width: "1200",
+    height: "675",
+    caption: `${seoData?.story_title_name}`,
   };
 
     const mergedJsonLd = {
