@@ -135,30 +135,6 @@ function MainAdSection({viewControl, orderedMenu = []}) {
         gap={2}
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
       >
-        <Box
-          width={320}
-          minWidth={320}
-          height={480}
-          overflow={"hidden"}
-          display={{ xs: "none", sm: "none", md: "block" }}
-        >
-         <img
-                    src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/320_x_480_inaej5.jpg"
-                    width="320"
-                    height="480"
-                    alt="Advertisement"
-                    loading="lazy"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      height: "auto",
-                    }}
-                    onError={(event) => {
-                      const adCard = event.currentTarget.closest("a");
-                      if (adCard) adCard.style.display = "none";
-                    }}
-                  />
-        </Box>
         <Box flex={1} minWidth={0}>
           <Box
             pt={1}
@@ -177,7 +153,8 @@ function MainAdSection({viewControl, orderedMenu = []}) {
               minHeight={0}
               display={"grid"}
               gridTemplateColumns={{ xs: "1fr", sm: "1fr", md: "1.15fr 1fr" }}
-              gap={2}
+              gap={1}
+              alignItems={"stretch"}
             >
               <Card
                 sx={{
@@ -211,7 +188,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                     />
                   </Box>
                 </Link>
-                <CardContent sx={{ px: 1.2, py: 1, "&.MuiCardContent-root:last-child": { pb: 1.2 } }}>
+                <CardContent sx={{ px: 0.8, py: 1, "&.MuiCardContent-root:last-child": { pb: 1.2 } }}>
                   <Link
                     href={`/article/${
                       newsList?.at(0)?.story_desk_created_name || newsList?.at(0)?._id || "#"
@@ -346,6 +323,30 @@ function MainAdSection({viewControl, orderedMenu = []}) {
               </Box>
             </Box>
           </Box>
+        </Box>
+        <Box
+          width={320}
+          minWidth={320}
+          height={480}
+          overflow={"hidden"}
+          display={{ xs: "none", sm: "none", md: "block" }}
+        >
+          <img
+            src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/320_x_480_inaej5.jpg"
+            width="320"
+            height="480"
+            alt="Advertisement"
+            loading="lazy"
+            style={{
+              display: "block",
+              width: "100%",
+              height: "auto",
+            }}
+            onError={(event) => {
+              const adCard = event.currentTarget.closest("a");
+              if (adCard) adCard.style.display = "none";
+            }}
+          />
         </Box>
       </Box>
       <Box mt={6}>

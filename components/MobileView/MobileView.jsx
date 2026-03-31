@@ -12,6 +12,7 @@ import {
 import { CryptoFetcher } from "@/utils/libs";
 import MobileBottomCategory from "../Mobile/MobileBottomCategory";
 import ManualImageAds from "../Ads/ManualImageAds";
+import TopMobileBanner from "../Ads/TopMobileBanner";
 const MobileHomeCategory = dynamic(() =>
   import("../Mobile/MobileHomeCategory")
 );
@@ -78,6 +79,7 @@ function MobileView({
 
   return (
     <MobilepageLayout menuData={menuData} trendingData={trendingData} breakingControl={breakingControl} quickControl={quickControl}>
+      <TopMobileBanner href="https://example.com" />
       <MobileHomePage
         newsData={!newsLoading ? newsData : []}
         newsLoading={newsLoading}

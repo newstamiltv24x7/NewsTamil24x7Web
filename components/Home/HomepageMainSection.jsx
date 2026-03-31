@@ -297,6 +297,9 @@ function HomepageMainSection({
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
+          maxWidth: "1440px",
+          margin: "0 auto",
+          padding: "0 16px",
           paddingBottom:"5px"
         }}
       >

@@ -81,6 +81,7 @@ function Navbar(props) {
 
   // compute spacer to prevent page content from sliding under the fixed/sticky headers
   const darkBarRef = useRef(null);
+  const mobileTopRef = useRef(null);
   const navBarRef = useRef(null);
   const [spacerHeight, setSpacerHeight] = React.useState(0);
 
@@ -92,17 +93,11 @@ function Navbar(props) {
     // on pages without a breaking‑news banner.  Using the element heights
     // directly keeps the spacer just as tall as the two bars themselves.
     const compute = () => {
-      const navEl = navBarRef?.current;
-      if (navEl) {
-        const navH = navEl.offsetHeight ?? 64;
-        const darkH = darkBarRef?.current?.offsetHeight ?? 0;
-        setSpacerHeight(navH + darkH);
-        return;
-      }
-      // fallback to measured stacked heights if nav element isn't available
-      const topH = darkBarRef?.current?.offsetHeight ?? 0;
-      const navH = navBarRef?.current?.offsetHeight ?? 64;
-      setSpacerHeight(topH + navH);
+      const navH = navBarRef?.current?.offsetHeight ?? 0;
+      const darkH = darkBarRef?.current?.offsetHeight ?? 0;
+      const mobileTopH = mobileTopRef?.current?.offsetHeight ?? 0;
+      // sum heights of all visible header bars; this keeps the spacer in sync
+      setSpacerHeight(navH + darkH + mobileTopH);
     };
     compute();
     // Recalculate on resize in case of responsive changes
@@ -178,6 +173,7 @@ function Navbar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
+        ref={mobileTopRef}
         data-dark-bar="true"
         sx={{
           display: { xs: "block", md: "none", sm: "block" },
@@ -649,13 +645,13 @@ function Navbar(props) {
         display={{ xs: "block", sm: "block", md: "none" }}
       >
         <Box
-          display={"flex"}
-          position={"relative"}
-          top={90}
-          width={"100vw"}
-          whiteSpace={"nowrap"}
-          overflow={"auto hidden"}
-        >
+            display={"flex"}
+            position={"relative"}
+            top={spacerHeight}
+            width={"100vw"}
+            whiteSpace={"nowrap"}
+            overflow={"auto hidden"}
+          >
           {menuData?.slice(0, 11)?.map((item) => (
             <Link
               href={getNavLink(item?.c_category_slug_english_name)}
@@ -827,7 +823,7 @@ function Navbar(props) {
         <Box
           sx={{
             height: `${spacerHeight}px`,
-            display: { xs: "none", sm: "block", md: "block" },
+            display: { xs: "block", sm: "block", md: "block" },
           }}
         />
       )}
