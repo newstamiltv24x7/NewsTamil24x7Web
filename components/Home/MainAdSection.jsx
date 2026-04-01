@@ -129,7 +129,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
 
   return (
     <Box>
-      <Box
+      <Box 
         display={"flex"}
         alignItems={"flex-start"}
         gap={2}
@@ -138,7 +138,8 @@ function MainAdSection({viewControl, orderedMenu = []}) {
         <Box flex={1} minWidth={0}>
           <Box
             pt={1}
-            height={{ xs: "auto", sm: "auto", md: 480 }}
+            paddingRight={3}
+            height={{ xs: "auto", sm: "auto", md: 450 }}
             display={"flex"}
             flexDirection={"column"}
           >
@@ -152,7 +153,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
               flex={1}
               minHeight={0}
               display={"grid"}
-              gridTemplateColumns={{ xs: "1fr", sm: "1fr", md: "1.15fr 1fr" }}
+              gridTemplateColumns={{ xs: "1fr", sm: "1fr", md: "0.9fr 1.1fr" }}
               gap={1}
               alignItems={"stretch"}
             >
@@ -328,6 +329,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
           width={320}
           minWidth={320}
           height={480}
+          paddingLeft={1}
           overflow={"hidden"}
           display={{ xs: "none", sm: "none", md: "block" }}
         >
