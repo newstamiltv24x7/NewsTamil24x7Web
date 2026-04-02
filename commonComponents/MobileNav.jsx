@@ -292,6 +292,62 @@ function MobileNav(props) {
             )}
           </React.Fragment>
         ))}
+
+        <Link href="/about-us" passHref>
+          <Button
+            sx={{
+              color: mainPath === "about-us" ? "#ff992c" : "#fff",
+              fontFamily: "var(--anek-font)",
+              fontSize: "15px",
+              fontWeight: 500,
+              transition: "all 200ms ease-in-out",
+              paddingBottom: 0,
+              flex: "0 0 auto",
+              whiteSpace: "nowrap",
+              textDecoration: mainPath === "about-us" ? "underline" : "none",
+              textDecorationColor: mainPath === "about-us" ? "#ff992c" : "none",
+              textUnderlineOffset: mainPath === "about-us" ? "12px" : "",
+              textDecorationThickness: mainPath === "about-us" ? "3px" : "",
+              "&:hover": {
+                color: "#fb6002",
+                textDecoration: "underline",
+                textDecorationColor: "#fb6002",
+                textUnderlineOffset: "12px",
+                textDecorationThickness: "3px",
+              },
+            }}
+          >
+            About Us
+          </Button>
+        </Link>
+
+        <Link href="/contact" passHref>
+          <Button
+            sx={{
+              color: mainPath === "contact" ? "#ff992c" : "#fff",
+              fontFamily: "var(--anek-font)",
+              fontSize: "15px",
+              fontWeight: 500,
+              transition: "all 200ms ease-in-out",
+              paddingBottom: 0,
+              flex: "0 0 auto",
+              whiteSpace: "nowrap",
+              textDecoration: mainPath === "contact" ? "underline" : "none",
+              textDecorationColor: mainPath === "contact" ? "#ff992c" : "none",
+              textUnderlineOffset: mainPath === "contact" ? "12px" : "",
+              textDecorationThickness: mainPath === "contact" ? "3px" : "",
+              "&:hover": {
+                color: "#fb6002",
+                textDecoration: "underline",
+                textDecorationColor: "#fb6002",
+                textUnderlineOffset: "12px",
+                textDecorationThickness: "3px",
+              },
+            }}
+          >
+            Contact
+          </Button>
+        </Link>
       </Box>
         <Menu
           anchorEl={anchorEl} // Attach menu to the button

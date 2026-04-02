@@ -107,6 +107,32 @@ function MobileDrawer({ menuData, close }) {
                 </Link>
               </ListItem>
             ))}
+          <ListItem
+            sx={{
+              fontFamily: "var(--anek-font)",
+              fontSize: 16,
+              pl: 0,
+              fontWeight: 300,
+              borderBottom: "1px solid #c1c1c1a1",
+            }}
+          >
+            <Link href="/about-us" onClick={close}>
+              About Us
+            </Link>
+          </ListItem>
+          <ListItem
+            sx={{
+              fontFamily: "var(--anek-font)",
+              fontSize: 16,
+              pl: 0,
+              fontWeight: 300,
+              borderBottom: "1px solid #c1c1c1a1",
+            }}
+          >
+            <Link href="/contact" onClick={close}>
+              Contact
+            </Link>
+          </ListItem>
         </List>
       </Box>
     </div>

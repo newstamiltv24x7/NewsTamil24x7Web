@@ -401,6 +401,62 @@ function Navbar(props) {
                 >
                   <Image src={MenuMore} alt="more" width={24} height={24} />
                 </Box>
+
+                <Link href="/about-us" style={{ whiteSpace: "nowrap" }} onMouseEnter={() => { setOpen(false); setOpen2(false); }}>
+                  <Button
+                    sx={{
+                      fontFamily: "var(--anek-font)",
+                      transition: "all 200ms ease-in-out",
+                      "&:hover": {
+                        color: "#572300ff",
+                        textDecoration: "underline",
+                        textDecorationColor: "#000000ff",
+                        textUnderlineOffset: "12px",
+                        textDecorationThickness: "3px",
+                        bgcolor: "rgba(249, 182, 144, 0.08)",
+                      },
+                      fontSize: "calc(12px + 0.2vw)",
+                      px: { sm: 0.5, md: 1 },
+                      minWidth: "auto",
+                      fontWeight: 600,
+                      color: mainPath === "about-us" ? "#572300ff" : "#ebebeb",
+                      textDecoration: mainPath === "about-us" ? "underline" : "none",
+                      textDecorationColor: mainPath === "about-us" ? "#ff992c" : "none",
+                      textUnderlineOffset: mainPath === "about-us" ? "12px" : "",
+                      textDecorationThickness: mainPath === "about-us" ? "3px" : "",
+                    }}
+                  >
+                    About Us
+                  </Button>
+                </Link>
+
+                <Link href="/contact" style={{ whiteSpace: "nowrap" }} onMouseEnter={() => { setOpen(false); setOpen2(false); }}>
+                  <Button
+                    sx={{
+                      fontFamily: "var(--anek-font)",
+                      transition: "all 200ms ease-in-out",
+                      "&:hover": {
+                        color: "#572300ff",
+                        textDecoration: "underline",
+                        textDecorationColor: "#000000ff",
+                        textUnderlineOffset: "12px",
+                        textDecorationThickness: "3px",
+                        bgcolor: "rgba(249, 182, 144, 0.08)",
+                      },
+                      fontSize: "calc(12px + 0.2vw)",
+                      px: { sm: 0.5, md: 1 },
+                      minWidth: "auto",
+                      fontWeight: 600,
+                      color: mainPath === "contact" ? "#572300ff" : "#ebebeb",
+                      textDecoration: mainPath === "contact" ? "underline" : "none",
+                      textDecorationColor: mainPath === "contact" ? "#ff992c" : "none",
+                      textUnderlineOffset: mainPath === "contact" ? "12px" : "",
+                      textDecorationThickness: mainPath === "contact" ? "3px" : "",
+                    }}
+                  >
+                    Contact
+                  </Button>
+                </Link>
               
               </Box>
             </Box>
@@ -698,6 +754,60 @@ function Navbar(props) {
           >
             <Image fetchPriority="high" rel="preload" src={MenuMore} alt="more" width={32} height={32} />
           </Box>
+
+          <Link href="/about-us">
+            <Button
+              sx={{
+                color: mainPath === "about-us" ? "#ff992c" : "#ebebeb",
+                fontFamily: "var(--anek-font)",
+                fontSize: "16px",
+                fontWeight: 500,
+                transition: "all 200ms ease-in-out",
+                flex: "0 0 auto",
+                whiteSpace: "nowrap",
+                textDecoration: mainPath === "about-us" ? "underline" : "none",
+                textDecorationColor: mainPath === "about-us" ? "#ff992c" : "none",
+                textUnderlineOffset: mainPath === "about-us" ? "12px" : "",
+                textDecorationThickness: mainPath === "about-us" ? "3px" : "",
+                "&:hover": {
+                  color: "#ff992c",
+                  textDecoration: "underline",
+                  textDecorationColor: "#ff992c",
+                  textUnderlineOffset: "12px",
+                  textDecorationThickness: "3px",
+                },
+              }}
+            >
+              About Us
+            </Button>
+          </Link>
+
+          <Link href="/contact">
+            <Button
+              sx={{
+                color: mainPath === "contact" ? "#ff992c" : "#ebebeb",
+                fontFamily: "var(--anek-font)",
+                fontSize: "16px",
+                fontWeight: 500,
+                transition: "all 200ms ease-in-out",
+                flex: "0 0 auto",
+                whiteSpace: "nowrap",
+                textDecoration: mainPath === "contact" ? "underline" : "none",
+                textDecorationColor: mainPath === "contact" ? "#ff992c" : "none",
+                textUnderlineOffset: mainPath === "contact" ? "12px" : "",
+                textDecorationThickness: mainPath === "contact" ? "3px" : "",
+                "&:hover": {
+                  color: "#ff992c",
+                  textDecoration: "underline",
+                  textDecorationColor: "#ff992c",
+                  textUnderlineOffset: "12px",
+                  textDecorationThickness: "3px",
+                },
+              }}
+            >
+              Contact
+            </Button>
+          </Link>
           {/* )} */}
 
        
