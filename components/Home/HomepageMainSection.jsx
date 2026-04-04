@@ -310,7 +310,9 @@ function HomepageMainSection({
             rel="noopener noreferrer"
             style={{
               display: "block",
-              width: "100%",
+              width: "970px",
+              maxWidth: "100%",
+              margin: "0 auto",
               overflow: "hidden",
               background: "#f5f5f5",
             }}
@@ -325,6 +327,8 @@ function HomepageMainSection({
                 display: "block",
                 width: "100%",
                 height: "auto",
+                maxWidth: "970px",
+                margin: "0 auto",
               }}
               onError={(event) => {
                 const adCard = event.currentTarget.closest("a");

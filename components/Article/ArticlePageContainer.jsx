@@ -195,6 +195,8 @@ function ArticlePageContainer({
                 display: "block",
                 width: "100%",
                 height: "auto",
+                maxWidth: "970px",
+                margin: "0 auto",
               }}
               onError={(event) => {
                 const adCard = event.currentTarget.closest("a");

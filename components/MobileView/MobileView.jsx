@@ -82,9 +82,9 @@ function MobileView({
   return (
     <MobilepageLayout menuData={menuData} trendingData={trendingData} breakingControl={breakingControl} quickControl={quickControl}>
       <TopMobileBanner href="https://example.com" />
-      {/* <Box mt={2}>
+      <Box mt={2}>
               <ElectionCountdown targetDate="2026-04-23T08:00:00" title="Election Countdown" />
-            </Box> */}
+            </Box>
       <MobileHomePage
         newsData={!newsLoading ? newsData : []}
         newsLoading={newsLoading}

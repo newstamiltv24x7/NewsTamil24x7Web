@@ -227,21 +227,25 @@ function MainAdSection({viewControl, orderedMenu = []}) {
 
               <Box display={"flex"} flexDirection={"column"} gap={1} minHeight={0}>
                 {Array.isArray(newsList) &&
-                  newsList?.slice(1, 5)?.map((list) => (
-                    <Box
-                      key={list?._id}
-                      p={1}
-                      borderRadius={"8px"}
-                      sx={{
-                        boxShadow:
-                          mode === "dark"
-                            ? "0px 0px 4px 0px #fff"
-                            : "0px 0px 4px 0px #000",
-                      }}
-                    >
-                      <Grid container spacing={1} alignItems={"center"}>
-                        <Grid item xs={8}>
-                          <Link href={`/article/${list?.story_desk_created_name || list?._id || "#"}`}>
+                  newsList?.slice(1, 5)?.map((list) => {
+                    const articleUrl = `/article/${list?.story_desk_created_name || list?._id || "#"}`;
+                    
+                    return (
+                      <Box
+                        key={list?._id}
+                        p={1}
+                        borderRadius={"8px"}
+                        onClick={() => window.location.href = articleUrl}  // ✅ fallback click handler
+                        sx={{
+                          cursor: "pointer",  // ✅ shows pointer cursor
+                          boxShadow:
+                            mode === "dark"
+                              ? "0px 0px 4px 0px #fff"
+                              : "0px 0px 4px 0px #000",
+                        }}
+                      >
+                        <Grid container spacing={1} alignItems={"center"}>
+                          <Grid item xs={8}>
                             <Typography
                               fontFamily={"var(--anek-font)"}
                               fontSize={14}
@@ -257,21 +261,19 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                             >
                               {list?.story_title_name}
                             </Typography>
-                          </Link>
-                          <Typography
-                            fontFamily={"var(--anek-font)"}
-                            fontSize={11}
-                            lineHeight={1.2}
-                            component={"span"}
-                            fontWeight={400}
-                            mt={0.5}
-                            display={"block"}
-                          >
-                            {getHours(list?.updatedAt)}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Link href={`/article/${list?.story_desk_created_name || list?._id || "#"}`}>
+                            <Typography
+                              fontFamily={"var(--anek-font)"}
+                              fontSize={11}
+                              lineHeight={1.2}
+                              component={"span"}
+                              fontWeight={400}
+                              mt={0.5}
+                              display={"block"}
+                            >
+                              {getHours(list?.updatedAt)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={4}>
                             <Box height={76} borderRadius={"6px"} overflow={"hidden"}>
                               <Image
                                 src={list?.story_cover_image_url || "/assets/images/default-news.png"}
@@ -286,11 +288,11 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                                 }}
                               />
                             </Box>
-                          </Link>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Box>
-                  ))}
+                      </Box>
+                    );
+                  })}
 
                 <Box
                   mt={"auto"}
