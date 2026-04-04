@@ -125,6 +125,10 @@ export default function ElectionCountdown({
 }) {
   const [timeLeft, setTimeLeft] = useState(() => calcTimeLeft(targetDate));
   const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const DESKTOP_BG_URL =
+    "http://localhost:3000/_next/image?url=https%3A%2F%2Fnewstamil-tv.s3.ap-south-1.amazonaws.com%2F1774262525523-converted_file.png&w=640&q=75";
 
   /* Avoid SSR/client mismatch — show placeholder until hydrated */
   useEffect(() => {
@@ -132,8 +136,22 @@ export default function ElectionCountdown({
     const id = setInterval(() => {
       setTimeLeft(calcTimeLeft(targetDate));
     }, 1000);
+
+    // Desktop-only background handling
+    const mq = window.matchMedia("(min-width:900px)");
+    const handler = (e) => setIsDesktop(e.matches);
+    handler(mq);
+    mq.addEventListener ? mq.addEventListener("change", handler) : mq.addListener(handler);
+
     return () => clearInterval(id);
   }, [targetDate]);
+
+  useEffect(() => {
+    return () => {
+      const mq = window.matchMedia("(min-width:900px)");
+      mq.removeEventListener ? mq.removeEventListener("change", () => {}) : mq.removeListener(() => {});
+    };
+  }, []);
 
   const { days, hours, minutes, seconds } = timeLeft;
   const expired = days === 0 && hours === 0 && minutes === 0 && seconds === 0;
@@ -142,6 +160,15 @@ export default function ElectionCountdown({
     month: "long",
     year: "numeric",
   });
+
+  const desktopBg = {
+    backgroundImage: `linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%), url('${DESKTOP_BG_URL}')`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  };
+
+  const cardStyle = isDesktop ? { ...EC_STYLES.card, ...desktopBg } : EC_STYLES.card;
 
   return (
     <>
@@ -153,7 +180,7 @@ export default function ElectionCountdown({
         }
       `}</style>
 
-      <div style={EC_STYLES.card} aria-label={`${title} widget`}>
+      <div style={cardStyle} aria-label={`${title} widget`}>
         {/* Header */}
         <div style={EC_STYLES.headerRow}>
           <span style={EC_STYLES.dot} aria-hidden="true" />
