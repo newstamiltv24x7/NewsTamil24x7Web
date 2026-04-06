@@ -59,6 +59,7 @@ function MobileHomePage({ newsData, newsLoading,viewControl }) {
 const [images, setImages] = useState([]);
 const [youtube_link, setYoutube_link] = useState([]);
   const [current, setCurrent] = useState(0);
+  const [justNowNews, setJustNowNews] = useState([]);
   const CryptoJS = require("crypto-js");
   const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
   
@@ -86,6 +87,7 @@ const GetJustNowCategory = async () => {
   useEffect(() => {
     const fetchImages = async () => {
       const newsArray = await GetJustNowCategory();
+      setJustNowNews(newsArray || []);
       const imgUrls = newsArray
         .map((item) => item.story_cover_image_url)
         .filter(Boolean);
@@ -104,6 +106,36 @@ const GetJustNowCategory = async () => {
 
   return (
     <>
+    {/* Blinking Just Now card (mobile) */}
+      {justNowNews?.length > 0 && (
+        <Box sx={{ px: 2, my: 1 }}>
+          <Link href={`/article/${justNowNews?.[0]?.story_desk_created_name || justNowNews?.[0]?._id || '#'}`}>
+            <Box
+              sx={{
+                textDecoration: 'none',
+                bgcolor: '#fb6002',
+                color: '#fff',
+                borderRadius: 1,
+                display: 'flex',
+                alignItems: 'center',
+                py: 1,
+                justifyContent: 'center',
+                cursor: 'pointer',
+                '@keyframes blinker': {
+                  '0%': { opacity: 1 },
+                  '50%': { opacity: 0.25 },
+                  '100%': { opacity: 1 },
+                },
+                animation: 'blinker 1.2s linear infinite',
+              }}
+            >
+              <Typography fontWeight={700} fontSize={14}>
+                {justNowNews?.[0]?.story_title_name || 'Just Now'}
+              </Typography>
+            </Box>
+          </Link>
+        </Box>
+      )}
     <Box
   sx={{
     position: 'relative',
@@ -136,6 +168,7 @@ const GetJustNowCategory = async () => {
     />
   )}
 </Box>
+      
       
       {newsLoading ? (
         <Skeleton

@@ -1,6 +1,7 @@
 import HomepageLayout from "@/layouts/HomepageLayout";
 import { Box, Grid } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState, useRef, useCallback, memo, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { addMainNews } from "@/redux/reducer/homePageReducer";
@@ -122,6 +123,11 @@ function HomepageMainSection({
     breakingControl,
     viewControl,
   }), [menuData, breakingData, quickControl, breakingControl, viewControl]);
+
+  // Latest news item for the blinking card: prefer `justBeforeNewsData` (JustNow), fallback to `newsData`
+  const latestNews = Array.isArray(justBeforeNewsData) && justBeforeNewsData.length > 0
+    ? justBeforeNewsData[0]
+    : (Array.isArray(newsData) && newsData.length > 0 ? newsData[0] : null);
 
   useEffect(() => {
     dispatch(addMainNews(orderedMenu));
@@ -335,7 +341,46 @@ function HomepageMainSection({
                 if (adCard) adCard.style.display = "none";
               }}
             />
-          </a>
+            </a>
+
+          {/* Blinking latest-news card */}
+          {latestNews && (
+            <Box sx={{ width: "100%", maxWidth: 1440, mt: 2 }}>
+              <Link
+                href={`/news/justnownews`}
+                passHref
+                legacyBehavior
+              >
+                <a style={{ textDecoration: "none" }}>
+                  <Box
+                    sx={{
+                      bgcolor: "#fb6002",
+                      color: "white",
+                      px: 2,
+                      py: 1.25,
+                      borderRadius: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      // keyframes and animation for blinking
+                      '@keyframes blinker': {
+                        '0%': { opacity: 1 },
+                        '50%': { opacity: 0.5 },
+                        '100%': { opacity: 1 },
+                      },
+                      animation: 'blinker 3s linear infinite',
+                    }}
+                  >
+                    <span style={{ fontWeight: 700, fontSize: 16 }}>
+                      {latestNews?.story_title_name || latestNews?.story_title || latestNews?.title || "Latest News"}
+                    </span>
+                  </Box>
+                </a>
+              </Link>
+            </Box>
+          )}
+
           </div>
 
       {/* Election countdown: show only on desktop (md+) */}
