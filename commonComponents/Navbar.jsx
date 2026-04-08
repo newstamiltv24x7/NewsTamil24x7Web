@@ -108,19 +108,25 @@ function Navbar(props) {
 
 
   const handleClick = (event, item) => {
-    
-    if(item.c_sub_categories.length > 0){
-      setAnchorEl(event.currentTarget);
-    setOpen(true);
-    setParentName(item?.c_category_slug_english_name);
-    setSubArr(item?.c_sub_categories);
-    }else{
+    // ensure we get a DOM anchor (work around wrappers like Link)
+    const anchor =
+      event?.currentTarget ||
+      (event?.target && event.target.closest && event.target.closest("button")) ||
+      event?.target;
+
+    if (item?.c_sub_categories?.length > 0) {
+      setAnchorEl(anchor);
+      setOpen(true);
+      setParentName(item?.c_category_slug_english_name);
+      setSubArr(item?.c_sub_categories);
+      setOpen2(false);
+    } else {
       setOpen(false);
     }
   };
 
   const canBeOpen1 = open && Boolean(anchorEl);
-  const id1 = canBeOpen1 ? "transition-popper" : undefined;
+  const id1 = canBeOpen1 ? "transition-popper-1" : undefined;
 
   const [open2, setOpen2] = React.useState(false);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
@@ -155,8 +161,8 @@ function Navbar(props) {
     }
   };
 
-  const canBeOpen2 = open && Boolean(anchorEl2);
-  const id2 = canBeOpen2 ? "transition-popper" : undefined;
+  const canBeOpen2 = open2 && Boolean(anchorEl2);
+  const id2 = canBeOpen2 ? "transition-popper-2" : undefined;
 
   React.useEffect(() => {
     const path = router.asPath?.split("/");
@@ -409,7 +415,7 @@ function Navbar(props) {
                     Election Express
                   </Button>
                 </Link>
-                {menuData?.slice(1, 8)?.map((item) => (
+                {menuData?.slice(1, 6)?.map((item) => (
                   <Link
                     href={getNavLink(item?.c_category_slug_english_name)}
                     key={item?._id}
@@ -436,7 +442,7 @@ function Navbar(props) {
                           // borderBottom: "2px solid #f79907",
                         },
                         fontSize: "calc(12px + 0.2vw)",
-                        px: { sm: 0.5, md: 1 },
+                        px: { sm: 0.3, md: 0.5 },
                         minWidth: "auto",
                         fontWeight: 600,
                         color:
