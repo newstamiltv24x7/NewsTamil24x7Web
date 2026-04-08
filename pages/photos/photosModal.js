@@ -36,7 +36,7 @@ export default function PhotosModal({
   breakingControl,
   viewControl
 }) {
-  const photosImg = photos?.at(0)?.c_photos_continue_item;
+  const photosImg = photos?.[0]?.c_photos_continue_item;
   // const TRENDING = trendingData?.at(0)?.data ?? [];
   const [gridView, setGridView] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -83,7 +83,7 @@ export default function PhotosModal({
                 textTransform={"uppercase"}
                 fontSize={18}
               >
-                {`PHOTOS - ${photos?.at(0)?.c_photos_title}`}
+                {`PHOTOS - ${photos?.[0]?.c_photos_title}`}
               </Box>
               <Box
                 // bgcolor={"#000"}
@@ -123,7 +123,7 @@ export default function PhotosModal({
               fontWeight={400}
               mb={1}
             >
-             {photos?.at(0)?.updatedAt ? "Updated" : "Created" }  : {photos?.at(0)?.updatedAt ? convertTime(photos?.at(0)?.updatedAt) : convertTime(photos?.at(0)?.createdAt)}
+             {photos?.[0]?.updatedAt ? "Updated" : "Created" }  : {photos?.[0]?.updatedAt ? convertTime(photos?.[0]?.updatedAt) : convertTime(photos?.[0]?.createdAt)}
             </Typography>
             <Box>
               {!gridView ? (
@@ -312,12 +312,12 @@ export default function PhotosModal({
                   style={{
                     filter: mode === "dark" && "invert(1)",
                   }}
-                  onClick={() => shareNews("x", photos?.at(0)?.c_photos_title)}
+                  onClick={() => shareNews("x", photos?.[0]?.c_photos_title)}
                 />
                 <IoMdMail
                   fontSize={28}
                   onClick={() =>
-                    shareNews("mail", photos?.at(0)?.c_photos_title)
+                    shareNews("mail", photos?.[0]?.c_photos_title)
                   }
                 />
               </Box>
@@ -460,7 +460,7 @@ export default function PhotosModal({
           open={open}
           close={handlePopUpClose}
           data={data}
-          title={photos?.at(0)?.c_photos_title}
+          title={photos?.[0]?.c_photos_title}
         />
       </Box>
     </HomepageLayout>
