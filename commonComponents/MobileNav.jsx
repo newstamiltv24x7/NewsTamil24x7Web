@@ -252,6 +252,29 @@ function MobileNav(props) {
             />
           </div>
         </Link>
+        <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
+                          <Button
+                            sx={{
+                              color: "#ebebeb",
+                              fontFamily: "var(--anek-font)",
+                              transition: "all 200ms ease-in-out",
+                              "&:hover": {
+                                color: "#572300ff",
+                                textDecoration: "underline",
+                                textDecorationColor: "#000000ff",
+                                textUnderlineOffset: "12px",
+                                textDecorationThickness: "3px",
+                                bgcolor: "rgba(249, 182, 144, 0.08)",
+                              },
+                              fontSize: "calc(12px + 0.2vw)",
+                              px: { sm: 0.5, md: 1 },
+                              minWidth: "auto",
+                              fontWeight: 600,
+                            }}
+                          >
+                            Election Express
+                          </Button>
+                        </Link>
         {menuData?.map((item) => (
           <React.Fragment key={item?._id}>
             <Link href={getNavLink(item?.c_category_slug_english_name)} passHref>
@@ -292,7 +315,6 @@ function MobileNav(props) {
             )}
           </React.Fragment>
         ))}
-
         <Link href="/about-us" passHref>
           <Button
             sx={{

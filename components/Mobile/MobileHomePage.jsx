@@ -119,6 +119,7 @@ const GetJustNowCategory = async () => {
                 display: 'flex',
                 alignItems: 'center',
                 py: 1,
+                px:1,
                 justifyContent: 'center',
                 cursor: 'pointer',
                 '@keyframes blinker': {

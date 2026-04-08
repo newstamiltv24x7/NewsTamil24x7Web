@@ -326,7 +326,90 @@ function Navbar(props) {
                   overflow: "hidden",
                 }}
               >
-                {menuData?.slice(0, 8)?.map((item) => (
+                <Link
+                    href={getNavLink(menuData[0]?.c_category_slug_english_name)}
+                    key={menuData[0]?._id}
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    <Button
+                      endIcon={
+                        menuData[0]?.c_sub_categories?.length > 0 && (
+                          <FaChevronDown style={{ width: 12 }} />
+                        )
+                      }
+                      sx={{
+                        color: "#ebebeb",
+                        fontFamily: "var(--anek-font)",
+                        transition: "all 200ms ease-in-out",
+                        "&:hover": {
+                          color: "#572300ff",
+                          textDecoration: "underline",
+                          textDecorationColor: "#000000ff",
+                          textUnderlineOffset: "12px",
+                          textDecorationThickness: "3px",
+                          bgcolor: "rgba(249, 182, 144, 0.08)",
+                          // borderBottom: "3px solid #ff992c"
+                          // borderBottom: "2px solid #f79907",
+                        },
+                        fontSize: "calc(12px + 0.2vw)",
+                        px: { sm: 0.5, md: 1 },
+                        minWidth: "auto",
+                        fontWeight: 600,
+                        color:
+                          mainPath === menuData[0]?.c_category_slug_english_name
+                            ? "#572300ff"
+                            : "inherit",
+                        textDecoration:
+                          mainPath === menuData[0]?.c_category_slug_english_name
+                            ? "underline"
+                            : "none",
+                        textDecorationColor:
+                          mainPath === menuData[0]?.c_category_slug_english_name
+                            ? "#ff992c"
+                            : "none",
+                        textUnderlineOffset:
+                          mainPath === menuData[0]?.c_category_slug_english_name
+                            ? "12px"
+                            : "",
+                        textDecorationThickness:
+                          mainPath === menuData[0]?.c_category_slug_english_name
+                            ? "3px"
+                            : "",
+                      }}
+                      onMouseEnter={(e) => {
+                        handleClick(e, menuData[0]);
+                        setOpen2(false);
+                      }}
+                      
+                    >
+                      HOME
+                    </Button>
+                  </Link>
+                 <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
+                  <Button
+                    sx={{
+                      color: "#ebebeb",
+                      fontFamily: "var(--anek-font)",
+                      transition: "all 200ms ease-in-out",
+                      "&:hover": {
+                        color: "#572300ff",
+                        textDecoration: "underline",
+                        textDecorationColor: "#000000ff",
+                        textUnderlineOffset: "12px",
+                        textDecorationThickness: "3px",
+                        bgcolor: "rgba(249, 182, 144, 0.08)",
+                      },
+                      fontSize: "calc(12px + 0.2vw)",
+                      px: { sm: 0.5, md: 1 },
+                      minWidth: "auto",
+                      fontWeight: 600,
+                    }}
+                    onMouseEnter={() => { setOpen(false); setOpen2(false); }}
+                  >
+                    Election Express
+                  </Button>
+                </Link>
+                {menuData?.slice(1, 8)?.map((item) => (
                   <Link
                     href={getNavLink(item?.c_category_slug_english_name)}
                     key={item?._id}
@@ -386,7 +469,7 @@ function Navbar(props) {
                       {item?.c_category_name}
                     </Button>
                   </Link>
-                ))}
+                ))}               
            
                 <Box
                   component={"span"}
