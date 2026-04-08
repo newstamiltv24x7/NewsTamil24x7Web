@@ -36,7 +36,11 @@ export default function PhotosModal({
   breakingControl,
   viewControl
 }) {
-  const photosImg = photos?.[0]?.c_photos_continue_item;
+  const photosImg = Array.isArray(photos) && photos.length > 0 && Array.isArray(photos[0]?.c_photos_continue_item)
+    ? photos[0].c_photos_continue_item
+    : [];
+  const photosTitle = Array.isArray(photos) && photos.length > 0 ? photos[0]?.c_photos_title ?? "" : "";
+  const photosDate = Array.isArray(photos) && photos.length > 0 ? (photos[0]?.updatedAt ?? photos[0]?.createdAt) : null;
   // const TRENDING = trendingData?.at(0)?.data ?? [];
   const [gridView, setGridView] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -83,7 +87,7 @@ export default function PhotosModal({
                 textTransform={"uppercase"}
                 fontSize={18}
               >
-                {`PHOTOS - ${photos?.[0]?.c_photos_title}`}
+                {`PHOTOS - ${photosTitle}`}
               </Box>
               <Box
                 // bgcolor={"#000"}
@@ -123,7 +127,7 @@ export default function PhotosModal({
               fontWeight={400}
               mb={1}
             >
-             {photos?.[0]?.updatedAt ? "Updated" : "Created" }  : {photos?.[0]?.updatedAt ? convertTime(photos?.[0]?.updatedAt) : convertTime(photos?.[0]?.createdAt)}
+             {photosDate ? (photos[0]?.updatedAt ? "Updated" : "Created") + " : " + convertTime(photosDate) : ""}
             </Typography>
             <Box>
               {!gridView ? (
@@ -252,7 +256,7 @@ export default function PhotosModal({
                 >
                   Share :
                 </Typography>
-                <Image
+                  <Image
                 fetchPriority="high" rel="preload"
                   src={Facebook}
                   alt="fb"
@@ -303,7 +307,7 @@ export default function PhotosModal({
                     filter: mode === "dark" && "invert(1)",
                   }}
                 />
-                <Image
+                  <Image
                 fetchPriority="high" rel="preload"
                   src={Twitter}
                   alt="insta"
@@ -312,7 +316,7 @@ export default function PhotosModal({
                   style={{
                     filter: mode === "dark" && "invert(1)",
                   }}
-                  onClick={() => shareNews("x", photos?.[0]?.c_photos_title)}
+                  onClick={() => shareNews("x", photosTitle)}
                 />
                 <IoMdMail
                   fontSize={28}
@@ -460,7 +464,7 @@ export default function PhotosModal({
           open={open}
           close={handlePopUpClose}
           data={data}
-          title={photos?.[0]?.c_photos_title}
+          title={photosTitle}
         />
       </Box>
     </HomepageLayout>
