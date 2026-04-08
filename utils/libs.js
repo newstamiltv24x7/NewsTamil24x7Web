@@ -94,7 +94,13 @@ export function stringToColor(string) {
 export function stringAvatar(name) {
   return {
     sx: { bgcolor: stringToColor(name) },
-    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    children: (() => {
+      if (!name) return "";
+      const parts = name.split(" ");
+      const first = parts[0] ? parts[0][0] : "";
+      const second = parts[1] ? parts[1][0] : "";
+      return `${first}${second}`;
+    })(),
   };
 }
 
