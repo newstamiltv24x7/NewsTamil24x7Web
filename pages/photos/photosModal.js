@@ -27,6 +27,10 @@ import {
 import Link from "next/link";
 import PhotosViewerPop from "@/components/PhotosViewerPop";
 
+export async function getServerSideProps() {
+  return { notFound: true };
+}
+
 export default function PhotosModal({
   menuData,
   trendingData,
