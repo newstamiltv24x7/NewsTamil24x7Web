@@ -46,7 +46,6 @@ function CategoryLeft({
       setShareOpen(true);
     }
   };
-console.log("hi",newsList?.at(0));
   return (
     <Box className="border-class-cat" position={"relative"}>
       {categoryName?.toLowerCase() !== "cinema" && (

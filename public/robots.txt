@@ -33,4 +33,9 @@ Disallow:
 User-agent: *
 Disallow: 
 Disallow: /cgi-bin/
-Sitemap: https://www.newstamil.tv/sitemap.xml
+# https://www.robotstxt.org/robotstxt.html
+Disallow: /search?
+Disallow: /*?utm=
+Disallow: /cgi-bin/
+
+Sitemap: https://newstamil.tv/sitemap.xml
