@@ -10,6 +10,7 @@ import { FaRegEye, FaXTwitter } from "react-icons/fa6";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { useTheme } from "@/theme/ThemeContext";
 import Link from "next/link";
+import Head from "next/head";
 
 import FacebookNew from "../../public/newsTamilIcons/icon-pack/Frame 1.svg";
 import WhatsAppNew from "../../public/newsTamilIcons/icon-pack/Frame 7.svg";
@@ -38,6 +39,9 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
     }
   };
 
+  const embedBase = (singleNews?.at(0)?.youtube_embed_id || "").split("?")[0];
+  const uploadDate = (singleNews?.at(0)?.createdAt || singleNews?.at(0)?.updatedAt || "").slice(0,10);
+
   return (
     <MobilepageLayout menuData={menuData} trendingData={trendingData} type="mobile" breakingControl={breakingControl} quickControl={quickControl}>
 
@@ -48,7 +52,8 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
       ) :(
         <>
        <Box mt={breakingControl === "yes" ?  25 : quickControl === "no" ? 20 : 12}> 
-     <Box p={0.5} pb={1} pt={2}>
+     <Box p={0.5} pb={1}>
+          
           <Typography
            fontWeight={"bold"}
            bgcolor={"#ff992c"}
@@ -59,7 +64,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
            fontSize={18}
            alignItems={"center"}
            justifyItems={"center"}
-           pt={1}
            pb={0.5}
            pl={1}
           >
@@ -214,8 +218,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               }
             />
           </Box>
-
-          {/* aspectRatio reserves space before the image/iframe loads → no CLS */}
+{/* Video — placed prominently at top */}
           <Box borderRadius={"6px"} overflow={"hidden"} sx={{ aspectRatio: "3/2", width: "100%" }} mb={2}>
             {singleNews?.at(0)?.youtube_embed_id === "" ? (
               <Box borderRadius={"6px"} overflow={"hidden"} sx={{ width: "100%", height: "100%" }}>
@@ -240,9 +243,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
                 <iframe
                   width="100%"
                   height="100%"
-                  src={`${
-                    singleNews?.at(0)?.youtube_embed_id
-                  }?rel=0&amp;autoplay=1&mute=1`}
+                  src={`${embedBase}?rel=0`}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -252,6 +253,23 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               </Box>
             )}
           </Box>
+          <Head>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "VideoObject",
+                  name: singleNews?.at(0)?.story_title_name || "",
+                  description: singleNews?.at(0)?.story_subject_name || "",
+                  thumbnailUrl: singleNews?.at(0)?.story_cover_image_url || "",
+                  embedUrl: embedBase || "",
+                  uploadDate: uploadDate || "",
+                }),
+              }}
+            />
+          </Head>
+
           <Box
             display={"flex"}
             justifyContent={"space-between"}

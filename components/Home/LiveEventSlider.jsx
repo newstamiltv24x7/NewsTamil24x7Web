@@ -155,7 +155,7 @@ export default function LiveEventSlider({ images = [], youtubeLinks = [] }) {
         >
           {liveActivated ? (
             <iframe
-              src={`https://www.youtube.com/embed/${LIVE_VIDEO_ID}?autoplay=1&mute=1`}
+              src={`https://www.youtube.com/embed/${LIVE_VIDEO_ID}`}
               title="🔴LIVE NEWS TODAY | Today Breaking News Tamil | NewsTamil 24X7"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -117,7 +117,7 @@ function MobileVideoPage({ menuData, trendingData,breakingControl,viewControl,qu
               <iframe
                 width="100%"
                 height="100%"
-                src={`${liveData?.c_url_web_link}?rel=0&amp;autoplay=1&mute=1`}
+                src={`${(liveData?.c_url_web_link || "").split("?")[0]}?rel=0`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

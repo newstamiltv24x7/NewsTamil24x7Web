@@ -4,7 +4,7 @@ import FourNotFour from "../public/newsTamilIcons/icons/404.jpg";
 import { Box, Button } from "@mui/material";
 
 export default function Custom404() {
-    const embedUrl = `https://www.youtube.com/embed/gynWNinqmjw?autoplay=1&mute=1`;
+    const embedUrl = `https://www.youtube.com/embed/gynWNinqmjw`;
 
     return (
         <div style={{minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, padding: 20}}>

@@ -78,9 +78,7 @@ function SubCategory({
                       <iframe
                         width="100%"
                         height="100%"
-                        src={`${
-                          newsList?.at(0)?.youtube_embed_id
-                        }?rel=0&amp;autoplay=1`}
+                        src={`${(newsList?.at(0)?.youtube_embed_id || "").split("?")[0]}?rel=0`}
                         title="YouTube video player"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -419,9 +417,7 @@ function SubCategory({
                   <iframe
                     width="100%"
                     height="100%"
-                    src={`${
-                      newsList?.at(0)?.youtube_embed_id
-                    }?rel=0&amp;autoplay=1`}
+                    src={`${(newsList?.at(0)?.youtube_embed_id || "").split("?")[0]}?rel=0`}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
