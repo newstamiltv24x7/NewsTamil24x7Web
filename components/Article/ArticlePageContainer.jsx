@@ -44,6 +44,7 @@ import {
   getNewsComment,
   getNewsVisitCount,
 } from "@/commonComponents/WebApiFunction/ApiFunctions";
+import { getAuthorByName, getAuthorByUrl } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import AdUnit from "../Ads/AdUnit";
 import ManualImageAds from "../Ads/ManualImageAds";
 import dayjs from "dayjs";
@@ -71,6 +72,7 @@ function ArticlePageContainer({
   const [toast, setToast] = useState("");
   const [allComments, setAllComments] = useState([]);
   const [device, setDevice] = useState("");
+  const [authorInfo, setAuthorInfo] = useState(null);
 
   const handleChange = (e) => {
     const checkUser = Object.entries(EndUserData).length;
@@ -131,6 +133,30 @@ function ArticlePageContainer({
   useEffect(() => {
     GetAllComment();
     GetNewsCount();
+    // fetch author details to show role/experience on article page
+    const fetchAuthor = async () => {
+      try {
+        const name = NEWSDATA?.at(0)?.c_createdName;
+        if (!name) return;
+        let res = await getAuthorByName(name);
+        const isEmpty = (r) => !r || (r.payloadJson && r.payloadJson.length === 0) || (Array.isArray(r) && r.length === 0);
+        if (isEmpty(res)) {
+          const slug = (NEWSDATA?.at(0)?.c_slugName || name)
+            .toString()
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+          res = await getAuthorByUrl(slug);
+        }
+        const payload = res?.payloadJson ?? res;
+        const user = Array.isArray(payload?.docs)
+          ? payload.docs[0]
+          : (payload?.at ? payload.at(0) : payload?.[0]) || payload?.data?.[0] || payload?.[0];
+        setAuthorInfo(user || null);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAuthor();
   }, [singleNews]);
 
   const GetNewsCount = async () => {
@@ -593,6 +619,16 @@ function ArticlePageContainer({
                   >
                     {NEWSDATA?.at(0)?.c_createdName}
                   </Link>
+                  {authorInfo?.role && (
+                    <span style={{ display: "block", fontSize: 13, opacity: 0.9 }}>
+                      Role: {authorInfo.role}
+                    </span>
+                  )}
+                  {authorInfo?.c_experience || authorInfo?.experience ? (
+                    <span style={{ display: "block", fontSize: 13, opacity: 0.9 }}>
+                      Experience: {authorInfo.c_experience || authorInfo.experience}
+                    </span>
+                  ) : null}
                 </Typography>
               </Box>
               <Box my={1}>

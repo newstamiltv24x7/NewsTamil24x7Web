@@ -144,6 +144,8 @@ function Page({
       "@type": "Person",
       name: singleNews?.at(0)?.c_createdName || "NT WEB",
       url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`,
+      jobTitle: singleNews?.at(0)?.role || singleNews?.at(0)?.author_role || singleNews?.at(0)?.c_role || undefined,
+      description: singleNews?.at(0)?.c_about_user || seoData?.author_bio || undefined,
     },  
     publisher: {
       "@type": "Organization",
