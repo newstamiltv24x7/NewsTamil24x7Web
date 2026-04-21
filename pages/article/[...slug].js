@@ -168,6 +168,31 @@ function Page({
     },
   }
 
+  // articleSection and structured keywords (prefer article data, fall back to seo tags)
+  const articleSection =
+    singleNews?.at(0)?.c_category ||
+    singleNews?.at(0)?.c_category_name ||
+    seoData?.story_category ||
+    seoData?.category ||
+    seoData?.section ||
+    "Politics";
+
+  const keywordsArray = seoData?.seo_tag
+    ? String(seoData.seo_tag)
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean)
+    : [];
+
+  // add accessibility, speakable and structured keywords
+  if (articleSection) jsonArticleLd.articleSection = articleSection;
+  jsonArticleLd.isAccessibleForFree = true;
+  jsonArticleLd.speakable = {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", ".articleBody"],
+  };
+  if (keywordsArray.length > 0) jsonArticleLd.keywords = keywordsArray;
+
   const stripHtml = (html) =>
     html ? String(html).replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() : "";
 
