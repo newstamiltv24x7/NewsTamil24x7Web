@@ -121,10 +121,10 @@ const content = (
       <a href="tel:+914442423737" style={{ color: "#fb6002" }}>
         044 42423737
       </a>
-      {" "}/ {" "}
+      {/* {" "}/ {" "}
       <a href="tel:+917305080222" style={{ color: "#fb6002" }}>
         +91 7305080222
-      </a>
+      </a> */}
     </p>
 
     <Typography

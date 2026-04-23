@@ -108,6 +108,10 @@ function Footer() {
       return `/privacy-policy`;
     } else if (link === "About Us") {
       return `/about-us`;
+    } else if (link === "Editorial Policy") {
+      return `/editorial-policy`;
+    } else if (link === "Contact") {
+      return `/contact`;
     }
       else if (link === "Terms of Use") {
       return `/terms-of-use`;
@@ -358,6 +362,8 @@ function Footer() {
             >
               {[
                 "About Us",
+                "Editorial Policy",
+                "Contact",
                 "Careers",
                 "Newsletters",
                 "Terms of Use",

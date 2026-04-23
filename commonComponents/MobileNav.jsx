@@ -342,7 +342,33 @@ function MobileNav(props) {
             About Us
           </Button>
         </Link>
-
+        <Link href="/editorial-policy" passHref>
+          <Button
+            sx={{
+              color: mainPath === "editorial-policy" ? "#ff992c" : "#fff",
+              fontFamily: "var(--anek-font)",
+              fontSize: "15px",
+              fontWeight: 500,
+              transition: "all 200ms ease-in-out",
+              paddingBottom: 0,
+              flex: "0 0 auto",
+              whiteSpace: "nowrap",
+              textDecoration: mainPath === "editorial-policy" ? "underline" : "none",
+              textDecorationColor: mainPath === "editorial-policy" ? "#ff992c" : "none",
+              textUnderlineOffset: mainPath === "editorial-policy" ? "12px" : "",
+              textDecorationThickness: mainPath === "editorial-policy" ? "3px" : "",
+              "&:hover": {
+                color: "#fb6002",
+                textDecoration: "underline",
+                textDecorationColor: "#fb6002",
+                textUnderlineOffset: "12px",
+                textDecorationThickness: "3px",
+              },
+            }}
+          >
+            Editorial Policy
+          </Button>
+        </Link>
         <Link href="/contact" passHref>
           <Button
             sx={{
