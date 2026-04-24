@@ -519,34 +519,6 @@ function Navbar(props) {
                   </Button>
                 </Link>
 
-                <Link href="/editorial-policy" style={{ whiteSpace: "nowrap" }} onMouseEnter={() => { setOpen(false); setOpen2(false); }}>
-                  <Button
-                    sx={{
-                      fontFamily: "var(--anek-font)",
-                      transition: "all 200ms ease-in-out",
-                      "&:hover": {
-                        color: "#572300ff",
-                        textDecoration: "underline",
-                        textDecorationColor: "#000000ff",
-                        textUnderlineOffset: "12px",
-                        textDecorationThickness: "3px",
-                        bgcolor: "rgba(249, 182, 144, 0.08)",
-                      },
-                      fontSize: "calc(12px + 0.2vw)",
-                      px: { sm: 0.5, md: 1 },
-                      minWidth: "auto",
-                      fontWeight: 600,
-                      color: mainPath === "editorial-policy" ? "#572300ff" : "#ebebeb",
-                      textDecoration: mainPath === "editorial-policy" ? "underline" : "none",
-                      textDecorationColor: mainPath === "editorial-policy" ? "#ff992c" : "none",
-                      textUnderlineOffset: mainPath === "editorial-policy" ? "12px" : "",
-                      textDecorationThickness: mainPath === "editorial-policy" ? "3px" : "",
-                    }}
-                  >
-                    Editorial Policy
-                  </Button>
-                </Link>
-
                 <Link href="/contact" style={{ whiteSpace: "nowrap" }} onMouseEnter={() => { setOpen(false); setOpen2(false); }}>
                   <Button
                     sx={{

@@ -24,7 +24,6 @@ import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
 import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 import CommonHeader from "@/commonComponents/CommonHeader";
-import ElectionCountdown from "./ElectionCountdown";
 
 function BannerRightSection({ trendingData, liveData, loading, trendLoading, viewControl }) {
   const { mode } = useTheme();
@@ -94,10 +93,7 @@ useEffect(() => {
           )}
         </Box>
         
-      {/* ── Election Countdown widget ─────────────────────────────── */}
-      <Box mt={2}>
-        <ElectionCountdown targetDate="2026-04-23T08:00:00" title="Election Countdown" />
-      </Box>
+     
         <CommonHeader
                             title="Special Programmes"
                             engTitle=""

@@ -129,19 +129,6 @@ function MobileDrawer({ menuData, close }) {
               borderBottom: "1px solid #c1c1c1a1",
             }}
           >
-            <Link href="/editorial-policy" onClick={close}>
-              Editorial Policy
-            </Link>
-          </ListItem>
-          <ListItem
-            sx={{
-              fontFamily: "var(--anek-font)",
-              fontSize: 16,
-              pl: 0,
-              fontWeight: 300,
-              borderBottom: "1px solid #c1c1c1a1",
-            }}
-          >
             <Link href="/contact" onClick={close}>
               Contact
             </Link>

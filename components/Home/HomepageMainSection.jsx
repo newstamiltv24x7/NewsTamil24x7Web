@@ -17,7 +17,6 @@ import { addLiveVideo } from "@/redux/reducer/liveVideoReducer";
 import AdUnit from "../Ads/AdUnit";
 import ManualImageAds from "../Ads/ManualImageAds";
 import ThirdCategory from "./ThirdCategory";
-import ElectionCountdown from "./ElectionCountdown";
 
 /**
  * LiveEventSlider is code-split with ssr:false so its ~80 kB bundle is
@@ -383,10 +382,6 @@ function HomepageMainSection({
 
           </div>
 
-      {/* Election countdown: show only on desktop (md+) */}
-      {/* <Box sx={{ display: { xs: "none", md: "block" }, width: "100%", px: 2, mb: 2 }}>
-        <ElectionCountdown />
-      </Box> */}
       {/* <Box
         mx={{ md: "inherit", lg: "auto" }}
         maxWidth={1440}

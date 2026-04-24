@@ -206,20 +206,6 @@ function MobileFooter() {
           borderRight={"3px solid #cbcbcb"}
           pr={2}
         >
-          <Link href={"/editorial-policy"}>Editorial Policy</Link>
-        </Typography>
-        <Typography
-          fontFamily={"var(--anek-font)"}
-          borderRight={"3px solid #cbcbcb"}
-          pr={2}
-        >
-          <Link href={"/contact"}>Contact</Link>
-        </Typography>
-        <Typography
-          fontFamily={"var(--anek-font)"}
-          borderRight={"3px solid #cbcbcb"}
-          pr={2}
-        >
           Newsletters
         </Typography>
         <Typography

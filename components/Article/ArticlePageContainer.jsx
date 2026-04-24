@@ -619,6 +619,11 @@ function ArticlePageContainer({
                   >
                     {NEWSDATA?.at(0)?.c_createdName}
                   </Link>
+                  {authorInfo?.role && (
+                    <span style={{ display: "block", fontSize: 13, opacity: 0.9 }}>
+                      Role: {authorInfo.role}
+                    </span>
+                  )}
                   {authorInfo?.c_experience || authorInfo?.experience ? (
                     <span style={{ display: "block", fontSize: 13, opacity: 0.9 }}>
                       Experience: {authorInfo.c_experience || authorInfo.experience}
@@ -798,18 +803,6 @@ function ArticlePageContainer({
                     >
                       Join our whatsapp channel
                     </Button>
-                  </Link>
-                </Box>
-
-                <Box mt={2} display={"flex"} gap={2} justifyContent={"center"}>
-                  <Link href="/about-us">
-                    <Typography fontFamily={"var(--anek-font)"}>About Us</Typography>
-                  </Link>
-                  <Link href="/editorial-policy">
-                    <Typography fontFamily={"var(--anek-font)"}>Editorial Policy</Typography>
-                  </Link>
-                  <Link href="/contact">
-                    <Typography fontFamily={"var(--anek-font)"}>Contact</Typography>
                   </Link>
                 </Box>
 

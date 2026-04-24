@@ -13,7 +13,6 @@ import { CryptoFetcher } from "@/utils/libs";
 import MobileBottomCategory from "../Mobile/MobileBottomCategory";
 import ManualImageAds from "../Ads/ManualImageAds";
 import TopMobileBanner from "../Ads/TopMobileBanner";
-import ElectionCountdown from "../Home/ElectionCountdown";
 import { Box } from "@mui/material";
 const MobileHomeCategory = dynamic(() =>
   import("../Mobile/MobileHomeCategory")
@@ -82,9 +81,6 @@ function MobileView({
   return (
     <MobilepageLayout menuData={menuData} trendingData={trendingData} breakingControl={breakingControl} quickControl={quickControl}>
       <TopMobileBanner href="https://example.com" />
-      <Box mt={2}>
-              <ElectionCountdown targetDate="2026-04-23T08:00:00" title="Election Countdown" />
-            </Box>
       <MobileHomePage
         newsData={!newsLoading ? newsData : []}
         newsLoading={newsLoading}

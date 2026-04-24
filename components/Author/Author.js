@@ -69,7 +69,9 @@ function Author({ SlugName }) {
                 <Skeleton variant="text" width={300} />
               ) : (
                 <>
-                  
+                  {role && (
+                    <p style={{ margin: 0, fontWeight: 600 }}>Role: {role}</p>
+                  )}
                   {experience && (
                     <p style={{ margin: 0 }}>Experience: {experience}</p>
                   )}
