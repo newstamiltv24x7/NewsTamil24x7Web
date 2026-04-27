@@ -137,7 +137,6 @@ function CategoryLeft({
                 fontSize={15}
                 lineHeight={1.5}
                 component={"p"}
-                fontWeight={550}
                 mt={"10px"}
                 height={68}
                 sx={{ cursor: "pointer" }}
