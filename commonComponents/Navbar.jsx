@@ -415,7 +415,7 @@ function Navbar(props) {
                     Election Express
                   </Button>
                 </Link>
-                {menuData?.slice(1, 6)?.map((item) => (
+                {menuData?.slice(1, 7)?.map((item) => (
                   <Link
                     href={getNavLink(item?.c_category_slug_english_name)}
                     key={item?._id}
