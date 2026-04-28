@@ -310,7 +310,7 @@ function HomepageMainSection({
         }}
       >
       <a
-            href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+            href="https://admissions.vit.ac.in/b-arch-2026-applications/login"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -323,7 +323,7 @@ function HomepageMainSection({
             }}
           >
             <img
-              src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/970_x_90_copy_gj6kgf.jpg"
+              src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374313/970_x_90_copy_d1snwx.jpg"
               width="970"
               height="90"
               alt="Advertisement"

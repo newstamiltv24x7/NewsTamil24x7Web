@@ -336,7 +336,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
           display={{ xs: "none", sm: "none", md: "block" }}
         >
           <img
-            src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666738/320_x_480_inaej5.jpg"
+            src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374741/320_x_480_copy_e3vmzf.jpg"
             width="320"
             height="480"
             alt="Advertisement"

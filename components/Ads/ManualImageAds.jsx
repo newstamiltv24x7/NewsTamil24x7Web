@@ -4,7 +4,7 @@ import Image from "next/image";
 const DESKTOP_ADS = [
   {
     id: "desktop-970x250",
-    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/f_auto,q_auto,w_970/v1773666738/970_x_250_copy_sjlklr.jpg",
+    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374411/970_x_250_copy_pzafvk.jpg",
     width: 970,
     height: 250,
     alt: "Desktop ad 970x250",
@@ -14,7 +14,7 @@ const DESKTOP_ADS = [
 const MOBILE_ADS = [
   {
     id: "mobile-320x480",
-    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/f_auto,q_auto,w_320/v1773666738/320_x_480_inaej5.jpg",
+    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374741/320_x_480_copy_e3vmzf.jpg",
     width: 320,
     height: 480,
     alt: "Mobile ad 320x480",
@@ -39,7 +39,7 @@ function ManualImageAds({ device = "desktop", title = "Sponsored" }) {
         {ads.map((ad) => (
           <a
             key={ad.id}
-            href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+            href="https://admissions.vit.ac.in/b-arch-2026-applications/login"
             target="_blank"
             rel="noopener noreferrer"
             style={{

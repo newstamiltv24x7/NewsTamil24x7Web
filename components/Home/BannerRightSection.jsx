@@ -410,7 +410,7 @@ useEffect(() => {
               }}
             >
             <a
-              href="https://admissions.vit.ac.in/bsc-hons-agri-2026-applications/login"
+              href="https://admissions.vit.ac.in/b-arch-2026-applications/login"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -421,7 +421,7 @@ useEffect(() => {
               }}
             >
               <Image
-                src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1773666739/320_x_600_copy_emt1dg.jpg"
+                src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374822/300_x_600_copy_yy6s1n.jpg"
                 alt="Advertisement"
                 width={320}
                 height={600}
