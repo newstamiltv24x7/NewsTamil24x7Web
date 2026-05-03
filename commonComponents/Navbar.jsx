@@ -251,8 +251,8 @@ function Navbar(props) {
         </Typography>
       </Box>
 
-      {/* CENTER: Logo */}
-      <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+      {/* CENTER: Logo + Election Badge */}
+      <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center", gap: 2 }}>
         <Link href="/">
           <Image
             src={Logo}
@@ -262,6 +262,96 @@ function Navbar(props) {
             style={{ marginBottom: 10 }}
           />
         </Link>
+        {/* Election 2026 Badge - wider and better aligned with logo */}
+        <a
+          href="https://election.newstamil.tv"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+              transition: "transform 0.18s ease",
+              "&:hover": { transform: "translateY(-2px) scale(1.02)" },
+              ml: { xs: 0.5, sm: 1, md: 2 },
+            }}
+          >
+            <Box
+              sx={{
+                position: "relative",
+                borderRadius: "12px",
+                overflow: "hidden",
+                background: "linear-gradient(135deg, #120800 0%, #2a0e00 100%)",
+                border: "2px solid rgba(255,102,0,0.6)",
+                px: { xs: 1.2, sm: 2 },
+                py: { xs: 0.5, sm: 0.7 },
+                minWidth: { xs: 140, sm: 200 },
+                display: "flex",
+                gap: 1,
+                alignItems: "center",
+                "@keyframes electionGlow": {
+                  "0%, 100%": { boxShadow: "0 0 8px rgba(255,102,0,0.25)" },
+                  "50%": { boxShadow: "0 0 18px rgba(255,102,0,0.55)" },
+                },
+                animation: "electionGlow 2.2s ease-in-out infinite",
+              }}
+            >
+              {/* Mini flag stripe */}
+              <Box sx={{ display: "flex", height: "3px", borderRadius: "2px", overflow: "hidden", position: "absolute", left: 0, right: 0, top: 0 }}>
+                <Box sx={{ flex: 1, background: "#ff9933" }} />
+                <Box sx={{ flex: 1, background: "#ffffff" }} />
+                <Box sx={{ flex: 1, background: "#138808" }} />
+              </Box>
+              <Typography sx={{ fontSize: { xs: "0.95rem", sm: "1.05rem" }, lineHeight: 1 }}>🗳️</Typography>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
+                <Typography
+                  sx={{
+                    fontWeight: 800,
+                    fontSize: { xs: "0.62rem", sm: "0.75rem", md: "0.85rem" },
+                    letterSpacing: "0.06em",
+                    color: "#ff9900",
+                    lineHeight: 1.02,
+                    fontFamily: "var(--anek-font)",
+                    textTransform: "uppercase",
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  TAMIL NADU
+                </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 800,
+                    fontSize: { xs: "0.62rem", sm: "0.72rem", md: "0.78rem" },
+                    letterSpacing: "0.04em",
+                    color: "rgba(255,210,160,0.98)",
+                    lineHeight: 1.02,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  ASSEMBLY ELECTION 2026
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "#ff3300",
+                  "@keyframes dotPulse": {
+                    "0%, 100%": { opacity: 1, transform: "scale(1)" },
+                    "50%": { opacity: 0.45, transform: "scale(1.45)" },
+                  },
+                  animation: "dotPulse 1.2s ease-in-out infinite",
+                  boxShadow: "0 0 6px #ff3300",
+                }}
+              />
+            </Box>
+          </Box>
+        </a>
       </Box>
 
       {/* RIGHT: Toggle */}

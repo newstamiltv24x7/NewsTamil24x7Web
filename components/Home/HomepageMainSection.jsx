@@ -76,6 +76,10 @@ const CardsPage = dynamic(() => import("./CardsPage"), {
   ssr: false,
   loading: () => <Box sx={{ height: "350px", width: "100%" }} />,
 });
+const ElectionCountdownCard = dynamic(() => import("./ElectionCountdownCard"), {
+  ssr: false,
+  loading: () => null,
+});
 
 function HomepageMainSection({
   menuData,
@@ -508,6 +512,10 @@ function HomepageMainSection({
           />
         </Box>
         {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
+
+        {/*<----------------------- ELECTION COUNTDOWN CARD START ----------------->*/}
+        
+        {/*<----------------------- ELECTION COUNTDOWN CARD END ----------------->*/}
 
         {/*<----------------------- COLUMN TWO SECTION START ----------------->*/}
         <Box my={1}>

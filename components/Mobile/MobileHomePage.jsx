@@ -19,6 +19,7 @@ import TelegramNew from "../../public/newsTamilIcons/icon-pack/Frame 8.svg";
 import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
 import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
+import ElectionCountdownCard from "../Home/ElectionCountdownCard";
 
 function MobileHomePage({ newsData, newsLoading,viewControl }) {
   const [liveData, setLiveData] = useState({});
@@ -137,6 +138,7 @@ const GetJustNowCategory = async () => {
           </Link>
         </Box>
       )}
+      <ElectionCountdownCard/>
     <Box
   sx={{
     position: 'relative',

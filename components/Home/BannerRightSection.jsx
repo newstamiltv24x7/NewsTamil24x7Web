@@ -24,6 +24,7 @@ import InstagramNew from "../../public/newsTamilIcons/icon-pack/Frame 3.svg";
 import ThreadsNew from "../../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 import CommonHeader from "@/commonComponents/CommonHeader";
+import ElectionCountdownCard from "./ElectionCountdownCard";
 
 function BannerRightSection({ trendingData, liveData, loading, trendLoading, viewControl }) {
   const { mode } = useTheme();
@@ -93,7 +94,7 @@ useEffect(() => {
           )}
         </Box>
         
-     
+     <ElectionCountdownCard />
         <CommonHeader
                             title="Special Programmes"
                             engTitle=""
