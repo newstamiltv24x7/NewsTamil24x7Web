@@ -74,8 +74,8 @@ const secondValue = rss?.[1];
   try {    
     const response = await axios.get(
       (secondValue) ?
-        `${baseURL}/api/v1/web/rss_xml/list?sub=${secondValue}` : 
-        `${baseURL}/api/v1/web/rss_xml/list?url=${firstValue}`
+        `${baseURL}/api/v1/web/rss_xml/list?sub=${encodeURIComponent(secondValue)}` : 
+        `${baseURL}/api/v1/web/rss_xml/list?url=${encodeURIComponent(firstValue)}`
     );
     // The API might be returning the raw payload when encrypted response is disabled for RSS
     // or it might be a nested object. Let's ensure we handle the structure.
