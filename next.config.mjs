@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  experimental: {
-    largePageDataBytes: 256 * 1024,
-  },
+  reactStrictMode: true,
   // swcMinify: true,
   i18n: {
     locales: ["en-US", "fr", "es"],
@@ -63,12 +60,24 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     minimumCacheTTL: 86400, // Cache optimised images for 24 h
   },
-  rewrites: () => [
-    {
-      source: "/:path*.(jpg|jpeg|png|webp|avif|ico|gif|svg)",
-      destination: "/:path*",
-    },
-  ],
+  output: "standalone",
+  productionBrowserSourceMaps: false,
+
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? {
+            exclude: ["error", "warn"],
+          }
+        : false,
+  },
+  experimental: {
+    optimizePackageImports: [
+      "@mui/material",
+      "@mui/icons-material",
+      "react-icons",
+    ],
+  },
   // ── HTTP response headers ────────────────────────────────────────────
   // Next.js already sets immutable Cache-Control on /_next/static/* in
   // production.  Add security headers and a generous cache for media.
@@ -84,6 +93,15 @@ const nextConfig = {
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
@@ -117,7 +135,7 @@ const nextConfig = {
         mui: {
           test: /[\\/]node_modules[\\/](@mui|@emotion)[\\/]/,
           name: "mui",
-          chunks: "all",
+          chunks: "async",
           priority: 30,
         },
         swiper: {
@@ -127,11 +145,25 @@ const nextConfig = {
           chunks: "async",
           priority: 20,
         },
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
-          priority: 10,
+        framer: {
+          test: /[\\/]node_modules[\\/](framer-motion)[\\/]/,
+          name: "framer",
+          chunks: "async",
+          priority: 25,
+        },
+
+        icons: {
+          test: /[\\/]node_modules[\\/](react-icons)[\\/]/,
+          name: "icons",
+          chunks: "async",
+          priority: 24,
+        },
+
+        lodash: {
+          test: /[\\/]node_modules[\\/](lodash|lodash-es)[\\/]/,
+          name: "lodash",
+          chunks: "async",
+          priority: 23,
         },
       },
     };

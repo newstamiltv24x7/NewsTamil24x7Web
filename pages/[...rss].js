@@ -23,7 +23,7 @@ function formatCustomDate(date) {
 export async function getServerSideProps({ params, res }) {
   const { rss } = params;
   
-const fisrtValue = rss?.[0]; 
+const firstValue = rss?.[0]; 
 const secondValue = rss?.[1]; 
 
 
@@ -75,7 +75,7 @@ const secondValue = rss?.[1];
     const response = await axios.get(
       (secondValue) ?
         `${baseURL}/api/v1/web/rss_xml/list?sub=${secondValue}` : 
-        `${baseURL}/api/v1/web/rss_xml/list?url=${fisrtValue}`
+        `${baseURL}/api/v1/web/rss_xml/list?url=${firstValue}`
     );
     // The API might be returning the raw payload when encrypted response is disabled for RSS
     // or it might be a nested object. Let's ensure we handle the structure.

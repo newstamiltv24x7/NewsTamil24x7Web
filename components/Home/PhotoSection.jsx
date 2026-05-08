@@ -46,8 +46,14 @@ function PhotoSection({ photosData }) {
       <Grid item md={12} xs={12} sm={12} mt={2}>
         <Grid container spacing={1}>
           {Array.isArray(photosData) &&
-            photosData?.slice(0, 4)?.map((list) => (
-              <Grid item md={3} xs={12} sm={12} key={list}>
+            photosData?.slice(0, 4)?.map((list, idx) => (
+              <Grid
+                item
+                md={3}
+                xs={12}
+                sm={12}
+                key={list?._id || list?.c_photos_slug_title || idx}
+              >
                 <Box className="photo-card" position={"relative"} mb={1}>
                   <Card
                     sx={{
