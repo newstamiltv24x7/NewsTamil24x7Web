@@ -10,6 +10,7 @@ const nextConfig = {
   compress: true,
   transpilePackages: ["mui-one-time-password-input"],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
