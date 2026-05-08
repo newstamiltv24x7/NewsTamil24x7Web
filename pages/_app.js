@@ -3,7 +3,6 @@ import ThemeContextProvider from "@/theme/ThemeContext";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import "react-toastify/dist/ReactToastify.css";
-import { SessionProvider } from "next-auth/react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ClientErrorHandler from "@/components/ClientErrorHandler";
 import Script from "next/script";
@@ -31,13 +30,12 @@ if (typeof window !== "undefined") {
   import("swiper/css/pagination");
 }
 
-function App({ Component, pageProps: { session, ...pageProps } }) {
+function App({ Component, pageProps }) {
   return (
     <ThemeContextProvider>
-      <SessionProvider session={session}>
-        <ErrorBoundary>
-          <ClientErrorHandler />
-          <Provider store={store}>
+      <ErrorBoundary>
+        <ClientErrorHandler />
+        <Provider store={store}>
             {/* ── Google Analytics — afterInteractive: loads after page is interactive,
                 never blocks first paint (FCP/LCP) ── */}
             <Script
@@ -68,7 +66,6 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
           </Provider>
           <ToastContainer />
         </ErrorBoundary>
-      </SessionProvider>
     </ThemeContextProvider>
   );
 }
