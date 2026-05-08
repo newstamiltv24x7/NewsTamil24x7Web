@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
+    "sharp": "^0.33.5",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.16.0",
     "@next/bundle-analyzer": "^16.2.6",
