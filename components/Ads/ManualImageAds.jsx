@@ -4,7 +4,7 @@ import Image from "next/image";
 const DESKTOP_ADS = [
   {
     id: "desktop-970x250",
-    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374411/970_x_250_copy_pzafvk.jpg",
+    src: "https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/970_x_250_copy_pzafvk.jpg",
     width: 970,
     height: 250,
     alt: "Desktop ad 970x250",
@@ -14,7 +14,7 @@ const DESKTOP_ADS = [
 const MOBILE_ADS = [
   {
     id: "mobile-320x480",
-    src: "https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374741/320_x_480_copy_e3vmzf.jpg",
+    src: "https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/320_x_480_copy_e3vmzf.jpg",
     width: 320,
     height: 480,
     alt: "Mobile ad 320x480",

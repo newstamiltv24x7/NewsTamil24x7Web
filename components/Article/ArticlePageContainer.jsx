@@ -212,7 +212,7 @@ function ArticlePageContainer({
             }}
           >
             <img
-              src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374313/970_x_90_copy_d1snwx.jpg"
+              src="https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/970_x_90_copy_d1snwx.jpg"
               width="970"
               height="90"
               alt="Advertisement"

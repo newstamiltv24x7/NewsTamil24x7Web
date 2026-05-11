@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const BANNER = {
   id: "mobile-banner-970x250",
-  src: "https://res.cloudinary.com/dtwcgfmar/image/upload/v1777374411/970_x_250_copy_pzafvk.jpg",
+  src: "https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/970_x_250_copy_pzafvk.jpg",
   width: 320,
   height: 50,
   alt: "Mobile top banner",
