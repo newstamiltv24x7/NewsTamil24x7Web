@@ -76,10 +76,10 @@ const CardsPage = dynamic(() => import("./CardsPage"), {
   ssr: false,
   loading: () => <Box sx={{ height: "350px", width: "100%" }} />,
 });
-const ElectionCountdownCard = dynamic(() => import("./ElectionCountdownCard"), {
-  ssr: false,
-  loading: () => null,
-});
+// const ElectionCountdownCard = dynamic(() => import("./ElectionCountdownCard"), {
+//   ssr: false,
+//   loading: () => null,
+// });
 
 function HomepageMainSection({
   menuData,
