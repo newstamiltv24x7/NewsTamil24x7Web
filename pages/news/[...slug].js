@@ -135,7 +135,17 @@ function page({
         />
         <meta name="keywords" content={seoData?.c_category_meta_keywords} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`} />
+        <meta property="og:locale" content="ta_IN" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="News Tamil 24x7" />
+        <meta property="og:title" content={seoData?.c_category_meta_title} />
+        <meta property="og:description" content={seoData?.c_category_meta_description} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@newstamil" />
+        <meta name="twitter:title" content={seoData?.c_category_meta_title} />
+        <meta name="twitter:description" content={seoData?.c_category_meta_description} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"

@@ -8,15 +8,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-// import "./css/LoginStyles.css";
-// import MainLogo from "../common/assets/images/kblogo.jpg";
-// import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
-// import { adminLogin } from "../common/api/KrBakesApi";
-// import AutohideSnackbar from "../components/Snackbar";
 import Logo from "../public/newsTamilIcons/icons/main-logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 import { loginUser } from "@/commonComponents/WebApiFunction/ApiFunctions";
 import { toast } from "react-toastify";
 import { CryptoFetcher } from "@/utils/libs";
@@ -89,6 +84,11 @@ function login() {
   }, []);
 
   return (
+    <>
+      <Head>
+        <title>Login | News Tamil 24x7</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
     <Box className="Login-screen">
       <Box className="login-screen-container">
         <Box display={"grid"} sx={{ placeItems: "center" }}>
@@ -218,6 +218,7 @@ function login() {
         </p>
       </Box>
     </Box>
+    </>
   );
 }
 

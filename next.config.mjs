@@ -2,15 +2,21 @@
 const nextConfig = {
   reactStrictMode: true,
   // swcMinify: true,
+  // Tamil-only website — single locale prevents Next.js from generating
+  // duplicate /fr/* and /es/* shadow routes that create duplicate-content issues.
   i18n: {
-    locales: ["en-US", "fr", "es"],
-    defaultLocale: "en-US",
+    locales: ["ta"],
+    defaultLocale: "ta",
   },
   poweredByHeader: false,
   compress: true,
   transpilePackages: ["mui-one-time-password-input"],
   images: {
-    unoptimized: true,
+    // NOTE: "unoptimized: true" was removed — it was overriding the AVIF/WebP
+    // formats, deviceSizes and minimumCacheTTL settings below, effectively
+    // serving all images at full size with no transcoding (major LCP hit).
+    // All external image hostnames are already listed in remotePatterns so the
+    // built-in Next.js Image Optimization will work correctly.
     remotePatterns: [
       {
         protocol: "https",
@@ -50,6 +56,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "newstamil-tv.s3.ap-south-1.amazonaws.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.r2.dev",
         pathname: "/**",
       },
     ],
@@ -94,6 +105,11 @@ const nextConfig = {
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
+          },
+          // Force HTTPS for 1 year; include sub-domains; allow preload registration
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains; preload",
           },
         ],
       },

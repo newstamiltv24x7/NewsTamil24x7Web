@@ -199,14 +199,12 @@ export default function Home({
     "name":"News Tamil 24x7",
     "url":"https://www.newstamil.tv/",
     "logo":{
-        "@context":"https://schema.org",
         "@type":"ImageObject",
-        "author":"News Tamil 24x7",
-        "contentUrl":"https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
-        "url":"https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
-        "name":"logo",
-        "width":"",
-        "height":""
+        "contentUrl":"https://www.newstamil.tv/main-logo.png",
+        "url":"https://www.newstamil.tv/main-logo.png",
+        "name":"News Tamil 24x7 logo",
+        "width":200,
+        "height":60
       },
     "sameAs":[
             "https://www.youtube.com/@NewsTamil24X7TV",
@@ -217,13 +215,13 @@ export default function Home({
             "https://news.google.com/publications/CAAqBwgKMK7avwswu_XWAw?hl=ta&gl=IN&ceid=IN%3Ata",
             "https://m.dailyhunt.in/news/india/tamil/newstamil+24x7-epaper-newstamil/tamilnadu-updates-tamilnadu?mode=pwa"
         ],
-    "@type":"Organization",
+    "@type":"NewsMediaOrganization",
     "@context":"https://schema.org"
 }
 
   const jsonWebsiteLd = {
     "@context":"https://schema.org",
-    "@type":"Website",
+    "@type":"WebSite",
     "url":"https://www.newstamil.tv",
     "interactivityType":"mixed",
     "name":`${seoResponse?.c_seo_page_title}`,
@@ -289,7 +287,20 @@ export default function Home({
         />
         <meta name="keywords" content={seoResponse?.c_seo_page_keywords} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`} />
+        <meta property="og:locale" content="ta_IN" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="News Tamil 24x7" />
+        <meta property="og:title" content={seoResponse?.c_seo_page_title} />
+        <meta property="og:description" content={seoResponse?.c_seo_page_description} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/`} />
+        <meta property="og:image" content="https://www.newstamil.tv/main-logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@newstamil" />
+        <meta name="twitter:creator" content="@newstamil" />
+        <meta name="twitter:title" content={seoResponse?.c_seo_page_title} />
+        <meta name="twitter:description" content={seoResponse?.c_seo_page_description} />
+        <meta name="twitter:image" content="https://www.newstamil.tv/main-logo.png" />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/`} />
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"

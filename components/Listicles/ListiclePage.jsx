@@ -24,10 +24,6 @@ import { IoMdMail } from "react-icons/io";
 import { useTheme } from "@/theme/ThemeContext";
 
 function ListiclePage({ listicleRes }) {
-
-
-
-  console.log(listicleRes,"<<< listicleRes")
 const { mode } = useTheme();
 
   return (

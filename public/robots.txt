@@ -38,4 +38,4 @@ Disallow: /search?
 Disallow: /*?utm=
 Disallow: /cgi-bin/
 
-Sitemap: https://newstamil.tv/sitemap.xml
+Sitemap: https://www.newstamil.tv/sitemap.xml

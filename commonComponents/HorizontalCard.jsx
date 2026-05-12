@@ -170,7 +170,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={FacebookNew}
-                            alt="fb"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() =>
@@ -192,7 +192,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={TwitterNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() =>
@@ -207,7 +207,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={YoutubeNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() => shareCards("yt")}
@@ -218,7 +218,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={TelegramNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() =>
@@ -233,7 +233,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={InstagramNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() => shareCards("insta")}
@@ -242,7 +242,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={ThreadsNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() => shareCards("td")}
@@ -251,7 +251,7 @@ function HorizontalCard({ list, type ,viewControl }) {
                           fetchPriority="high" 
                           rel="preload"
                             src={LinkedinNew}
-                            alt="wp"
+                            alt=""
                             width={24}
                             height={24}
                             onClick={() =>

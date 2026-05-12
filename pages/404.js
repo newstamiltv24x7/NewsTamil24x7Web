@@ -2,11 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import FourNotFour from "../public/newsTamilIcons/icons/404.jpg";
 import { Box, Button } from "@mui/material";
+import Head from "next/head";
 
 export default function Custom404() {
     const embedUrl = `https://www.youtube.com/embed/gynWNinqmjw`;
 
     return (
+        <>
+        <Head>
+            <title>Page Not Found | News Tamil 24x7</title>
+            <meta name="robots" content="noindex, nofollow" />
+        </Head>
         <div style={{minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, padding: 20}}>
             <div style={{textAlign: "center"}}>
                 <h1 style={{margin: 0}}>Site Under Construction</h1>
@@ -23,6 +29,7 @@ export default function Custom404() {
                 />
             </div>
         </div>
+        </>
     );
 }
 

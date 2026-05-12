@@ -12,6 +12,7 @@ import Head from "next/head";
 import CategoryPageContainer from "@/components/Category/CategoryPageContainer";
 import MobileCategoryPage from "@/components/Mobile/MobileCategoryPage";
 import AuthorPageContainer from "@/components/Author/AuthorPageContainer";
+import { usePathname } from "next/navigation";
 
 export async function getServerSideProps(response) {
   const { slug } = response?.params;
@@ -99,7 +100,7 @@ function page({
   parentPath,
   childPath,
 }) {
-
+  const pathname = usePathname();
     
   return (
     <>
@@ -111,7 +112,7 @@ function page({
         />
         <meta name="keywords" content={seoData?.c_category_meta_keywords} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

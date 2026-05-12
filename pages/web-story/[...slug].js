@@ -48,20 +48,16 @@ function page({ webData, deviceType }) {
           content="https://www.newstamil.tv/"
         />
         <meta property="og:site_name" content="NEWS Tamil 24x7" />
-        {/* <meta name="description" content={webData?.at(0)?.story_sub_title_name} /> */}
-        {/* <meta name="keywords" content={webData?.at(0)?.seo_tag} /> */}
-        <meta property="og:locale" content="en_US" />
+        <meta name="description" content={webData?.at(0)?.c_web_story_description || webData?.at(0)?.c_web_story_title} />
+        <meta property="og:locale" content="ta_IN" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={webData?.at(0)?.c_web_story_title} />
-        {/* <meta property="og:description" content={webData?.at(0)?.story_sub_title_name}/> */}
+        <meta property="og:description" content={webData?.at(0)?.c_web_story_description || webData?.at(0)?.c_web_story_title} />
         <meta
           property="og:image"
           content={webData?.at(0)?.c_web_story_cover_img}
         />
-        {/* <meta
-          property="og:url"
-          content={`${process.env.NEXT_PUBLIC_API_WEB_URL}/dnews/${singleNews?.story_desk_created_name}`}
-        /> */}
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
         <meta property="og:image:width" content="750" />
         <meta property="og:image:height" content="430" />
         <meta name="twitter:creator" content="@newstamil" />
@@ -69,21 +65,11 @@ function page({ webData, deviceType }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content={(webData?.at(0)?.c_web_story_title)}
+          content={webData?.at(0)?.c_web_story_title}
         />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL}${pathname}`} />
-        {/* <meta
-          name="twitter:description"
-          content={singleNews?.story_sub_title_name}
-        /> */}
-        {/* <meta
-          name="twitter:image"
-          content={`https://d3dqrx874ys9wo.cloudfront.net/uploads/web/images/750x430/${singleNews?.story_cover_image_url}`}
-        /> */}
-        {/* <link
-          rel="canonical"
-          href={`${process.env.NEXT_PUBLIC_API_WEB_URL}/dnews/${singleNews?.story_desk_created_name}`}
-        /> */}
+        <meta name="twitter:description" content={webData?.at(0)?.c_web_story_description || webData?.at(0)?.c_web_story_title} />
+        <meta name="twitter:image" content={webData?.at(0)?.c_web_story_cover_img} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
 
 

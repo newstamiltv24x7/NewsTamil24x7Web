@@ -39,7 +39,7 @@ const secondValue = rss?.[1];
     image_url:
       "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
     copyright: `© ${currentDate.getFullYear()} News Tamil`,
-    language: "en-US",
+    language: "ta",
     pubDate: formatCustomDate(currentDate),
     ttl: 60,
     custom_namespaces: {
