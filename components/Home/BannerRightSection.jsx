@@ -422,7 +422,7 @@ useEffect(() => {
               }}
             >
               <Image
-                src="https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/300_x_600_copy_yy6s1n.jpg"
+                src="https://pub-5ec8b8a92bcc459b8ccd53f5cb392c63.r2.dev/300%20x%20600%20copy.jpg"
                 alt="Advertisement"
                 width={320}
                 height={600}

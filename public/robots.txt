@@ -39,3 +39,4 @@ Disallow: /*?utm=
 Disallow: /cgi-bin/
 
 Sitemap: https://www.newstamil.tv/sitemap.xml
+Sitemap: https://www.newstamil.tv/news-sitemap.xml
