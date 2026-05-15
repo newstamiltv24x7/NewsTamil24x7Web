@@ -133,7 +133,7 @@ function Page({
   const jsonArticleLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`,
+    "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
     headline: `${seoData?.story_title_name}`,
     description: seoData?.story_sub_title_name || undefined,
     image: {
@@ -146,7 +146,7 @@ function Page({
     author: {
       "@type": "Person",
       name: singleNews?.at(0)?.c_createdName || "NT WEB",
-      url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`,
+      url: `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}/author/${singleNews?.at(0)?.c_slugName || "newstamil-web"}`,
       jobTitle: singleNews?.at(0)?.role || singleNews?.at(0)?.author_role || singleNews?.at(0)?.c_role || undefined,
       description: singleNews?.at(0)?.c_about_user || seoData?.author_bio || undefined,
     },  
@@ -155,7 +155,7 @@ function Page({
       name: "News Tamil 24x7",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.newstamil.tv/main-logo.png"
+        url: "https://newstamil.tv/main-logo.png"
       }
     },
     datePublished: seoData?.createdAt
@@ -164,10 +164,10 @@ function Page({
     dateModified: seoData?.updatedAt
       ? new Date(seoData.updatedAt).toISOString()
       : seoData?.updatedAt,
-    url: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`,
+    url: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`,
+      "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
     },
   }
 
@@ -210,19 +210,19 @@ function Page({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.newstamil.tv",
+        item: "https://newstamil.tv",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: singleNews?.at(0)?.story_desk_created_name?.split("/")?.[0] || seoData?.story_category || "News",
-        item: `https://www.newstamil.tv/news/${singleNews?.at(0)?.story_desk_created_name?.split("/")?.[0] || ""}`,
+        item: `https://newstamil.tv/news/${singleNews?.at(0)?.story_desk_created_name?.split("/")?.[0] || ""}`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: `${seoData?.story_title_name}`,
-        item: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`,
+        item: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
       },
     ],
   };
@@ -265,7 +265,7 @@ function Page({
 
         <title>{seoData?.story_title_name}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="article:publisher" content="https://www.newstamil.tv" />
+        <meta property="article:publisher" content="https://newstamil.tv" />
         <meta property="og:site_name" content="news Tamil 24x7" />
         <meta name="description" content={seoData?.story_sub_title_name} />
         <meta name="keywords" content={seoData?.seo_tag} />
@@ -289,21 +289,21 @@ function Page({
           content={seoData?.story_sub_title_name}
         />
         <meta name="twitter:image" content={seoData?.story_cover_image_url} />
-        <link rel="canonical" href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <link rel="canonical" href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <link
           rel="alternate"
           hreflang="x-default"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`}
+          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
         />
         <link
           rel="alternate"
           hreflang="ta"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`}
+          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
         />
         <link
           rel="alternate"
           hreflang="ta-IN"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`}
+          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
         />
         <link rel="icon" href="/favicon.ico" />
 

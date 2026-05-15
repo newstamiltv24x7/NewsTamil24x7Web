@@ -140,12 +140,12 @@ function page({
         <meta property="og:site_name" content="News Tamil 24x7" />
         <meta property="og:title" content={seoData?.c_category_meta_title} />
         <meta property="og:description" content={seoData?.c_category_meta_description} />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@newstamil" />
         <meta name="twitter:title" content={seoData?.c_category_meta_title} />
         <meta name="twitter:description" content={seoData?.c_category_meta_description} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"

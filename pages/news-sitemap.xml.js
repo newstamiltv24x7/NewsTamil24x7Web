@@ -9,7 +9,7 @@
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const SITE_URL = "https://www.newstamil.tv";
+const SITE_URL = "https://newstamil.tv";
 
 const escapeXml = (str) =>
   str

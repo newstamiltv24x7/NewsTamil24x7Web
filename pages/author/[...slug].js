@@ -112,7 +112,7 @@ function page({
         />
         <meta name="keywords" content={seoData?.c_category_meta_keywords} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

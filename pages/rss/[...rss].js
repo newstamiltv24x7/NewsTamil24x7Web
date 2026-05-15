@@ -3,7 +3,7 @@ import { decode } from "html-entities";
 import RSS from "rss";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const redirectUrl = "https://www.newstamil.tv";
+const redirectUrl = "https://newstamil.tv";
 
 function formatCustomDate(date) {
   const d = new Date(date);
@@ -18,16 +18,15 @@ function formatCustomDate(date) {
   return `${day}-${month}-${year} ${hours}:${minutes}`;
 }
 
-
-
 export async function getServerSideProps({ params, res }) {
   const { rss } = params;
-  
-const firstValue = rss?.[0]; 
-const secondValue = rss?.[1]; 
 
+  const firstValue = rss?.[0];
+  const secondValue = rss?.[1];
 
-
+  if (!firstValue) {
+    return { notFound: true };
+  }
 
   const currentDate = new Date();
 
@@ -36,8 +35,7 @@ const secondValue = rss?.[1];
     description: "Latest News from Tamil Nadu",
     site_url: redirectUrl,
     feed_url: `${redirectUrl}/rss-feed.xml`,
-    image_url:
-      "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
+    image_url: "https://newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
     copyright: `© ${currentDate.getFullYear()} News Tamil`,
     language: "ta",
     pubDate: formatCustomDate(currentDate),
@@ -61,7 +59,7 @@ const secondValue = rss?.[1];
       {
         image: [
           {
-            url: "https://www.newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
+            url: "https://newstamil.tv/_next/static/media/main-logo.ae4ceeb6.png",
           },
           { title: "News Tamil" },
           { link: redirectUrl },
@@ -71,19 +69,17 @@ const secondValue = rss?.[1];
     ],
   });
 
-  try {    
+  try {
     const response = await axios.get(
-      (secondValue) ?
-        `${baseURL}/api/v1/web/rss_xml/list?sub=${encodeURIComponent(secondValue)}` : 
-        `${baseURL}/api/v1/web/rss_xml/list?url=${encodeURIComponent(firstValue)}`
+      secondValue
+        ? `${baseURL}/api/v1/web/rss_xml/list?sub=${encodeURIComponent(secondValue)}`
+        : `${baseURL}/api/v1/web/rss_xml/list?url=${encodeURIComponent(firstValue)}`
     );
-    // The API might be returning the raw payload when encrypted response is disabled for RSS
-    // or it might be a nested object. Let's ensure we handle the structure.
+
     let items = response.data?.payloadJson;
-    
-    // If payloadJson is missing, it might be that the API returned the array directly
+
     if (!items && Array.isArray(response.data)) {
-        items = response.data;
+      items = response.data;
     }
 
     if (items && items.length > 0) {
@@ -146,17 +142,12 @@ const secondValue = rss?.[1];
     }
   } catch (error) {
     console.error("Error fetching RSS data:", error);
-    // res.statusCode = 500;
-    // res.end();
-    // return { props: {} };
     return {
       redirect: {
-        destination: "/404", // Redirects to the 404 page on error
+        destination: "/404",
         permanent: false,
       },
     };
-
-
   }
 
   const feedXml = feed.xml({ indent: true });

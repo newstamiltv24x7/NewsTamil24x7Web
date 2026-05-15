@@ -86,7 +86,7 @@ function photos({
         <title>News Tamil | Search</title>
         {/* Search result pages must not be indexed — avoid duplicate content */}
         <meta name="robots" content="noindex, follow" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
       </Head>
 
       {deviceType === "mobile" ? (

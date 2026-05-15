@@ -565,12 +565,12 @@ function page({
             style={{ position: "relative", top: 3, marginRight: 12 }}
           />
           <b>Website</b> refers to{" "}
-          <Link href={"https://www.newstamil.tv"} target="_blank">
-            https://www.newstamil.tv/
+          <Link href={"https://newstamil.tv"} target="_blank">
+            https://newstamil.tv/
           </Link>
           , accessible from{" "}
-          <Link href={"https://www.newstamil.tv"} target="_blank">
-            https://www.newstamil.tv/
+          <Link href={"https://newstamil.tv"} target="_blank">
+            https://newstamil.tv/
           </Link>
         </p>
       ),

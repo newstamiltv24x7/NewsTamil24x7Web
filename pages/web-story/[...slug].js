@@ -45,7 +45,7 @@ function page({ webData, deviceType }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           property="article:publisher"
-          content="https://www.newstamil.tv/"
+          content="https://newstamil.tv/"
         />
         <meta property="og:site_name" content="NEWS Tamil 24x7" />
         <meta name="description" content={webData?.at(0)?.c_web_story_description || webData?.at(0)?.c_web_story_title} />
@@ -57,7 +57,7 @@ function page({ webData, deviceType }) {
           property="og:image"
           content={webData?.at(0)?.c_web_story_cover_img}
         />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <meta property="og:image:width" content="750" />
         <meta property="og:image:height" content="430" />
         <meta name="twitter:creator" content="@newstamil" />
@@ -69,7 +69,7 @@ function page({ webData, deviceType }) {
         />
         <meta name="twitter:description" content={webData?.at(0)?.c_web_story_description || webData?.at(0)?.c_web_story_title} />
         <meta name="twitter:image" content={webData?.at(0)?.c_web_story_cover_img} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}${pathname}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
         <link rel="icon" href="/favicon.ico" />
 
 

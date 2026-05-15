@@ -6,8 +6,8 @@ export default async function handler(req, res) {
   const feed = new RSS({
     title: "News Tamil 24x7",
     description: "Description of your website",
-    site_url: "https://www.newstamil.tv/",
-    feed_url: "https://www.newstamil.tv/api/feed",
+    site_url: "https://newstamil.tv/",
+    feed_url: "https://newstamil.tv/api/feed",
     language: "en",
   });
 

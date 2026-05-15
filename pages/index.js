@@ -197,11 +197,11 @@ export default function Home({
   const pathname = usePathname(); 
   const jsonArticleLd = {
     "name":"News Tamil 24x7",
-    "url":"https://www.newstamil.tv/",
+    "url":"https://newstamil.tv/",
     "logo":{
         "@type":"ImageObject",
-        "contentUrl":"https://www.newstamil.tv/main-logo.png",
-        "url":"https://www.newstamil.tv/main-logo.png",
+        "contentUrl":"https://newstamil.tv/main-logo.png",
+        "url":"https://newstamil.tv/main-logo.png",
         "name":"News Tamil 24x7 logo",
         "width":200,
         "height":60
@@ -222,7 +222,7 @@ export default function Home({
   const jsonWebsiteLd = {
     "@context":"https://schema.org",
     "@type":"WebSite",
-    "url":"https://www.newstamil.tv",
+    "url":"https://newstamil.tv",
     "interactivityType":"mixed",
     "name":`${seoResponse?.c_seo_page_title}`,
     "headline":`${seoResponse?.c_seo_page_description}`,
@@ -234,7 +234,7 @@ export default function Home({
     
     "mainEntityOfPage":{
         "@type":"WebPage",
-        "@id":"https://www.newstamil.tv"
+        "@id":"https://newstamil.tv"
       }
 }
 
@@ -246,7 +246,7 @@ export default function Home({
             "@type":"ListItem",
             "position":1,
             "name":"Home",
-            "item":"https://www.newstamil.tv"
+            "item":"https://newstamil.tv"
         }
     ]
 }
@@ -292,15 +292,15 @@ export default function Home({
         <meta property="og:site_name" content="News Tamil 24x7" />
         <meta property="og:title" content={seoResponse?.c_seo_page_title} />
         <meta property="og:description" content={seoResponse?.c_seo_page_description} />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/`} />
-        <meta property="og:image" content="https://www.newstamil.tv/main-logo.png" />
+        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}/`} />
+        <meta property="og:image" content="https://newstamil.tv/main-logo.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@newstamil" />
         <meta name="twitter:creator" content="@newstamil" />
         <meta name="twitter:title" content={seoResponse?.c_seo_page_title} />
         <meta name="twitter:description" content={seoResponse?.c_seo_page_description} />
-        <meta name="twitter:image" content="https://www.newstamil.tv/main-logo.png" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://www.newstamil.tv"}/`} />
+        <meta name="twitter:image" content="https://newstamil.tv/main-logo.png" />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}/`} />
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"

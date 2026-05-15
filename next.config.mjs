@@ -90,6 +90,20 @@ const nextConfig = {
       "react-icons",
     ],
   },
+  // ── www → non-www permanent redirect ────────────────────────────────
+  // Any request to www.newstamil.tv is permanently redirected to newstamil.tv
+  // so Google always indexes the canonical non-www version.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.newstamil.tv" }],
+        destination: "https://newstamil.tv/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   // ── HTTP response headers ────────────────────────────────────────────
   // Next.js already sets immutable Cache-Control on /_next/static/* in
   // production.  Add security headers and a generous cache for media.
