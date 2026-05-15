@@ -19,7 +19,10 @@ function CategoryRight({ trendingData,viewControl }) {
         Trending News
       </Typography>
       {Array.isArray(trendingData) &&
-        trendingData?.slice(0, 10)?.map((list) => (
+        [...trendingData]
+          .sort((a, b) => new Date(b?.updatedAt || b?.createdAt) - new Date(a?.updatedAt || a?.createdAt))
+          .slice(0, 10)
+          .map((list) => (
           <React.Fragment key={list._id}>
             <HorizontalCard list={list} viewControl={viewControl} />
             <Box display={"grid"} sx={{ placeItems: "center" }}>

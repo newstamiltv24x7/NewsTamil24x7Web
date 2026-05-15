@@ -171,7 +171,9 @@ useEffect(() => {
             />
           ))}
         {!trendLoading &&
-          trendingData?.map((list) => (
+          ([...trendingData] || [])
+            .sort((a, b) => new Date(b?.updatedAt || b?.createdAt) - new Date(a?.updatedAt || a?.createdAt))
+            .map((list) => (
             <React.Fragment key={list?._id}>
               <Grid container spacing={1} mt={"2px"} position={"relative"}>
                 <Grid item xs={8} pr={1}>
