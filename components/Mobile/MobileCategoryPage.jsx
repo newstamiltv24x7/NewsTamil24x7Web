@@ -36,7 +36,7 @@ function MobileCategoryPage({
   function subTitleFunction(data){
     if(menuData ){
       const dataVal = menuData.find(user => user.c_category_slug_english_name === data);
-      return dataVal.c_category_meta_title;
+      return dataVal?.c_category_meta_title ?? "";
     }else{
       return "";
     }

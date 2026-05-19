@@ -46,6 +46,12 @@ export async function getServerSideProps(response) {
     const filterPath = decrypted
       ?.filter((list) => list.c_category_slug_english_name === slug?.at(0))
       ?.at(0)?.c_category_english_name;
+
+    // Category not found in menu — serve 404 instead of crashing on undefined
+    if (!filterPath) {
+      return { notFound: true };
+    }
+
     const seoRes = await getCategorySeo(filterPath);
 
     const control = await getControls();
