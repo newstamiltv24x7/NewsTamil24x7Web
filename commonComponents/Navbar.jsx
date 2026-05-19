@@ -481,7 +481,7 @@ function Navbar(props) {
                       HOME
                     </Button>
                   </Link>
-                 <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
+                 {/* <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
                   <Button
                     sx={{
                       color: "#ebebeb",
@@ -504,7 +504,7 @@ function Navbar(props) {
                   >
                     Election Express
                   </Button>
-                </Link>
+                </Link> */}
                 {menuData?.slice(1, 7)?.map((item) => (
                   <Link
                     href={getNavLink(item?.c_category_slug_english_name)}

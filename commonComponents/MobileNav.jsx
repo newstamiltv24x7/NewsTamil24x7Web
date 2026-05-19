@@ -252,7 +252,7 @@ function MobileNav(props) {
             />
           </div>
         </Link>
-        <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
+        {/* <Link href={getNavLink("election-express")} key="election-express" style={{ whiteSpace: "nowrap" }}>
                           <Button
                             sx={{
                               color: "#ebebeb",
@@ -274,7 +274,7 @@ function MobileNav(props) {
                           >
                             Election Express
                           </Button>
-                        </Link>
+                        </Link> */}
         {menuData?.map((item) => (
           <React.Fragment key={item?._id}>
             <Link href={getNavLink(item?.c_category_slug_english_name)} passHref>
