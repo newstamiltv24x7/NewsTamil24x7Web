@@ -32,16 +32,17 @@ export async function getServerSideProps(response) {
   );
 
   try {
-    const res = await getHomeMenuApi();
-    const decrypted = CryptoFetcher(res?.payloadJson);
+    // Run all independent fetches in parallel with the menu fetch.
+    // Only getCategorySeo depends on the menu result (needs filterPath),
+    // so everything else runs concurrently in one shot.
+    const [res, trendingResponse, control, results] = await Promise.all([
+      getHomeMenuApi(),
+      getHomeLatest({ n_page: 1, n_limit: 10, trending_news: 1 }),
+      getControls(),
+      getBreakingNews(),
+    ]);
 
-    const body = {
-      n_page: 1,
-      n_limit: 10,
-      trending_news: 1,
-    };
-    const trendingResponse = await getHomeLatest(body);
-    const decryptedTrend = CryptoFetcher(trendingResponse?.payloadJson);
+    const decrypted = CryptoFetcher(res?.payloadJson);
 
     const filterPath = decrypted
       ?.filter((list) => list.c_category_slug_english_name === slug?.at(0))
@@ -52,16 +53,14 @@ export async function getServerSideProps(response) {
       return { notFound: true };
     }
 
+    // Now fetch category SEO — this is the only call that needs filterPath
     const seoRes = await getCategorySeo(filterPath);
 
-    const control = await getControls();
+    const decryptedTrend = CryptoFetcher(trendingResponse?.payloadJson);
     const controlData = CryptoFetcher(control?.payloadJson);
     const quickControl = controlData?.at(1)?.c_control_type?.toLowerCase();
     const breakingControl = controlData?.at(0)?.c_control_type?.toLowerCase();
     const viewControl = controlData?.at(2)?.c_control_type?.toLowerCase();
-
-    const results = await getBreakingNews();
-    // const breakingData = CryptoFetcher(results?.payloadJson);
     const breakingData = results?.payloadJson;
 
     return {

@@ -57,22 +57,11 @@ export async function getServerSideProps(context) {
     );
 
   try {
-    // 1. Fetch menu order first to get the category IDs for secondary news sections
-    const menuOrderRes = await getHomeMenuApiList({
-      n_page: 1,
-      n_limit: 50,
-      c_search_term: "",
-      spl_category: "1",
-    });
-    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
-
-    // 2. Map fixed category positions (matching components\Home\SecondaryCategory.jsx logic)
-    const firstCatId = orderedMenu?.at(4)?.c_category_id;
-    const thirdCatId = orderedMenu?.at(6)?.c_category_id;
-    const fourthCatId = orderedMenu?.at(7)?.c_category_id;
-
-    // 3. Batch all remaining fetches concurrently
+    // 1. Batch menuOrderRes together with all fetches that don't depend on it.
+    //    Previously menuOrderRes was awaited alone first — that added a full
+    //    sequential round-trip before the other 12 fetches even started.
     const [
+      menuOrderRes,
       menuRes,
       controlRes,
       photosRes,
@@ -82,10 +71,13 @@ export async function getServerSideProps(context) {
       justBeforeRes, // for SecondaryCategory col 2
       topNewsRes,
       trendingRes,
-      districtRes,   // for SecondaryCategory col 1
-      bigStoriesRes, // for SecondaryCategory col 3
-      worldRes       // for SecondaryCategory col 4
     ] = await Promise.all([
+      getHomeMenuApiList({
+        n_page: 1,
+        n_limit: 50,
+        c_search_term: "",
+        spl_category: "1",
+      }),
       getHomeMenuApi(),
       getControls(),
       getAllPhotos(),
@@ -95,6 +87,17 @@ export async function getServerSideProps(context) {
       getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
       getHomeTopSection({ n_page: 1, n_limit: 14, main_category_id: "cf336f838e81" }),
       getHomeLatest({ n_page: 1, n_limit: 6, trending_news: 1 }),
+    ]);
+
+    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
+
+    // 2. Map fixed category positions (matching components\Home\SecondaryCategory.jsx logic)
+    const firstCatId = orderedMenu?.at(4)?.c_category_id;
+    const thirdCatId = orderedMenu?.at(6)?.c_category_id;
+    const fourthCatId = orderedMenu?.at(7)?.c_category_id;
+
+    // 3. Now fire the three fetches that depend on orderedMenu
+    const [districtRes, bigStoriesRes, worldRes] = await Promise.all([
       firstCatId ? getHomeDistrictNews({ n_page: 1, n_limit: 5, main_category_id: firstCatId }) : Promise.resolve(null),
       thirdCatId ? getHomeBigStories({ n_page: 1, n_limit: 5, main_category_id: thirdCatId }) : Promise.resolve(null),
       fourthCatId ? getHomeWorld({ n_page: 1, n_limit: 5, main_category_id: fourthCatId }) : Promise.resolve(null),
