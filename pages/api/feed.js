@@ -11,16 +11,27 @@ export default async function handler(req, res) {
     language: "en",
   });
 
-  // Fetch your posts or data dynamically
-  const posts = await getRssListFeeds(category); // Replace with your data fetching logic
+  let posts;
+  try {
+    posts = await getRssListFeeds(category);
+  } catch (err) {
+    console.error("getRssListFeeds error:", err);
+    posts = null;
+  }
 
-  posts.payloadJson.forEach((post) => {
+  let items = [];
+  if (posts) {
+    if (Array.isArray(posts.payloadJson)) items = posts.payloadJson;
+    else if (Array.isArray(posts)) items = posts;
+  }
+
+  items.forEach((post) => {
     feed.item({
       title: post.story_title_name,
       description: post.story_sub_title_name,
-      url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${post.story_desk_created_name}`, // URL to the post
-      guid: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${post.story_desk_created_name}`, // Unique identifier
-      date: post.updatedAt, // Publication date
+      url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${post.story_desk_created_name}`,
+      guid: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${post.story_desk_created_name}`,
+      date: post.updatedAt,
     });
   });
 
