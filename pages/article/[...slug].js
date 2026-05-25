@@ -16,6 +16,28 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import ArticlePageContainer from "@/components/Article/ArticlePageContainer";
 
+const SITE_ORIGIN = "https://newstamil.tv";
+
+/**
+ * Normalise a URL to the canonical form accepted by Google News:
+ *   - https://newstamil.tv  (no www, no trailing slash, no query/hash)
+ */
+const buildCanonical = (raw, pathnameFallback) => {
+  const base = raw || `${SITE_ORIGIN}${pathnameFallback}`;
+  try {
+    const u = new URL(base);
+    u.hostname = u.hostname.replace(/^www\./, "");
+    u.protocol = "https:";
+    u.search = "";
+    u.hash = "";
+    const str = u.toString();
+    // Remove trailing slash unless it is the bare root
+    return str.length > SITE_ORIGIN.length + 1 ? str.replace(/\/$/, "") : str;
+  } catch {
+    return base;
+  }
+};
+
 // MobileArticlePage is client-only (uses browser APIs at module level)
 const MobileArticlePage = dynamic(
   () => import("@/components/Mobile/MobileArticlePage"),
@@ -127,13 +149,15 @@ function Page({
 }) {
 
   const navigate = useRouter();
-  const pathname = usePathname(); 
+  const pathname = usePathname();
 
+  // Build a clean, normalised canonical once — used in both Head and JSON-LD
+  const canonicalUrl = buildCanonical(seoData?.redirect_url, pathname);
 
   const jsonArticleLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
+    "@id": canonicalUrl,
     headline: `${seoData?.story_title_name}`,
     description: seoData?.story_sub_title_name || undefined,
     image: {
@@ -164,10 +188,10 @@ function Page({
     dateModified: seoData?.updatedAt
       ? new Date(seoData.updatedAt).toISOString()
       : seoData?.updatedAt,
-    url: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
+    url: canonicalUrl,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
+      "@id": canonicalUrl,
     },
   }
 
@@ -222,7 +246,7 @@ function Page({
         "@type": "ListItem",
         position: 3,
         name: `${seoData?.story_title_name}`,
-        item: seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`,
+        item: canonicalUrl,
       },
     ],
   };
@@ -293,7 +317,7 @@ function Page({
           content={seoData?.story_sub_title_name}
         />
         <meta property="og:image" content={seoData?.story_cover_image_url} />
-        <meta property="og:url" content={seoData?.redirect_url} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="675" />
         <meta name="twitter:creator" content="@newstamil" />
@@ -305,22 +329,10 @@ function Page({
           content={seoData?.story_sub_title_name}
         />
         <meta name="twitter:image" content={seoData?.story_cover_image_url} />
-        <link rel="canonical" href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`} />
-        <link
-          rel="alternate"
-          hreflang="x-default"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
-        />
-        <link
-          rel="alternate"
-          hreflang="ta"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
-        />
-        <link
-          rel="alternate"
-          hreflang="ta-IN"
-          href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
-        />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+        <link rel="alternate" hreflang="ta" href={canonicalUrl} />
+        <link rel="alternate" hreflang="ta-IN" href={canonicalUrl} />
         {/* Preload the hero image so the browser fetches it as early as possible
             — critical for LCP on both mobile and desktop */}
         {seoData?.story_cover_image_url && (

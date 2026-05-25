@@ -21,18 +21,39 @@ const escapeXml = (str) =>
         .replace(/'/g, "&apos;")
     : "";
 
+/** Normalise a URL to the canonical form:
+ *  - https://newstamil.tv (no www, no trailing slash, no query string)
+ */
+const normaliseUrl = (raw) => {
+  try {
+    const u = new URL(raw);
+    // Strip www
+    u.hostname = u.hostname.replace(/^www\./, "");
+    // Force https
+    u.protocol = "https:";
+    // Strip query string and hash
+    u.search = "";
+    u.hash = "";
+    // Remove trailing slash (except bare root)
+    return u.toString().replace(/\/$/, "") || SITE_URL;
+  } catch {
+    return raw;
+  }
+};
+
 export async function getServerSideProps({ res }) {
   try {
-    // Fetch the most recent articles — last 48 hours is the Google News window
+    // Fetch the most recent articles — dedicated endpoint returns last-48h articles only
     const response = await axios.get(
-      `${BASE_URL}/api/v1/web/sitemap/list?limit=1000`
+      `${BASE_URL}/api/v1/web/sitemap/news`
     );
 
     const articles = Array.isArray(response?.data?.payloadJson)
       ? response.data.payloadJson
       : [];
 
-    // Filter to articles published within 48 hours
+    // Server-side safety guard: re-filter to last 48 h in case the API ever
+    // returns stale cached data.
     const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
     const recentArticles = articles.filter((a) => {
       const published = a.createdAt ? new Date(a.createdAt) : null;
@@ -41,7 +62,8 @@ export async function getServerSideProps({ res }) {
 
     const urlEntries = recentArticles
       .map((article) => {
-        const url = article.url || `${SITE_URL}/article/${article.story_desk_created_name}`;
+        const rawUrl = article.url || `${SITE_URL}/article/${article.story_desk_created_name}`;
+        const url = normaliseUrl(rawUrl);
         const publishedISO = article.createdAt
           ? new Date(article.createdAt).toISOString()
           : new Date().toISOString();

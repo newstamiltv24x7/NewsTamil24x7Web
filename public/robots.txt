@@ -1,5 +1,36 @@
 User-agent: Googlebot
-Disallow: 
+Disallow: /search
+Disallow: /search?
+Disallow: /author?
+Disallow: /tag/
+Disallow: /archive/
+Disallow: /page/
+Disallow: /login
+Disallow: /signup
+Disallow: /change_password/
+Disallow: /forget-password
+Disallow: /cgi-bin/
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?page=*
+
+User-agent: Googlebot-News
+Disallow: /search
+Disallow: /tag/
+Disallow: /archive/
+Disallow: /page/
+Disallow: /author?
+Disallow: /videos/
+Disallow: /photos
+Disallow: /shorts
+Disallow: /short-news
+Disallow: /cards
+Disallow: /web-story
+Allow: /article/
+Allow: /news/
+Allow: /
+
 User-agent: googlebot-image
 Disallow: 
 User-agent: googlebot-mobile
@@ -31,12 +62,16 @@ Disallow:
 User-agent: yahoo-blogs/v3.9
 Disallow: 
 User-agent: *
-Disallow: 
 Disallow: /cgi-bin/
-# https://www.robotstxt.org/robotstxt.html
+Disallow: /search
 Disallow: /search?
-Disallow: /*?utm=
-Disallow: /cgi-bin/
+Disallow: /login
+Disallow: /signup
+Disallow: /change_password/
+Disallow: /forget-password
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+# https://www.robotstxt.org/robotstxt.html
 
-Sitemap: https://www.newstamil.tv/sitemap.xml
-Sitemap: https://www.newstamil.tv/news-sitemap.xml
+Sitemap: https://newstamil.tv/sitemap.xml
+Sitemap: https://newstamil.tv/news-sitemap.xml
