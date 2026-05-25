@@ -247,6 +247,22 @@ function Page({
       }),
     };
 
+  // Add VideoObject schema when article has a YouTube embed
+  const articleEmbedBase = (singleNews?.at(0)?.youtube_embed_id || "").split("?")[0];
+  if (articleEmbedBase) {
+    const videoId = articleEmbedBase.split("/").pop();
+    mergedJsonLd["@graph"].push({
+      "@type": "VideoObject",
+      name: seoData?.story_title_name || "",
+      description: seoData?.story_sub_title_name || "",
+      thumbnailUrl: seoData?.story_cover_image_url || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+      embedUrl: articleEmbedBase,
+      contentUrl: `https://youtu.be/${videoId}`,
+      uploadDate: seoData?.createdAt
+        ? new Date(seoData.createdAt).toISOString()
+        : "",
+    });
+  }
 
   // Redirect to 404 when article data is missing
   useEffect(() => {
@@ -305,6 +321,17 @@ function Page({
           hreflang="ta-IN"
           href={seoData?.redirect_url || `${process.env.NEXT_PUBLIC_WEB_URL || "https://newstamil.tv"}${pathname}`}
         />
+        {/* Preload the hero image so the browser fetches it as early as possible
+            — critical for LCP on both mobile and desktop */}
+        {seoData?.story_cover_image_url && (
+          <link
+            rel="preload"
+            as="image"
+            href={seoData.story_cover_image_url}
+            // @ts-ignore — fetchpriority is valid but not yet in all TS defs
+            fetchpriority="high"
+          />
+        )}
         <link rel="icon" href="/favicon.ico" />
 
         <script

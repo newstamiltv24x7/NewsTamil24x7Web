@@ -1,4 +1,4 @@
-import HorizontalCard from "@/commonComponents/HorizontalCard";
+﻿import HorizontalCard from "@/commonComponents/HorizontalCard";
 import { convertTime, shareNews, stringAvatar } from "@/utils/libs";
 import {
   Avatar,
@@ -325,8 +325,6 @@ function ArticlePageContainer({
                       style={{ cursor: "pointer" }}
                     >
                       {/* <Image 
-                      fetchPriority="high" 
-                      rel="preload"
                         src={LeftArrow}
                         alt="left"
                         width={24}
@@ -339,8 +337,6 @@ function ArticlePageContainer({
                       style={{ cursor: "pointer" }}
                     >
                       {/* <Image 
-                      fetchPriority="high" 
-                      rel="preload"
                         src={RightArrow}
                         alt="left"
                         width={24}
@@ -369,8 +365,6 @@ function ArticlePageContainer({
                           <Link href={list.c_url_link} target="_blank">
                             <Box position={"relative"} height={180}>
                               <Image 
-                              fetchPriority="high" 
-                              rel="preload"
                                 src={list?.c_thumbanail_image}
                                 alt={list?.c_url_title}
                                 width={1200}
@@ -383,8 +377,6 @@ function ArticlePageContainer({
                                 }}
                               />
                               <Image 
-                              fetchPriority="high" 
-                              rel="preload"
                                 src={PlayBtn}
                                 alt="button"
                                 width={32}
@@ -492,8 +484,6 @@ function ArticlePageContainer({
                               href={`/article/${list?.story_desk_created_name || list?._id || '#'}`}
                             >
                               <Image 
-                              fetchPriority="high" 
-                              rel="preload"
                                 src={list?.story_cover_image_url}
                                 alt={list?.news_image_caption}
                                 width={1200}
@@ -649,8 +639,6 @@ function ArticlePageContainer({
                     target="_blank"
                   >
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={GoogleNews}
                       alt="google-icon"
                       width={1200}
@@ -685,8 +673,6 @@ function ArticlePageContainer({
                       SHARE :
                     </Typography>
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={FacebookNew}
                       alt="fb"
                       width={22}
@@ -694,8 +680,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("fb")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={WhatsAppNew}
                       alt="wp"
                       width={22}
@@ -703,8 +687,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("wp")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={InstagramNew}
                       alt="insta"
                       width={22}
@@ -712,8 +694,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("insta")}
                     />
                      <Image 
-                     fetchPriority="high" 
-                     rel="preload"
                       src={TelegramNew}
                       alt="telegrams"
                       width={22}
@@ -724,8 +704,6 @@ function ArticlePageContainer({
                       }}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={YoutubeNew}
                       alt="insta"
                       width={22}
@@ -733,8 +711,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("yt")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={LinkedinNew}
                       alt="insta"
                       width={22}
@@ -742,8 +718,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("lk")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={ThreadsNew}
                       alt="insta"
                       width={22}
@@ -754,8 +728,6 @@ function ArticlePageContainer({
                       }}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={TwitterNew}
                       alt="insta"
                       width={22}
@@ -777,8 +749,6 @@ function ArticlePageContainer({
                     <Button
                       endIcon={
                         <Image 
-                        fetchPriority="high" 
-                        rel="preload"
                           src={WhatsAppJoin}
                           alt="google"
                           width={100}
@@ -1001,8 +971,6 @@ function ArticlePageContainer({
                       SHARE :
                     </Typography>
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={FacebookNew}
                       alt="fb"
                       width={26}
@@ -1010,8 +978,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("fb")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={WhatsAppNew}
                       alt="wp"
                       width={26}
@@ -1019,8 +985,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("wp")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={InstagramNew}
                       alt="insta"
                       width={26}
@@ -1028,8 +992,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("insta")}
                     />
                      <Image 
-                     fetchPriority="high" 
-                     rel="preload"
                       src={TelegramNew}
                       alt="telegrams"
                       width={26}
@@ -1040,8 +1002,6 @@ function ArticlePageContainer({
                       }}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={YoutubeNew}
                       alt="insta"
                       width={26}
@@ -1049,8 +1009,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("yt")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={LinkedinNew}
                       alt="insta"
                       width={26}
@@ -1058,8 +1016,6 @@ function ArticlePageContainer({
                       onClick={() => shareNews("lk")}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={ThreadsNew}
                       alt="insta"
                       width={26}
@@ -1070,8 +1026,6 @@ function ArticlePageContainer({
                       }}
                     />
                     <Image 
-                    fetchPriority="high" 
-                    rel="preload"
                       src={TwitterNew}
                       alt="insta"
                       width={26}

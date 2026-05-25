@@ -70,7 +70,7 @@ const nextConfig = {
     loader: "default",
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    minimumCacheTTL: 86400, // Cache optimised images for 24 h
+    minimumCacheTTL: 31536000, // Cache optimised images for 1 year
   },
   output: "standalone",
   productionBrowserSourceMaps: false,
@@ -142,7 +142,7 @@ const nextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=86400, stale-while-revalidate=604800",
+            value: "public, max-age=604800, stale-while-revalidate=2592000",
           },
         ],
       },

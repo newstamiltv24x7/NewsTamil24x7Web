@@ -1,4 +1,4 @@
-import MobileCard from "@/commonComponents/MobileCard";
+﻿import MobileCard from "@/commonComponents/MobileCard";
 import MobilepageLayout from "@/layouts/MobilepageLayout";
 import { convertTime, shareNews } from "@/utils/libs";
 import { Box, Button, Typography } from "@mui/material";
@@ -10,7 +10,6 @@ import { FaRegEye, FaXTwitter } from "react-icons/fa6";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { useTheme } from "@/theme/ThemeContext";
 import Link from "next/link";
-import Head from "next/head";
 
 import FacebookNew from "../../public/newsTamilIcons/icon-pack/Frame 1.svg";
 import WhatsAppNew from "../../public/newsTamilIcons/icon-pack/Frame 7.svg";
@@ -135,7 +134,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               Share :
             </Typography> */}
             <Image
-            fetchPriority="high" rel="preload"
               src={FacebookNew}
               alt="fb"
               width={24}
@@ -143,7 +141,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               onClick={() => shareNews("fb")}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={WhatsAppNew}
               alt="wp"
               width={24}
@@ -151,7 +148,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               onClick={() => shareNews("wp", "mobile")}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={InstagramNew}
               alt="insta"
               width={24}
@@ -159,7 +155,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               onClick={() => shareNews("insta")}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={YoutubeNew}
               alt="insta"
               width={24}
@@ -167,7 +162,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               onClick={() => shareNews("yt")}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={LinkedinNew}
               alt="insta"
               width={24}
@@ -175,7 +169,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               onClick={() => shareNews("lk")}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={ThreadsNew}
               alt="insta"
               width={24}
@@ -186,7 +179,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               }}
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={TwitterNew}
               alt="insta"
               width={24}
@@ -199,7 +191,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               }
             />
             <Image
-            fetchPriority="high" rel="preload"
               src={TelegramNew}
               alt="insta"
               width={24}
@@ -223,19 +214,19 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             {singleNews?.at(0)?.youtube_embed_id === "" ? (
               <Box borderRadius={"6px"} overflow={"hidden"} sx={{ width: "100%", height: "100%" }}>
                 <Image
-                fetchPriority="high" rel="preload"
+                  priority
+                  fetchPriority="high"
                   src={singleNews?.at(0)?.story_cover_image_url}
                   alt={singleNews?.at(0)?.story_subject_name}
                   width={1200}
-            loading="lazy"
-            height={800}
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: "6px",
-              cursor: "pointer",
-              objectFit: "fill",
-            }}
+                  height={800}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    objectFit: "fill",
+                  }}
                 />
               </Box>
             ) : (
@@ -253,22 +244,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
               </Box>
             )}
           </Box>
-          <Head>
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "VideoObject",
-                  name: singleNews?.at(0)?.story_title_name || "",
-                  description: singleNews?.at(0)?.story_subject_name || "",
-                  thumbnailUrl: singleNews?.at(0)?.story_cover_image_url || "",
-                  embedUrl: embedBase || "",
-                  uploadDate: uploadDate || "",
-                }),
-              }}
-            />
-          </Head>
 
           <Box
             display={"flex"}
@@ -430,7 +405,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             Share :
           </Typography> */}
           <Image
-          fetchPriority="high" rel="preload"
             src={FacebookNew}
             alt="fb"
             width={24}
@@ -438,7 +412,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("fb")}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={WhatsAppNew}
             alt="wp"
             width={24}
@@ -446,7 +419,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("wp", "mobile")}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={InstagramNew}
             alt="insta"
             width={24}
@@ -454,7 +426,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("insta")}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={YoutubeNew}
             alt="insta"
             width={24}
@@ -462,7 +433,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("yt")}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={LinkedinNew}
             alt="insta"
             width={24}
@@ -470,7 +440,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("lk")}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={ThreadsNew}
             alt="insta"
             width={24}
@@ -481,7 +450,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             }}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={TwitterNew}
             alt="insta"
             width={24}
@@ -492,7 +460,6 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             onClick={() => shareNews("x", singleNews?.at(0)?.story_title_name)}
           />
           <Image
-          fetchPriority="high" rel="preload"
             src={TelegramNew}
             alt="insta"
             width={24}
