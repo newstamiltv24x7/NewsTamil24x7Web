@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import ArticlePageContainer from "@/components/Article/ArticlePageContainer";
 
 const SITE_ORIGIN = "https://newstamil.tv";
-
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 /**
  * Normalise a URL to the canonical form accepted by Google News:
  *   - https://newstamil.tv  (no www, no trailing slash, no query/hash)
@@ -274,19 +274,21 @@ function Page({
   // Add VideoObject schema when article has a YouTube embed
   const articleEmbedBase = (singleNews?.at(0)?.youtube_embed_id || "").split("?")[0];
   if (articleEmbedBase) {
-    const videoId = articleEmbedBase.split("/").pop();
-    mergedJsonLd["@graph"].push({
-      "@type": "VideoObject",
-      name: seoData?.story_title_name || "",
-      description: seoData?.story_sub_title_name || "",
-      thumbnailUrl: seoData?.story_cover_image_url || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
-      embedUrl: articleEmbedBase,
-      contentUrl: `https://youtu.be/${videoId}`,
-      uploadDate: seoData?.createdAt
-        ? new Date(seoData.createdAt).toISOString()
-        : "",
-    });
-  }
+  const videoId = articleEmbedBase.split("/").pop();
+
+  mergedJsonLd["@graph"].push({
+    "@type": "VideoObject",
+    name: seoData?.story_title_name || "",
+    description: seoData?.story_sub_title_name || "",
+    thumbnailUrl:
+      seoData?.story_cover_image_url ||
+      `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+    embedUrl: `https://www.youtube.com/embed/${videoId}`,
+    uploadDate: seoData?.createdAt
+      ? new Date(seoData.createdAt).toISOString()
+      : undefined,
+  });
+}
 
   // Redirect to 404 when article data is missing
   useEffect(() => {
