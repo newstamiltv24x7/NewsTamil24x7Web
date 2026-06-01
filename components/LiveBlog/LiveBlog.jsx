@@ -22,6 +22,7 @@ import LinkedinNew from "../../public/newsTamilIcons/icon-pack/Frame 4.svg";
 import TelegramNew from "../../public/newsTamilIcons/icon-pack/Frame 8.svg";
 
 import { convertTime, shareNews } from "@/utils/libs";
+import { sanitizeHTML } from "@/utils/sanitizeHTML";
 import { IoMdMail } from "react-icons/io";
 import dayjs from "dayjs";
 import { useTheme } from "@/theme/ThemeContext";
@@ -233,7 +234,7 @@ function LiveBlog({ liveBlogData }) {
                 <div
                   className="news-content"
                   dangerouslySetInnerHTML={{
-                    __html: list?.c_live_sub_blog_content,
+                    __html: sanitizeHTML(list?.c_live_sub_blog_content || ''),
                   }}
                 ></div>
               </Box>

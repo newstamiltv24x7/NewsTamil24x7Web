@@ -43,7 +43,7 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
           <Grid item xs={12} sm={12} md={12} pr={2}>
             <Grid container spacing={2}>
               {Array.from({ length: 12 }).map((_, i) => (
-                <Grid item xs={12} sm={12} md={3} key={i}>
+                <Grid item xs={12} sm={12} md={3} key={`skeleton-banner-${i}`}>
                   <Skeleton
                     variant="rectangular"
                     height={150}

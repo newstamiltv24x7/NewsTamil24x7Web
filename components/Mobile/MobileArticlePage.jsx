@@ -1,6 +1,7 @@
 ﻿import MobileCard from "@/commonComponents/MobileCard";
 import MobilepageLayout from "@/layouts/MobilepageLayout";
 import { convertTime, shareNews } from "@/utils/libs";
+import { sanitizeHTML } from "@/utils/sanitizeHTML";
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -302,7 +303,7 @@ function MobileArticlePage({ menuData,trendingData, newsData, singleNews, viewCo
             <div
               className="news-content"
               dangerouslySetInnerHTML={{
-                __html: singleNews?.at(0)?.story_details,
+                __html: sanitizeHTML(singleNews?.at(0)?.story_details || ''),
               }}
             ></div>
           </Box>

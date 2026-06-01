@@ -1,5 +1,6 @@
 ﻿import HorizontalCard from "@/commonComponents/HorizontalCard";
 import { convertTime, shareNews, stringAvatar } from "@/utils/libs";
+import { sanitizeHTML } from "@/utils/sanitizeHTML";
 import {
   Avatar,
   Box,
@@ -677,6 +678,7 @@ function ArticlePageContainer({
                       alt="fb"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("fb")}
                     />
                     <Image 
@@ -684,6 +686,7 @@ function ArticlePageContainer({
                       alt="wp"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("wp")}
                     />
                     <Image 
@@ -691,6 +694,7 @@ function ArticlePageContainer({
                       alt="insta"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("insta")}
                     />
                      <Image 
@@ -698,6 +702,7 @@ function ArticlePageContainer({
                       alt="telegrams"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("tele")}
                       style={{
                         filter: mode === "dark" && "invert(1)",
@@ -708,6 +713,7 @@ function ArticlePageContainer({
                       alt="insta"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("yt")}
                     />
                     <Image 
@@ -715,6 +721,7 @@ function ArticlePageContainer({
                       alt="insta"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("lk")}
                     />
                     <Image 
@@ -722,6 +729,7 @@ function ArticlePageContainer({
                       alt="insta"
                       width={22}
                       height={22}
+                      loading="lazy"
                       onClick={() => shareNews("td")}
                       style={{
                         filter: mode === "dark" && "invert(1)",
@@ -732,6 +740,7 @@ function ArticlePageContainer({
                       alt="insta"
                       width={22}
                       height={22}
+                      loading="lazy"
                       style={{
                         filter: mode === "dark" && "invert(1)",
                       }}
@@ -848,7 +857,7 @@ function ArticlePageContainer({
                   <div
                     className="news-content"
                     dangerouslySetInnerHTML={{
-                      __html: singleNews?.at(0)?.story_details,
+                      __html: sanitizeHTML(singleNews?.at(0)?.story_details || ''),
                     }}
                   ></div>
                 </Box>
