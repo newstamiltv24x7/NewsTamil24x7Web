@@ -148,6 +148,12 @@ const nextConfig = {
       },
     ];
   },
+  // Serve dynamic RSS from the API at /rss.xml to avoid public/page conflicts
+  async rewrites() {
+    return [
+      { source: '/rss.xml', destination: '/api/rss' },
+    ]
+  },
   webpack(config) {
     config.optimization.splitChunks = {
       chunks: "all",
