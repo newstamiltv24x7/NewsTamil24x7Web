@@ -1,0 +1,56 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Proxy requests to Node.js backend on port 3002
+  # This allows Apache to forward requests to the Next.js app running on localhost:3002
+  
+  # Skip static files and existing directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Rewrite all other requests to the Node.js proxy
+  RewriteRule ^(.*)$ http://localhost:3002/$1 [P,L]
+</IfModule>
+
+<IfModule mod_proxy.c>
+  # Enable proxy
+  ProxyRequests On
+  
+  # Configure proxy to Node.js backend
+  ProxyPass / http://localhost:3002/
+  ProxyPassReverse / http://localhost:3002/
+  
+  # Set proxy timeout for long-running requests
+  ProxyTimeout 300
+  
+  # Preserve original host header
+  ProxyPreserveHost On
+  
+  # Add X-Forwarded headers for proper client IP detection
+  SetEnvIf Request_URI "." proxy-chain-append=$REMOTE_ADDR
+</IfModule>
+
+# Cache control headers
+<FilesMatch "\.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$">
+  Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+# Disable caching for HTML files
+<FilesMatch "\.html?$">
+  Header set Cache-Control "public, max-age=3600"
+</FilesMatch>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
