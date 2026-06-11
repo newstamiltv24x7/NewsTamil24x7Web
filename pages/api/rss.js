@@ -65,7 +65,6 @@
 // }
 
 import RSS from 'rss'
-import { decode } from 'html-entities'
 import axios from 'axios'
 
 const SITE_URL = 'https://newstamil.tv'
@@ -76,15 +75,10 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') { res.status(200).end(); return }
 
   try {
-    // Use the paginated POST endpoint with sort by latest
-    const response = await axios.post(`${BASE_URL}/api/v1/web/rss_xml/list`, {
-      n_page: 1,
-      n_limit: 50,
-      c_search_term: ""
-    })
-    
-    const raw = response.data?.payloadJson
-    const items = Array.isArray(raw) ? raw : []
+    const response = await axios.get(`${BASE_URL}/api/v1/web/rss_xml/latest`)
+    const items = response.data?.payloadJson
+
+    if (!Array.isArray(items) || items.length === 0) throw new Error('No items')
 
     const feed = new RSS({
       title: 'News Tamil 24x7',
@@ -96,7 +90,6 @@ export default async function handler(req, res) {
       custom_namespaces: {
         media: 'http://search.yahoo.com/mrss/',
         atom: 'http://www.w3.org/2005/Atom',
-        content: 'http://purl.org/rss/1.0/modules/content/',
       },
       custom_elements: [
         { 'atom:link': { _attr: { href: `${SITE_URL}/rss.xml`, rel: 'self', type: 'application/rss+xml' } } },
@@ -104,9 +97,10 @@ export default async function handler(req, res) {
     })
 
     items.forEach((item) => {
+      if (!item.story_desk_created_name || !item.story_title_name) return
       const url = `${SITE_URL}/article/${item.story_desk_created_name}`
       feed.item({
-        title: item.story_title_name || 'Untitled',
+        title: item.story_title_name,
         description: item.story_sub_title_name || item.story_title_name,
         url,
         guid: `${url}#${item.createdAt}`,
