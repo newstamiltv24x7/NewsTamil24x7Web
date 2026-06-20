@@ -1,6 +1,9 @@
 import axios from "axios";
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+// Prevent SSR threads/sockets from hanging indefinitely by enforcing a default timeout
+axios.defaults.timeout = 15000;
+
 export const getHomeMenuApi = async () => {
   return await axios
     .get(`${baseURL}/api/v1/web/menus/list`)
@@ -35,26 +38,38 @@ export const getAllNewsList = async (body) => {
 };
 
 export const getHomeTopSection = async (body) => {
-  return await axios
-    .post(`${baseURL}/api/v1/web/news/home`, body)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
+  try {
+    const res = await axios.post(`${baseURL}/api/v1/web/news/home`, body);
+    return res.data;
+  } catch (err) {
+    console.error("getHomeTopSection failed:", err?.message);
+    return null; // explicit, predictable failure value
+  }
 };
 
+// CryptoFetcher — guard against undefined/non-string input
+export function CryptoFetcher(data) {
+  if (!data || typeof data !== "string") return [];
+  try {
+    const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
+    const decrypted = CryptoJS.AES.decrypt(data, secretPassphrase).toString(CryptoJS.enc.Utf8);
+    if (!decrypted) return [];
+    return JSON.parse(decrypted);
+  } catch (err) {
+    console.error("CryptoFetcher failed:", err?.message);
+    return [];
+  }
+}
+
 export const getHomeLatest = async (body) => {
-  return await axios
-    .post(`${baseURL}/api/v1/web/news/latest`, body)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
+  try {
+    const res = await axios.post(`${baseURL}/api/v1/web/news/latest`, body);
+    return res.data;
+  } catch (err) {
+    console.error("getHomeLatest failed:", err?.message);
+    return null;
+  }
+}
 
 export const getParticularNews = async (body) => {
   return await axios

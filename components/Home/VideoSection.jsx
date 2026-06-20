@@ -59,9 +59,9 @@ function VideoSection({ postedData, postedLoading }) {
               >
                 {Array.isArray(postedData) &&
                   postedData?.slice(0, 1)?.map((list) => (
-                    <>
+                    <React.Fragment key={list?._id}>
                       <Link href={list?.c_url_link} target="_blank">
-                        <div key={list?._id} className="video-section-wrapper">
+                        <div className="video-section-wrapper">
                           <Image
                           fetchPriority="high" rel="preload"
                             src={list?.c_thumbanail_image}
@@ -276,7 +276,7 @@ function VideoSection({ postedData, postedLoading }) {
                           )}
                         </Popper>
                       </Box>
-                    </>
+                    </React.Fragment>
                   ))}
               </Box>
             </Grid>

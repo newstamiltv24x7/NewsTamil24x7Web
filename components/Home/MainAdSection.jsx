@@ -176,7 +176,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                   <Box borderRadius={"6px"} overflow={"hidden"} height={{ xs: 220, md: 320 }}>
                     <Image
                       priority
-                      src={newsList?.at(0)?.story_cover_image_url || "/assets/images/default-news.png"}
+                      src={newsList?.at(0)?.story_cover_image_url || "#"}
                       alt="newstamil-cover-image"
                       width={1200}
                       height={600}
@@ -276,7 +276,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
                           <Grid item xs={4}>
                             <Box height={76} borderRadius={"6px"} overflow={"hidden"}>
                               <Image
-                                src={list?.story_cover_image_url || "/assets/images/default-news.png"}
+                                src={list?.story_cover_image_url || "#"}
                                 alt="newstamil-cover-image"
                                 width={240}
                                 height={160}

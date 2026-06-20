@@ -17,6 +17,7 @@ import { addLiveVideo } from "@/redux/reducer/liveVideoReducer";
 import AdUnit from "../Ads/AdUnit";
 import ManualImageAds from "../Ads/ManualImageAds";
 import ThirdCategory from "./ThirdCategory";
+import ErrorBoundary from "../ErrorBoundary";
 
 /**
  * LiveEventSlider is code-split with ssr:false so its ~80 kB bundle is
@@ -266,7 +267,7 @@ function HomepageMainSection({
     try {
       const body = {
         n_page: 1,
-        n_limit: 20,
+        n_limit: 5,
         c_search_term: "",
         c_video_type: "posted",
         c_youtube_type: "video",
@@ -441,27 +442,38 @@ function HomepageMainSection({
             className="border-class-big"
             position={"relative"}
           >
-            <Box>
-              <BannerLeftSection newsData={newsData} loading={newsLoading} viewControl={viewControl} />
-            </Box>
+            <ErrorBoundary fallback={<div>Unable to load top stories.</div>}>
+              <Box>
+                <BannerLeftSection
+                  newsData={newsData}
+                  loading={newsLoading}
+                  viewControl={viewControl}
+                />
+              </Box>
+            </ErrorBoundary>
 
-             {/*<----------------------- FIRST CAEGORY SECTION START ----------------->*/}
-            <FirstCategory viewControl={viewControl} orderedMenu={orderedMenu} />
-             {/*<----------------------- FIRST CAEGORY SECTION END ----------------->*/}
+            <ErrorBoundary fallback={<div>Unable to load category.</div>}>
+              <FirstCategory
+                viewControl={viewControl}
+                orderedMenu={orderedMenu}
+              />
+            </ErrorBoundary>
           </Grid>
 
 
 
           <Grid item md={3} xs={12} sm={12}>
-            <BannerRightSection
-              trendingData={trendingData}
-              liveData={liveData}
-              loading={loading}
-              trendLoading={trendLoading}
-              viewControl={viewControl}
-              liveEventImages={liveEventImages}
-              liveEventLinks={liveEventLinks}
-            />
+            <ErrorBoundary fallback={<div>Unable to load sidebar.</div>}>
+              <BannerRightSection
+                trendingData={trendingData}
+                liveData={liveData}
+                loading={loading}
+                trendLoading={trendLoading}
+                viewControl={viewControl}
+                liveEventImages={liveEventImages}
+                liveEventLinks={liveEventLinks}
+              />
+            </ErrorBoundary>
             <Box mt={2}>
               <AdUnit />
             </Box>
@@ -472,78 +484,90 @@ function HomepageMainSection({
         </Grid>
 
         {/*<----------------------- COLUMN THREE/FOUR SECTION START ----------------->*/}
-        
-
-        <Box my={0}>
-          <MainAdSection viewControl={viewControl} orderedMenu={orderedMenu} />
-        </Box>
+        <ErrorBoundary fallback={<div>Advertisement unavailable.</div>}>
+          <Box my={0}>
+            <MainAdSection
+              viewControl={viewControl}
+              orderedMenu={orderedMenu}
+            />
+          </Box>
+        </ErrorBoundary>
          {/*<----------------------- COLUMN THREE/FOUR SECTION END ----------------->*/}
-
-        {/*<----------------------- VIDEOS SECTION START ----------------->*/}
-        <Box my={4} ref={videoSectionRef} data-section="video-section">
-          <VideoSection postedData={postedData} postedLoading={postedLoading} />
-        </Box>
-         {/*<----------------------- VIDEOS SECTION END ----------------->*/}
-
+        <ErrorBoundary fallback={<div>Videos unavailable.</div>}>
+          <Box my={4} ref={videoSectionRef} data-section="video-section">
+            <VideoSection
+              postedData={postedData}
+              postedLoading={postedLoading}
+            />
+          </Box>
+        </ErrorBoundary>
          {/*<----------------------- WEB STORIES SECTION START ----------------->*/}
         {Array.isArray(webstoriesData) && webstoriesData.length > 0 && (
-          <Box my={1}>
-            <WebStories webstoriesData={webstoriesData} />
-          </Box>
+          <ErrorBoundary fallback={<div>Web stories unavailable.</div>}>
+            <Box my={1}>
+              <WebStories webstoriesData={webstoriesData} />
+            </Box>
+          </ErrorBoundary>
         )}
         {/*<----------------------- WEB STORIES SECTION END ----------------->*/}
-
-        {/*<----------------------- SORTS SECTION START ----------------->*/}
-        <Box my={1} ref={shortsSectionRef} data-section="shorts-section">
-          <ShortSection shortsData={shortsData} />
-        </Box>
-         {/*<----------------------- SORTS SECTION END ----------------->*/}
-
-
+        <ErrorBoundary fallback={<div>Shorts unavailable.</div>}>
+          <Box my={1} ref={shortsSectionRef} data-section="shorts-section">
+            <ShortSection shortsData={shortsData} />
+          </Box>
+        </ErrorBoundary>
         {/*<----------------------- COLUMN FOUR SECTION START ----------------->*/}
-        <Box my={1}>
-          <SecondaryCategory 
-            viewControl={viewControl} 
-            orderedMenu={orderedMenu} 
-            initialDistrictData={districtNewsData}
-            initialJustBeforeData={justBeforeNewsData}
-            initialBigStoriesData={bigStoriesNewsData}
-            initialWorldData={worldNewsData}
-          />
-        </Box>
+        <ErrorBoundary fallback={<div>News sections unavailable.</div>}>
+          <Box my={1}>
+            <SecondaryCategory
+              viewControl={viewControl}
+              orderedMenu={orderedMenu}
+              initialDistrictData={districtNewsData}
+              initialJustBeforeData={justBeforeNewsData}
+              initialBigStoriesData={bigStoriesNewsData}
+              initialWorldData={worldNewsData}
+            />
+          </Box>
+        </ErrorBoundary>
         {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
 
         {/*<----------------------- ELECTION COUNTDOWN CARD START ----------------->*/}
         
         {/*<----------------------- ELECTION COUNTDOWN CARD END ----------------->*/}
-
-        {/*<----------------------- COLUMN TWO SECTION START ----------------->*/}
-        <Box my={1}>
-          <AdditionalSection viewControl={viewControl} orderedMenu={orderedMenu} />
-        </Box>
-        {/*<----------------------- COLUMN TWO SECTION END ----------------->*/}
-
-        {/*<----------------------- CARDS SECTION START ----------------->*/}
-        <Box my={1}>
-          <CardsPage cardData={cardData} viewControl={viewControl} />
-        </Box>
-        {/*<----------------------- CARDS SECTION END ----------------->*/}
+        <ErrorBoundary fallback={<div>Additional content unavailable.</div>}>
+          <Box my={1}>
+            <AdditionalSection
+              viewControl={viewControl}
+              orderedMenu={orderedMenu}
+            />
+          </Box>
+        </ErrorBoundary>
+        <ErrorBoundary fallback={<div>Cards unavailable.</div>}>
+          <Box my={1}>
+            <CardsPage
+              cardData={cardData}
+              viewControl={viewControl}
+            />
+          </Box>
+        </ErrorBoundary>
         <Box my={2}>
           <ManualImageAds device="desktop" title="Manual Desktop Ads" />
         </Box>
-        {/*<----------------------- PHOTO SECTION START -----------------> */}
-        <Box my={3}>
-          <PhotoSection photosData={photosData} viewControl={viewControl} />
-        </Box>
-        {/*<----------------------- PHOTO SECTION END ----------------->*/}
-
-        {/*<----------------------- COLUMN FOUR SECTION START ----------------->*/}
-        <Box my={1}>
-          <ThirdCategory viewControl={viewControl} orderedMenu={orderedMenu} />
-        </Box>
-        {/*<----------------------- COLUMN FOUR SECTION END ----------------->*/}
-
-
+        <ErrorBoundary fallback={<div>Photos unavailable.</div>}>
+          <Box my={3}>
+            <PhotoSection
+              photosData={photosData}
+              viewControl={viewControl}
+            />
+          </Box>
+        </ErrorBoundary>
+        <ErrorBoundary fallback={<div>Category unavailable.</div>}>
+          <Box my={1}>
+            <ThirdCategory
+              viewControl={viewControl}
+              orderedMenu={orderedMenu}
+            />
+          </Box>
+        </ErrorBoundary>
       </Box>
     </HomepageLayout>
   );

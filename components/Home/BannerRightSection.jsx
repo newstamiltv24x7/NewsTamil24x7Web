@@ -171,7 +171,7 @@ useEffect(() => {
             />
           ))}
         {!trendLoading &&
-          ([...trendingData] || [])
+          (Array.isArray(trendingData) ? [...trendingData] : [])
             .sort((a, b) => new Date(b?.updatedAt || b?.createdAt) - new Date(a?.updatedAt || a?.createdAt))
             .map((list) => (
             <React.Fragment key={list?._id}>

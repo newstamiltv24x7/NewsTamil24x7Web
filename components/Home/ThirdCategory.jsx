@@ -88,48 +88,96 @@ function ThirdCategory({viewControl, orderedMenu = []}) {
   };
 
   const GetThirdCategory = async () => {
-    if (!ThirdCategoryId) return;
-    try {
-      const body = {
-        n_page: 1,
-        n_limit: 5,
-        main_category_id: ThirdCategoryId,
-      };
-        
-      const response = await getHomeBigStories(body);
-      if (response?.payloadJson?.length > 0) {
-        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-        const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY7", payload: result?.docs });
-      } else {
+  if (!ThirdCategoryId) return;
+
+  try {
+    const body = {
+      n_page: 1,
+      n_limit: 5,
+      main_category_id: ThirdCategoryId,
+    };
+
+    const response = await getHomeBigStories(body);
+
+    // Guard: ensure response and payloadJson exist
+    if (!response || !response.payloadJson) {
+      dispatch({ type: "SET_ARRAY7", payload: [] });
+      return;
+    }
+
+    if (response.payloadJson.length > 0) {
+      // Guard: wrap decryption + parse in its own try-catch
+      try {
+        const decrypted = CryptoJS.AES.decrypt(
+          response.payloadJson,
+          secretPassphrase
+        ).toString(CryptoJS.enc.Utf8);
+
+        if (!decrypted) throw new Error("Decryption returned empty string");
+
+        const result = JSON.parse(decrypted);
+
+        dispatch({
+          type: "SET_ARRAY7",
+          payload: result?.docs ?? [],
+        });
+      } catch (decryptErr) {
+        console.error("Decryption/parse failed:", decryptErr);
         dispatch({ type: "SET_ARRAY7", payload: [] });
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      dispatch({ type: "SET_ARRAY7", payload: [] });
     }
-  };
 
-  const GetFourthCategory = async () => {
-    if (!FourthCategoryId) return;
-    try {
-      const body = {
-        n_page: 1,
-        n_limit: 5,
-        main_category_id: FourthCategoryId,
-      };
-        
-      const response = await getHomeWorld(body);
-      if (response?.payloadJson?.length > 0) {
-        const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
-        const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY8", payload: result?.docs });
-      } else {
+  } catch (err) {
+    // This catches network errors, timeouts, etc.
+    console.error("GetThirdCategory failed:", err);
+    dispatch({ type: "SET_ARRAY7", payload: [] });
+  }
+};
+
+ const GetFourthCategory = async () => {
+  if (!FourthCategoryId) return;
+
+  try {
+    const body = {
+      n_page: 1,
+      n_limit: 5,
+      main_category_id: FourthCategoryId,
+    };
+
+    const response = await getHomeWorld(body);  // ← moved outside inner try
+
+    if (!response || !response.payloadJson) {
+      dispatch({ type: "SET_ARRAY8", payload: [] });
+      return;
+    }
+
+    if (response.payloadJson.length > 0) {
+      try {
+        const decrypted = CryptoJS.AES.decrypt(
+          response.payloadJson,
+          secretPassphrase
+        ).toString(CryptoJS.enc.Utf8);
+
+        if (!decrypted) throw new Error("Decryption returned empty string");
+
+        const result = JSON.parse(decrypted);
+        dispatch({ type: "SET_ARRAY8", payload: result?.docs ?? [] });
+
+      } catch (decryptErr) {
+        console.error("Decryption/parse failed:", decryptErr);
         dispatch({ type: "SET_ARRAY8", payload: [] });
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      dispatch({ type: "SET_ARRAY8", payload: [] });
     }
-  };
+
+  } catch (err) {
+    console.error("GetFourthCategory failed:", err);
+    dispatch({ type: "SET_ARRAY8", payload: [] });
+  }
+};
 
   useEffect(() => {
     GetFirstCategory();

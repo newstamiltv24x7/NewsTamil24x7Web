@@ -1,11 +1,3 @@
-/**
- * Google News Sitemap — /news-sitemap.xml
- *
- * Google News requires a dedicated News sitemap with <news:news> elements.
- * Articles must be published within the last 48 hours to qualify for inclusion.
- * Ref: https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
- */
-
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -21,29 +13,64 @@ const escapeXml = (str) =>
         .replace(/'/g, "&apos;")
     : "";
 
-/** Normalise a URL to the canonical form:
- *  - https://newstamil.tv (no www, no trailing slash, no query string)
+/**
+ * Normalize URL:
+ * - Remove www
+ * - Force https
+ * - Remove query params/hash
+ * - Remove trailing slash
  */
 const normaliseUrl = (raw) => {
   try {
     const u = new URL(raw);
-    // Strip www
+
     u.hostname = u.hostname.replace(/^www\./, "");
-    // Force https
     u.protocol = "https:";
-    // Strip query string and hash
     u.search = "";
     u.hash = "";
-    // Remove trailing slash (except bare root)
+
     return u.toString().replace(/\/$/, "") || SITE_URL;
   } catch {
-    return raw;
+    return raw || SITE_URL;
   }
+};
+
+/**
+ * Extract YouTube video ID from:
+ * - Full watch URL
+ * - Embed URL
+ * - youtu.be URL
+ * - Direct video ID
+ */
+const extractVideoId = (input) => {
+  if (!input) return null;
+
+  const value = String(input).trim();
+
+  // Direct YouTube ID
+  if (/^[a-zA-Z0-9_-]{11}$/.test(value)) {
+    return value;
+  }
+
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
+    /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+
+    if (match?.[1]) {
+      return match[1];
+    }
+  }
+
+  return null;
 };
 
 export async function getServerSideProps({ res }) {
   try {
-    // Fetch the most recent articles — dedicated endpoint returns last-48h articles only
     const response = await axios.get(
       `${BASE_URL}/api/v1/web/sitemap/news`
     );
@@ -52,25 +79,98 @@ export async function getServerSideProps({ res }) {
       ? response.data.payloadJson
       : [];
 
-    // Server-side safety guard: re-filter to last 48 h in case the API ever
-    // returns stale cached data.
-    const cutoff = new Date(Date.now() - 48 * 60 * 60 * 1000);
-    const recentArticles = articles.filter((a) => {
-      const published = a.createdAt ? new Date(a.createdAt) : null;
+    // Google News accepts only last 48 hours
+    const cutoff = new Date(
+      Date.now() - 48 * 60 * 60 * 1000
+    );
+
+    const recentArticles = articles.filter((article) => {
+      const published = article?.createdAt
+        ? new Date(article.createdAt)
+        : null;
+
       return published && published >= cutoff;
     });
 
     const urlEntries = recentArticles
       .map((article) => {
-        const rawUrl = article.url || `${SITE_URL}/article/${article.story_desk_created_name}`;
+        const rawUrl =
+          article.url ||
+          `${SITE_URL}/article/${article.story_desk_created_name}`;
+
         const url = normaliseUrl(rawUrl);
+
         const publishedISO = article.createdAt
           ? new Date(article.createdAt).toISOString()
           : new Date().toISOString();
-        const title = escapeXml(article.story_title_name || "");
+
+        const title = escapeXml(
+          article.story_title_name || ""
+        );
+
+        /**
+         * Detect YouTube video
+         */
+        const candidateSources = [
+          article.youtube_embed_id,
+          article.video_url,
+          article.video_id,
+          article.videoId,
+          article.embed,
+          article.story_video_url,
+          article.story_html,
+          article.body,
+        ];
+
+        let videoId = null;
+
+        for (const source of candidateSources) {
+          videoId = extractVideoId(source);
+
+          if (videoId) {
+            break;
+          }
+        }
+
+        let videoBlock = "";
+
+        if (videoId) {
+          const thumbnailUrl =
+            article.story_img_name ||
+            article.story_image ||
+            article.image ||
+            article.thumbnail ||
+            `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+
+          const description =
+            article.meta_description ||
+            article.story_description ||
+            article.story_dek ||
+            article.story_subtitle ||
+            article.summary ||
+            article.story_title_name ||
+            "";
+
+          videoBlock = `
+    <video:video>
+      <video:thumbnail_loc>${escapeXml(
+        thumbnailUrl
+      )}</video:thumbnail_loc>
+      <video:title>${title}</video:title>
+      <video:description>${escapeXml(
+        description
+      )}</video:description>
+      <video:player_loc allow_embed="yes">
+        https://www.youtube.com/embed/${videoId}
+      </video:player_loc>
+      <video:publication_date>${publishedISO}</video:publication_date>
+    </video:video>`;
+        }
+
         return `
   <url>
     <loc>${escapeXml(url)}</loc>
+
     <news:news>
       <news:publication>
         <news:name>News Tamil 24x7</news:name>
@@ -78,7 +178,7 @@ export async function getServerSideProps({ res }) {
       </news:publication>
       <news:publication_date>${publishedISO}</news:publication_date>
       <news:title>${title}</news:title>
-    </news:news>
+    </news:news>${videoBlock}
   </url>`;
       })
       .join("");
@@ -86,19 +186,46 @@ export async function getServerSideProps({ res }) {
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 ${urlEntries}
 </urlset>`;
 
-    res.setHeader("Content-Type", "application/xml; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=1800, stale-while-revalidate=3600");
+    res.setHeader(
+      "Content-Type",
+      "application/xml; charset=utf-8"
+    );
+
+    res.setHeader(
+      "Cache-Control",
+      "public, max-age=1800, stale-while-revalidate=3600"
+    );
+
     res.write(sitemap);
     res.end();
-    return { props: {} };
+
+    return {
+      props: {},
+    };
   } catch (error) {
-    console.error("Error generating Google News sitemap:", error);
-    res.status(500).end("Error generating sitemap");
-    return { props: {} };
+    console.error("News sitemap generation error:", error);
+
+    res.statusCode = 500;
+    res.setHeader(
+      "Content-Type",
+      "application/xml; charset=utf-8"
+    );
+
+    res.write(`<?xml version="1.0" encoding="UTF-8"?>
+<error>
+  <message>Failed to generate sitemap</message>
+</error>`);
+
+    res.end();
+
+    return {
+      props: {},
+    };
   }
 }
 

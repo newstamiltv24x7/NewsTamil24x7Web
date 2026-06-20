@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 class ErrorBoundary extends React.Component {
@@ -19,10 +17,14 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ padding: 20 }}>
-          <h2>Something went wrong</h2>
-          <p>We caught an unexpected error. Please refresh the page or try again later.</p>
-        </div>
+        this.props.fallback || (
+          <div style={{ padding: 20 }}>
+            <h2>Something went wrong</h2>
+            <p>
+              We caught an unexpected error. Please refresh the page or try again later.
+            </p>
+          </div>
+        )
       );
     }
 

@@ -154,9 +154,8 @@ export async function getServerSideProps(context) {
     };
   } catch (err) {
     console.error(err);
-    return {
-      props: {
-        menuData: [],
+    const props = {
+  menuData: [],
         photosData: [],
         webstoriesData: [],
         seoResponse: [],
@@ -171,8 +170,15 @@ export async function getServerSideProps(context) {
         initialNewsData: [],
         initialTrendingData: [],
         lcpHeroImage: null,
-      },
-    };
+};
+
+console.log(
+  "Props Size:",
+  (Buffer.byteLength(JSON.stringify(props)) / 1024).toFixed(2),
+  "KB"
+);
+
+return { props };
   }
 }
 
