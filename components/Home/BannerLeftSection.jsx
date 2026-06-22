@@ -93,7 +93,7 @@ function BannerLeftSection({ newsData, loading, viewControl }) {
                 borderRadius={"6px"}
               >
                 {Array.isArray(newsData) &&
-                newsData?.at(0)?.youtube_embed_id === "" ? (
+                !newsData?.at(0)?.youtube_embed_id ? (
                   <Link
                     href={`/article/${newsData?.at(0)?.story_desk_created_name || newsData?.at(0)?._id || '#'}`}
                   >
