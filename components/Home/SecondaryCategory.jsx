@@ -2,6 +2,7 @@ import BigCard from "@/commonComponents/BigCard";
 import CommonHeader from "@/commonComponents/CommonHeader";
 import HorizontalCard from "@/commonComponents/HorizontalCard";
 import {  getHomeBigStories, getHomeDistrictNews, getHomeJustBefore, getHomeWorld } from "@/commonComponents/WebApiFunction/ApiFunctions";
+import { pruneNewsDocs } from "@/utils/libs";
 import { useTheme } from "@/theme/ThemeContext";
 import { Box, Button, Grid } from "@mui/material";
 import Link from "next/link";
@@ -70,7 +71,7 @@ function SecondaryCategory({
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY1", payload: result?.docs });
+        dispatch({ type: "SET_ARRAY1", payload: pruneNewsDocs(result?.docs) });
       } else {
         dispatch({ type: "SET_ARRAY1", payload: [] });
       }
@@ -91,7 +92,7 @@ function SecondaryCategory({
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY2", payload: result?.docs });
+        dispatch({ type: "SET_ARRAY2", payload: pruneNewsDocs(result?.docs) });
       } else {
         dispatch({ type: "SET_ARRAY2", payload: [] });
       }
@@ -113,7 +114,7 @@ function SecondaryCategory({
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY3", payload: result?.docs });
+        dispatch({ type: "SET_ARRAY3", payload: pruneNewsDocs(result?.docs) });
       } else {
         dispatch({ type: "SET_ARRAY3", payload: [] });
       }
@@ -135,7 +136,7 @@ function SecondaryCategory({
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        dispatch({ type: "SET_ARRAY4", payload: result?.docs });
+        dispatch({ type: "SET_ARRAY4", payload: pruneNewsDocs(result?.docs) });
       } else {
         dispatch({ type: "SET_ARRAY4", payload: [] });
       }

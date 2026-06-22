@@ -16,6 +16,7 @@ import HorizontalCard from "@/commonComponents/HorizontalCard";
 import BigCard from "@/commonComponents/BigCard";
 import { useSelector } from "react-redux";
 import {  getHomeCinema, getHomeIN, getHomePolitics } from "@/commonComponents/WebApiFunction/ApiFunctions";
+import { pruneNewsDocs } from "@/utils/libs";
 import Link from "next/link";
 import { getHours, shareCards } from "@/utils/libs";
 import { useTheme } from "@/theme/ThemeContext";
@@ -68,7 +69,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        setNewsList(result?.docs);
+        setNewsList(pruneNewsDocs(result?.docs));
       } else {
         setNewsList([]);
       }
@@ -90,7 +91,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        setSecondNewsList(result?.docs);
+        setSecondNewsList(pruneNewsDocs(result?.docs));
       } else {
         setSecondNewsList([]);
       }
@@ -112,7 +113,7 @@ function MainAdSection({viewControl, orderedMenu = []}) {
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        setThirdNewsList(result?.docs);
+        setThirdNewsList(pruneNewsDocs(result?.docs));
       } else {
         setThirdNewsList([]);
       }

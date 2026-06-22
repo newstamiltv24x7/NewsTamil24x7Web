@@ -166,6 +166,22 @@ export function shareShorts(val, text, url, device) {
   openShare(val, url, text, device);
 }
 
+// Reduce article docs to only the fields used on the homepage to keep
+// serialized page-data small. This is intentionally conservative — we
+// only pick the fields referenced across homepage components.
+export function pruneNewsDocs(docs) {
+  if (!Array.isArray(docs)) return docs || [];
+  return docs.map((d) => ({
+    _id: d?._id ?? null,
+    story_title_name: d?.story_title_name ?? null,
+    story_desk_created_name: d?.story_desk_created_name ?? null,
+    story_cover_image_url: d?.story_cover_image_url ?? null,
+    updatedAt: d?.updatedAt ?? null,
+    story_subject_name: d?.story_subject_name ?? null,
+    c_category_name: d?.c_category_name ?? null,
+    c_category_slug_english_name: d?.c_category_slug_english_name ?? null,
+  }));
+}
 export function shareVideos(val, text, url, device) {
   openShare(val, url, text, device);
 }

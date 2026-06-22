@@ -12,7 +12,7 @@ import {
   getHomeLatest,
   getHomeTopSection,
 } from "@/commonComponents/WebApiFunction/ApiFunctions";
-import { CryptoFetcher } from "@/utils/libs";
+import { CryptoFetcher, pruneNewsDocs } from "@/utils/libs";
 import { addLiveVideo } from "@/redux/reducer/liveVideoReducer";
 import AdUnit from "../Ads/AdUnit";
 import ManualImageAds from "../Ads/ManualImageAds";
@@ -174,7 +174,7 @@ function HomepageMainSection({
         main_category_id: "cf336f838e81",
       });
       const news = CryptoFetcher(result?.payloadJson) || [];
-      setNewsData(news?.docs);
+      setNewsData(pruneNewsDocs(news?.docs));
       setNewsLoading(false);
     } catch (err) {
       console.log(err);
@@ -190,7 +190,7 @@ function HomepageMainSection({
         trending_news: 1,
       });
       const news = CryptoFetcher(result?.payloadJson) || [];
-      setTrendingData(news?.docs);
+      setTrendingData(pruneNewsDocs(news?.docs));
       setTrendLoading(false);
     } catch (err) {
       console.log(err);

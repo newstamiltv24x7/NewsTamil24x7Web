@@ -2,6 +2,7 @@ import BigCard from "@/commonComponents/BigCard";
 import CommonHeader from "@/commonComponents/CommonHeader";
 import HorizontalCard from "@/commonComponents/HorizontalCard";
 import { getHomeTN } from "@/commonComponents/WebApiFunction/ApiFunctions";
+import { pruneNewsDocs } from "@/utils/libs";
 import { useTheme } from "@/theme/ThemeContext";
 import { Box, Button, Grid, Skeleton } from "@mui/material";
 import Link from "next/link";
@@ -33,7 +34,7 @@ function FirstCategory({viewControl, orderedMenu = []}) {
          
         const result = JSON.parse(firstNews);
         setLoader(false);
-        setNewsList(result?.docs);
+        setNewsList(pruneNewsDocs(result?.docs));
       } else {
         setLoader(false);
         setNewsList([]);

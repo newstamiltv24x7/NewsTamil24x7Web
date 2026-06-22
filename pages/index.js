@@ -20,7 +20,7 @@ import {
 // import HomepageMainSection from "@/components/Home/HomepageMainSection";
 import LoaderComponent from "@/components/LoaderComponent";
 import MobileView from "@/components/MobileView/MobileView";
-import { CryptoFetcher } from "@/utils/libs";
+import { CryptoFetcher, pruneNewsDocs } from "@/utils/libs";
 import axios from "axios";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -115,14 +115,21 @@ export async function getServerSideProps(context) {
     const viewControl = controlData?.[2]?.c_control_type?.toLowerCase() || "no";
 
     // Secondary categories data extraction (matching logic in SecondaryCategory.jsx)
-    const districtNewsData = CryptoFetcher(districtRes?.payloadJson)?.docs || [];
-    const justBeforeNewsData = CryptoFetcher(justBeforeRes?.payloadJson)?.docs || [];
-    const bigStoriesNewsData = CryptoFetcher(bigStoriesRes?.payloadJson)?.docs || [];
-    const worldNewsData = CryptoFetcher(worldRes?.payloadJson)?.docs || [];
+    const districtNewsDataRaw = CryptoFetcher(districtRes?.payloadJson)?.docs || [];
+    const justBeforeNewsDataRaw = CryptoFetcher(justBeforeRes?.payloadJson)?.docs || [];
+    const bigStoriesNewsDataRaw = CryptoFetcher(bigStoriesRes?.payloadJson)?.docs || [];
+    const worldNewsDataRaw = CryptoFetcher(worldRes?.payloadJson)?.docs || [];
 
-    // Above-the-fold article data
-    const topNewsData = CryptoFetcher(topNewsRes?.payloadJson)?.docs || [];
-    const trendingNewsData = CryptoFetcher(trendingRes?.payloadJson)?.docs || [];
+    // Above-the-fold article data (pruned to minimal fields)
+    const topNewsDataRaw = CryptoFetcher(topNewsRes?.payloadJson)?.docs || [];
+    const trendingNewsDataRaw = CryptoFetcher(trendingRes?.payloadJson)?.docs || [];
+
+    const districtNewsData = pruneNewsDocs(districtNewsDataRaw);
+    const justBeforeNewsData = pruneNewsDocs(justBeforeNewsDataRaw);
+    const bigStoriesNewsData = pruneNewsDocs(bigStoriesNewsDataRaw);
+    const worldNewsData = pruneNewsDocs(worldNewsDataRaw);
+    const topNewsData = pruneNewsDocs(topNewsDataRaw);
+    const trendingNewsData = pruneNewsDocs(trendingNewsDataRaw);
 
     // SEO data
     const seoResponse = seoRes?.data?.payloadJson?.at(0) || [];

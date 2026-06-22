@@ -2,6 +2,7 @@ import BigCard from "@/commonComponents/BigCard";
 import CommonHeader from "@/commonComponents/CommonHeader";
 import HorizontalCard from "@/commonComponents/HorizontalCard";
 import {  getHomeSports, getHomeTechnology } from "@/commonComponents/WebApiFunction/ApiFunctions";
+import { pruneNewsDocs } from "@/utils/libs";
 import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -27,7 +28,7 @@ function AdditionalSection({viewControl, orderedMenu = []}) {
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        setSecondNewsList(result?.docs);
+        setSecondNewsList(pruneNewsDocs(result?.docs));
       } else {
         setSecondNewsList([]);
       }
@@ -49,7 +50,7 @@ function AdditionalSection({viewControl, orderedMenu = []}) {
       if (response?.payloadJson?.length > 0) {
         const firstNews = CryptoJS.AES.decrypt(response?.payloadJson,secretPassphrase).toString(CryptoJS.enc.Utf8);
         const result = JSON.parse(firstNews);
-        setThirdNewsList(result?.docs);
+        setThirdNewsList(pruneNewsDocs(result?.docs));
       } else {
         setThirdNewsList([]);
       }
