@@ -263,7 +263,7 @@ function Navbar(props) {
           />
         </Link>
         {/* Election 2026 Badge - wider and better aligned with logo */}
-        <a
+        {/* <a
           href="https://election.newstamil.tv"
           target="_blank"
           rel="noopener noreferrer"
@@ -299,7 +299,6 @@ function Navbar(props) {
                 animation: "electionGlow 2.2s ease-in-out infinite",
               }}
             >
-              {/* Mini flag stripe */}
               <Box sx={{ display: "flex", height: "3px", borderRadius: "2px", overflow: "hidden", position: "absolute", left: 0, right: 0, top: 0 }}>
                 <Box sx={{ flex: 1, background: "#ff9933" }} />
                 <Box sx={{ flex: 1, background: "#ffffff" }} />
@@ -351,7 +350,7 @@ function Navbar(props) {
               />
             </Box>
           </Box>
-        </a>
+        </a> */}
       </Box>
 
       {/* RIGHT: Toggle */}
