@@ -63,6 +63,11 @@ const nextConfig = {
         hostname: "**.r2.dev",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.socialbureau.in",
+        pathname: "/**",
+      },
     ],
     // Prefer AVIF (30-50% smaller than WebP) when the browser supports it;
     // fall back to WebP for older browsers.

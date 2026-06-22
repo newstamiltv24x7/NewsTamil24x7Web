@@ -387,9 +387,31 @@ function Footer() {
                 © Copyright <b>Newstamil 24x7</b> {new Date().getFullYear()}. All
                 rights reserved
               </Typography>
-              {/* <Typography fontFamily={"var(--anek-font)"}>
-                Hand-crafted & made with - <b>Datasense Technologies</b>
-              </Typography> */}
+              <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
+                <Typography
+                  fontSize={{ xs: "9px", md: "11px" }}
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  letterSpacing="0.2em"
+                  fontFamily={"var(--anek-font)"}
+                >
+                  POWERED BY
+                </Typography>
+                <Link
+                  href="https://www.socialbureau.in/enquiry-form"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Image
+                    src="https://www.socialbureau.in/assets/logo.webp"
+                    alt="SocialBureau"
+                    width={80}
+                    height={32}
+                    style={{ width: "auto", height: "20px" }}
+                  />
+                </Link>
+              </Box>
             </Box>
           </Grid>
         </Grid>
