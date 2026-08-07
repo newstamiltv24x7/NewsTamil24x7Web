@@ -170,7 +170,7 @@ function HomepageMainSection({
       setNewsLoading(true);
       const result = await getHomeTopSection({
         n_page: 1,
-        n_limit: 14,
+        n_limit: 10,
         main_category_id: "cf336f838e81",
       });
       const news = CryptoFetcher(result?.payloadJson) || [];

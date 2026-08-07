@@ -85,7 +85,7 @@ export async function getServerSideProps(context) {
       getBreakingNews(),
       getSeoList(),
       getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
-      getHomeTopSection({ n_page: 1, n_limit: 12, main_category_id: "cf336f838e81" }),  // Reduced from 14 to 12
+      getHomeTopSection({ n_page: 1, n_limit: 10, main_category_id: "cf336f838e81" }),  // Reduced by 2 for desktop first section
       getHomeLatest({ n_page: 1, n_limit: 5, trending_news: 1 }),  // Reduced from 6 to 5
     ]);
 
