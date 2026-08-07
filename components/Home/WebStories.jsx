@@ -37,6 +37,13 @@ function WebStories({ webstoriesData }) {
   const [shareOpen, setShareOpen] = React.useState(false);
   const [newsId, setNewsId] = React.useState("");
 
+  const getStoryKey = (item) =>
+    item?._id ||
+    item?.c_web_story_id ||
+    item?.story_id ||
+    item?.c_web_story_slug_name ||
+    `${item?.c_web_story_title || "story"}-${item?.createdAt || ""}`;
+
   const handleSetId = (id, data) => {
     setCurrentData(`${data.c_web_story_title}?web_id=${data.c_web_story_id}`);
     if (id === newsId) {
@@ -123,7 +130,7 @@ function WebStories({ webstoriesData }) {
             {Array.isArray(webstoriesData) &&
               webstoriesData?.map((list) => (
                 <div
-                  key={list?._id}
+                  key={getStoryKey(list)}
                   style={{ margin: "6px 12px", position: "relative" }}
                 >
                   <Card sx={{ cursor: "pointer" }}>

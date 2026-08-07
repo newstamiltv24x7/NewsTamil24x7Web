@@ -888,9 +888,9 @@ function ArticlePageContainer({
                   >
                     Tags :
                   </Button>
-                  {NEWSDATA?.at(0)?.seo_tag?.map((item, index) => (
+                  {NEWSDATA?.at(0)?.seo_tag?.map((item) => (
                     <Link
-                      key={index}
+                      key={`tag-${item}`}
                       href={{
                         pathname: `/search`,
                         query: {

@@ -68,8 +68,8 @@ function PhotosViewerPop({ photosImg, open, close, data, title }) {
             // onSlideChange={(swiper) => handleSlideChange(swiper)}
           >
             {Array.isArray(photosImg) &&
-              photosImg?.map((list,index) => (
-                <SwiperSlide key={index}>
+              photosImg?.map((list) => (
+                <SwiperSlide key={list?.c_photos_id || list?._id}>
                   <Box p={0}>
                     <Box position={"relative"}>
                       <Image

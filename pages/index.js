@@ -105,8 +105,14 @@ export async function getServerSideProps(context) {
 
     // Decrypt all responses where applicable
     const menuData = CryptoFetcher(menuRes?.payloadJson);
-    const photosData = CryptoFetcher(photosRes?.payloadJson) || [];
-    const webstoriesData = CryptoFetcher(shortsRes?.payloadJson) || [];
+    const photosPayload = CryptoFetcher(photosRes?.payloadJson) || [];
+    const webstoriesPayload = CryptoFetcher(shortsRes?.payloadJson) || [];
+    const photosData = Array.isArray(photosPayload)
+      ? photosPayload?.[0]?.data || []
+      : [];
+    const webstoriesData = Array.isArray(webstoriesPayload)
+      ? webstoriesPayload?.[0]?.data || []
+      : [];
     const breakingData = breakingRes?.payloadJson || [];
 
     const controlData = CryptoFetcher(controlRes?.payloadJson);

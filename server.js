@@ -32,7 +32,7 @@ const ensureStaticFiles = () => {
 };
 
 // Serve static files from public/ and .next/static/
-const serveStatic = (res, filePath) => {
+const serveStatic = (res, filePath, pathname) => {
   try {
     const stats = fs.statSync(filePath);
     const mimeTypes = {
@@ -56,6 +56,11 @@ const serveStatic = (res, filePath) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = mimeTypes[ext] || "application/octet-stream";
     
+    // Log successful static file serves in production for debugging
+    if (!dev) {
+      console.log(`[STATIC] ✓ Serving ${pathname} as ${contentType}`);
+    }
+    
     res.writeHead(200, {
       "Content-Type": contentType,
       "Content-Length": stats.size,
@@ -65,9 +70,9 @@ const serveStatic = (res, filePath) => {
     
     fs.createReadStream(filePath).pipe(res);
   } catch (err) {
-    console.error(`Failed to serve static file ${filePath}:`, err.message);
-    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-    res.end("404 - Not Found");
+    console.error(`[STATIC] ✗ Failed to serve ${pathname}: ${err.message}`);
+    res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("404 - Static File Not Found");
   }
 };
 
@@ -76,25 +81,31 @@ app.prepare().then(() => {
 
   const server = http.createServer((req, res) => {
     const parsedUrl = parse(req.url, true);
-    const pathname = parsedUrl.pathname;
+    // Decode URI to handle URL-encoded characters (%20 for spaces, etc.)
+    const pathname = decodeURIComponent(parsedUrl.pathname);
 
-    // Serve files from .next/static/ (hashed assets)
+    // Serve files from .next/static/ (hashed assets: CSS, JS, images, fonts)
     if (pathname.startsWith("/_next/static/")) {
       const filePath = path.join(__dirname, ".next", pathname.slice(1)); // Remove leading /
-      if (fs.existsSync(filePath)) {
-        return serveStatic(res, filePath);
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        return serveStatic(res, filePath, pathname);
+      }
+      // Log 404s for static files — may indicate build issues
+      if (!dev) {
+        console.error(`[STATIC] ✗ 404: ${pathname} not found at ${filePath}`);
       }
     }
 
-    // Serve files from public/ directory
-    if (!pathname.startsWith("/api/") && !pathname.startsWith("/_next/")) {
+    // Serve files from public/ directory (favicons, robots.txt, etc.)
+    // Skip API and Next.js internal routes
+    if (!pathname.startsWith("/api/") && !pathname.startsWith("/_next/") && !pathname.startsWith("/ta/")) {
       const publicFilePath = path.join(__dirname, "public", pathname);
       if (fs.existsSync(publicFilePath) && fs.statSync(publicFilePath).isFile()) {
-        return serveStatic(res, publicFilePath);
+        return serveStatic(res, publicFilePath, pathname);
       }
     }
 
-    // Fall through to Next.js handler for dynamic routes and API
+    // Fall through to Next.js handler for dynamic routes, API, and locale-specific pages
     handle(req, res, parsedUrl);
   });
 

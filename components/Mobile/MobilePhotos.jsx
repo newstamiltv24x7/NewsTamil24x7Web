@@ -64,14 +64,13 @@ function MobilePhotos({ photosData }) {
       >
         {Array.isArray(photosData) &&
           photosData?.slice(0, 9)?.map((list) => (
-            <SwiperSlide>
+            <SwiperSlide key={list?._id}>
               <Box
                 className="photo-card"
                 position={"relative"}
                 m={1}
                 mb={3}
                 mt={2}
-                key={list?._id}
               >
                 <Card
                   sx={{

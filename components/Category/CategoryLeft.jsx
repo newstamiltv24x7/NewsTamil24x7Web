@@ -356,49 +356,45 @@ function CategoryLeft({
               <Skeleton variant="rectangular" width={"100%"} height={150} />
             ) : (
               <>
-                {[
-                  Array.isArray(newsList) &&
-                    newsList?.slice(1, 3)?.map((list) => (
-                      <Box className="" position={"relative"} pr={1.2}>
-                        <CardSection data={list} cardHeight={180} viewControl={viewControl} />
-                        <Box display={"grid"} sx={{ placeItems: "center" }}>
-                          <hr
-                            style={{
-                              width: "97%",
-                              border: "0.5px solid #666666",
-                              margin: "6px 0 6px 0",
-                            }}
-                          />
-                        </Box>
+                {Array.isArray(newsList) &&
+                  newsList?.slice(1, 3)?.map((list) => (
+                    <Box key={list?._id} className="" position={"relative"} pr={1.2}>
+                      <CardSection data={list} cardHeight={180} viewControl={viewControl} />
+                      <Box display={"grid"} sx={{ placeItems: "center" }}>
+                        <hr
+                          style={{
+                            width: "97%",
+                            border: "0.5px solid #666666",
+                            margin: "6px 0 6px 0",
+                          }}
+                        />
                       </Box>
-                    )),
-                ]}
+                    </Box>
+                  ))}
               </>
             )}
           </Grid>
-          {[
-            Array.isArray(newsList) &&
-              newsList?.slice(3, newsList.length)?.map((list, index) => (
-                <Grid item xs={12} sm={12} md={4} key={list?._id}>
-                  <Box
-                    className={(index + 1) % 3 !== 0 && "border-class"}
-                    position={"relative"}
-                    pr={1.2}
-                  >
-                    <CardSection data={list} cardHeight={180} viewControl={viewControl} />
-                    <Box display={"grid"} sx={{ placeItems: "center" }}>
-                      <hr
-                        style={{
-                          width: "97%",
-                          border: "0.5px solid #666666",
-                          margin: "6px 0 6px 0",
-                        }}
-                      />
-                    </Box>
+          {Array.isArray(newsList) &&
+            newsList?.slice(3, newsList.length)?.map((list, index) => (
+              <Grid item xs={12} sm={12} md={4} key={list?._id}>
+                <Box
+                  className={(index + 1) % 3 !== 0 && "border-class"}
+                  position={"relative"}
+                  pr={1.2}
+                >
+                  <CardSection data={list} cardHeight={180} viewControl={viewControl} />
+                  <Box display={"grid"} sx={{ placeItems: "center" }}>
+                    <hr
+                      style={{
+                        width: "97%",
+                        border: "0.5px solid #666666",
+                        margin: "6px 0 6px 0",
+                      }}
+                    />
                   </Box>
-                </Grid>
-              )),
-          ]}
+                </Box>
+              </Grid>
+            ))}
         </Grid>
       )}
 
