@@ -167,7 +167,7 @@ function WebStoryPageContainer({
                         >
                           <Link
                             href={{
-                              pathname: `/web-story/${data?.c_web_story_title || data?._id || '#'}`,
+                              pathname: `/web-story/${data?.c_web_story_slug_name || data?._id || '#'}`,
                               query: {
                                 id: data?.c_web_story_id,
                               },

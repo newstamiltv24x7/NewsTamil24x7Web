@@ -17,6 +17,11 @@ import ThreadsNew from "../public/newsTamilIcons/icon-pack/Frame 5.svg";
 import LinkedinNew from "../public/newsTamilIcons/icon-pack/Frame 4.svg";
 
 function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl }) {
+  const firstStoryTimestamp =
+    list?.updatedAt ||
+    list?.createdAt ||
+    list?.updated_at ||
+    list?.created_at;
   return (
     <>
       <Grid container py={1} spacing={2}>
@@ -99,7 +104,7 @@ function MobileCard({ list, mode, handleSetId, newsId, shareOpen, viewControl })
                   sx={{ opacity: 0.7 }}
                   // sx={{ color: "#fff" }}
                 >
-                  {getHours(list?.updatedAt)}
+                  {getHours(firstStoryTimestamp)}
                 </Typography>
                 <Image
                 fetchPriority="high" 

@@ -102,6 +102,12 @@ const GetJustNowCategory = async () => {
     fetchImages();
   }, []);
 
+  const firstStoryTimestamp =
+    newsData?.at(0)?.updatedAt ||
+    newsData?.at(0)?.createdAt ||
+    newsData?.at(0)?.updated_at ||
+    newsData?.at(0)?.created_at;
+
   // NOTE: Do NOT early-return here based on `images` — that hides the entire
   // page until the async fetch resolves and causes a CLS > 1.0 on mobile.
 
@@ -259,7 +265,7 @@ const GetJustNowCategory = async () => {
                     fontWeight={500}
                     sx={{ opacity: 0.5 }}
                   >
-                    {getHours(newsData?.at(0)?.updatedAt)}
+                    {getHours(firstStoryTimestamp)}
                   </Typography>
                   <Image 
                   fetchPriority="high" rel="preload"
