@@ -2,12 +2,18 @@
     "apps": [
       {
         "name": "newstamil_web",
-        "script": "node_modules/next/dist/bin/next",
-        "args": "start --port 3002",
+        "script": "server.js",
+        "args": "",
+        "env": {
+          "PORT": "3002",
+          "NODE_ENV": "production"
+        },
         "exec_mode": "cluster_mode",
         "instances": 4,
         "log_file": "server.log",
-        "merge_logs": true
+        "merge_logs": true,
+        "wait_ready": true,
+        "kill_timeout": 5000
       }
     ]
   }

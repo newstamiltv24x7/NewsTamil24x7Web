@@ -74,7 +74,7 @@ export async function getServerSideProps(response) {
       getHomeMenuApi(),
       getHomeLatest({
         n_page: 1,
-        n_limit: 10,
+        n_limit: 5,  // Reduced from 10 to 5 — trending articles
         trending_news: 1
       }),
       getControls(),
@@ -82,7 +82,7 @@ export async function getServerSideProps(response) {
       getParticularNews(slugify),
       getAllYoutubeVideos({
         n_page: 1,
-        n_limit: 20,
+        n_limit: 8,  // Reduced from 20 to 8 — saves ~15-20 KB of payload
         c_search_term: "",
         c_video_type: "posted",
         c_youtube_type: "video",

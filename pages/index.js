@@ -74,19 +74,19 @@ export async function getServerSideProps(context) {
     ] = await Promise.all([
       getHomeMenuApiList({
         n_page: 1,
-        n_limit: 50,
+        n_limit: 30,  // Reduced from 50 — only show 30 menu items to cut payload
         c_search_term: "",
         spl_category: "1",
       }),
       getHomeMenuApi(),
       getControls(),
-      getAllPhotos(),
-      getWebstoriesList(),
+      getAllPhotos({ n_page: 1, n_limit: 8, c_search_term: "" }),  // Limit to 8 photos — was fetching ALL
+      getWebstoriesList({ n_page: 1, n_limit: 6, c_search_term: "" }),  // Limit to 6 web stories — was fetching ALL
       getBreakingNews(),
       getSeoList(),
       getHomeJustBefore({ n_page: 1, n_limit: 5, main_category_id: "4a4569143bf4" }),
-      getHomeTopSection({ n_page: 1, n_limit: 14, main_category_id: "cf336f838e81" }),
-      getHomeLatest({ n_page: 1, n_limit: 6, trending_news: 1 }),
+      getHomeTopSection({ n_page: 1, n_limit: 12, main_category_id: "cf336f838e81" }),  // Reduced from 14 to 12
+      getHomeLatest({ n_page: 1, n_limit: 5, trending_news: 1 }),  // Reduced from 6 to 5
     ]);
 
     const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson) || [];

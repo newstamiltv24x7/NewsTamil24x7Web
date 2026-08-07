@@ -158,9 +158,9 @@ function WebStories({ webstoriesData }) {
                         gap={1}
                         px={1}
                       >
-                        {list?.c_web_story_images?.map((item) => (
+                        {list?.c_web_story_images?.map((item, index) => (
                           <Box
-                            key={item?._id}
+                            key={`${list?._id}-progress-${index}`}
                             width={"50%"}
                             height={"4px"}
                             borderRadius={"25px"}

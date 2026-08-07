@@ -156,25 +156,32 @@ export const getYoutubePlaylistFunction = async (pageToken = "") => {
   }
 };
 
-export const getWebstoriesList = async (id) => {
-  if (id) {
-    return await axios
-      .get(`${baseURL}/api/v1/web/web_stories/list?url=${id}`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err;
-      });
+export const getWebstoriesList = async (bodyOrUrl) => {
+  // Support three calling patterns:
+  // 1. With pagination object: { n_page, n_limit, c_search_term }
+  // 2. With URL string for lookup: "some-web-story-url"
+  // 3. With no args (defaults to 6 items)
+  
+  if (typeof bodyOrUrl === "string") {
+    // Legacy URL lookup (for web-story/[...slug].js)
+    try {
+      const res = await axios.get(`${baseURL}/api/v1/web/web_stories/list?url=${bodyOrUrl}`);
+      return res.data;
+    } catch (err) {
+      console.error("getWebstoriesList URL lookup failed:", err?.message);
+      return null;
+    }
   } else {
-    return await axios
-      .get(`${baseURL}/api/v1/web/web_stories/list`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err;
-      });
+    // New pagination object or no args (default to 6 items)
+    const params = bodyOrUrl || { n_page: 1, n_limit: 6, c_search_term: "" };
+    
+    try {
+      const res = await axios.post(`${baseURL}/api/v1/web/web_stories/list`, params);
+      return res.data;
+    } catch (err) {
+      console.error("getWebstoriesList failed:", err?.message);
+      return null;
+    }
   }
 };
 
@@ -334,25 +341,32 @@ export const getQuickLinks = async (val, type) => {
   }
 };
 
-export const getAllPhotos = async (val) => {
-  if (val) {
-    return await axios
-      .get(`${baseURL}/api/v1/web/photos/list?url=${val}`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err;
-      });
+export const getAllPhotos = async (bodyOrUrl) => {
+  // Support three calling patterns:
+  // 1. With pagination object: { n_page, n_limit, c_search_term }
+  // 2. With URL/ID string for lookup: "some-photo-id"
+  // 3. With no args (defaults to 6 items)
+  
+  if (typeof bodyOrUrl === "string") {
+    // Legacy URL/ID lookup
+    try {
+      const res = await axios.get(`${baseURL}/api/v1/web/photos/list?url=${bodyOrUrl}`);
+      return res.data;
+    } catch (err) {
+      console.error("getAllPhotos URL lookup failed:", err?.message);
+      return null;
+    }
   } else {
-    return await axios
-      .get(`${baseURL}/api/v1/web/photos/list`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        return err;
-      });
+    // New pagination object or no args (default to 6 items)
+    const params = bodyOrUrl || { n_page: 1, n_limit: 6, c_search_term: "" };
+    
+    try {
+      const res = await axios.post(`${baseURL}/api/v1/web/photos/list`, params);
+      return res.data;
+    } catch (err) {
+      console.error("getAllPhotos failed:", err?.message);
+      return null;
+    }
   }
 };
 
