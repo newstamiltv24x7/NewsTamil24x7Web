@@ -1,8 +1,12 @@
 import axios from "axios";
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-// Prevent SSR threads/sockets from hanging indefinitely by enforcing a default timeout
-axios.defaults.timeout = 15000;
+// ✅ Increased timeout from 15s to 60s to allow backend queries time to complete
+// MongoDB queries on large collections can be slow, need substantial buffer
+axios.defaults.timeout = 60000;
+
+// Config for news API calls - allow up to 25 seconds since these query large collections
+const newsApiConfig = { timeout: 25000 };
 
 export const getHomeMenuApi = async () => {
   return await axios
@@ -39,7 +43,8 @@ export const getAllNewsList = async (body) => {
 
 export const getHomeTopSection = async (body) => {
   try {
-    const res = await axios.post(`${baseURL}/api/v1/web/news/home`, body);
+    // ✅ Use extended timeout config for this slow query
+    const res = await axios.post(`${baseURL}/api/v1/web/news/home`, body, newsApiConfig);
     return res.data;
   } catch (err) {
     console.error("getHomeTopSection failed:", err?.message);
@@ -63,7 +68,8 @@ export function CryptoFetcher(data) {
 
 export const getHomeLatest = async (body) => {
   try {
-    const res = await axios.post(`${baseURL}/api/v1/web/news/latest`, body);
+    // ✅ Use extended timeout config for this slow query
+    const res = await axios.post(`${baseURL}/api/v1/web/news/latest`, body, newsApiConfig);
     return res.data;
   } catch (err) {
     console.error("getHomeLatest failed:", err?.message);

@@ -14,11 +14,16 @@ const CACHE_MAX = 50;
 export function CryptoFetcher(data) {
   if (!data) return undefined;
   try {
+    // If caller passed an already-parsed object/array, return it directly
+    if (typeof data !== "string") return data;
+
     // Return cached result if available
     if (_decryptCache.has(data)) return _decryptCache.get(data);
 
     const secretPassphrase = `${process.env.NEXT_PUBLIC_DECODER}`;
     const decrypted = CryptoJS.AES.decrypt(data, secretPassphrase).toString(CryptoJS.enc.Utf8);
+    if (!decrypted) return undefined;
+
     const parsed = JSON.parse(decrypted);
 
     // Evict oldest entry when cache is full
@@ -29,7 +34,11 @@ export function CryptoFetcher(data) {
     _decryptCache.set(data, parsed);
     return parsed;
   } catch (err) {
-    console.log(err);
+    // Swallow error and return undefined so callers can handle missing data
+    // Keep console logging for debug visibility
+    // eslint-disable-next-line no-console
+    console.error("CryptoFetcher error:", err?.message || err);
+    return undefined;
   }
 }
 
@@ -176,7 +185,8 @@ export function pruneNewsDocs(docs) {
     story_title_name: d?.story_title_name ?? null,
     story_desk_created_name: d?.story_desk_created_name ?? null,
     story_cover_image_url: d?.story_cover_image_url ?? null,
-    updatedAt: d?.updatedAt ?? null,
+    // Prefer `updatedAt` but fall back to `createdAt` when unavailable
+    updatedAt: d?.updatedAt ?? d?.createdAt ?? null,
     story_subject_name: d?.story_subject_name ?? null,
     c_category_name: d?.c_category_name ?? null,
     c_category_slug_english_name: d?.c_category_slug_english_name ?? null,

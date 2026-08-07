@@ -89,7 +89,7 @@ export async function getServerSideProps(context) {
       getHomeLatest({ n_page: 1, n_limit: 6, trending_news: 1 }),
     ]);
 
-    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson)?.at(0)?.data || [];
+    const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson) || [];
 
     // 2. Map fixed category positions (matching components\Home\SecondaryCategory.jsx logic)
     const firstCatId = orderedMenu?.at(4)?.c_category_id;
