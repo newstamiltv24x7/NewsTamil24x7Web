@@ -25,7 +25,10 @@ export default async function handler(req, res) {
     else if (Array.isArray(posts)) items = posts;
   }
 
-  items.forEach((post) => {
+  // Bound RSS feed to top 50 items to keep payload well under Next.js 4MB limit
+  const boundedItems = items.slice(0, 50);
+
+  boundedItems.forEach((post) => {
     feed.item({
       title: post.story_title_name,
       description: post.story_sub_title_name,
