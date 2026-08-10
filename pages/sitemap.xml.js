@@ -13,12 +13,14 @@ const formatToIST = (utcDate) => {
 export async function getServerSideProps({ res }) {
   try {
     const response = await getSitemapList(); // Fetch the sitemap list
-    const sitemapList = response.payloadJson; // Extract the array of sitemap data
+    const sitemapList = response?.payloadJson; // Extract the array of sitemap data
 
     // Check if sitemapList is an array
     if (!Array.isArray(sitemapList)) {
-      res.setHeader("Content-Type", "application/xml");
-      return res.status(500).send("Error: sitemapList is not an array");
+      res.setHeader("Content-Type", "text/plain");
+      res.statusCode = 500;
+      res.end("Error: sitemapList is not an array");
+      return { props: {} };
     }
 
     // Map over the sitemap list to create sitemap entries
@@ -40,14 +42,17 @@ export async function getServerSideProps({ res }) {
 
     // Set the content type to XML
     res.setHeader("Content-Type", "application/xml");
+    res.statusCode = 200;
     res.write(sitemapIndexContent);
     res.end();
 
-    return { props: {} }; // Returning empty props since we are handling the response directly
+    return { props: {} };
   } catch (error) {
     console.error("Error generating sitemap index:", error);
-    res.status(500).send("Error: Failed to generate sitemap");
-    return { props: {} }; // Return empty props on error
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Error: Failed to generate sitemap");
+    return { props: {} };
   }
 }
 
