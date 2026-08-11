@@ -101,6 +101,10 @@ function HomepageMainSection({
   justBeforeNewsData = [],
   bigStoriesNewsData = [],
   worldNewsData = [],
+  thirdCatData1 = [],
+  thirdCatData2 = [],
+  thirdCatData3 = [],
+  thirdCatData4 = [],
 }) {
   const dispatch = useDispatch();
   const [liveData, setLiveData] = useState({});
@@ -205,10 +209,12 @@ function HomepageMainSection({
         if (entry.isIntersecting) {
           const section = entry.target.getAttribute("data-section");
           if (section === "video-section") {
-            GetYoutubePostedVideos(); // Trigger video section data load
+            GetYoutubePostedVideos();
+            observer.unobserve(entry.target);
           }
           if (section === "shorts-section") {
-            GetYoutubeShorts(); // Trigger shorts section data load
+            GetYoutubeShorts();
+            observer.unobserve(entry.target);
           }
         }
       });
@@ -565,6 +571,10 @@ function HomepageMainSection({
             <ThirdCategory
               viewControl={viewControl}
               orderedMenu={orderedMenu}
+              initialFirstData={thirdCatData1}
+              initialSecondData={thirdCatData2}
+              initialThirdData={thirdCatData3}
+              initialFourthData={thirdCatData4}
             />
           </Box>
         </ErrorBoundary>

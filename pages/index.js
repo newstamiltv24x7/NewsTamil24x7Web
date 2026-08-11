@@ -92,15 +92,24 @@ export async function getServerSideProps(context) {
     const orderedMenu = CryptoFetcher(menuOrderRes?.payloadJson) || [];
 
     // 2. Map fixed category positions (matching components\Home\SecondaryCategory.jsx logic)
-    const firstCatId = orderedMenu?.at(4)?.c_category_id;
-    const thirdCatId = orderedMenu?.at(6)?.c_category_id;
+    const firstCatId  = orderedMenu?.at(4)?.c_category_id;
+    const thirdCatId  = orderedMenu?.at(6)?.c_category_id;
     const fourthCatId = orderedMenu?.at(7)?.c_category_id;
+    // ThirdCategory block (orderedMenu positions 10-13)
+    const tc1CatId = orderedMenu?.at(10)?.c_category_id;
+    const tc2CatId = orderedMenu?.at(11)?.c_category_id;
+    const tc3CatId = orderedMenu?.at(12)?.c_category_id;
+    const tc4CatId = orderedMenu?.at(13)?.c_category_id;
 
-    // 3. Now fire the three fetches that depend on orderedMenu
-    const [districtRes, bigStoriesRes, worldRes] = await Promise.all([
-      firstCatId ? getHomeDistrictNews({ n_page: 1, n_limit: 5, main_category_id: firstCatId }) : Promise.resolve(null),
-      thirdCatId ? getHomeBigStories({ n_page: 1, n_limit: 5, main_category_id: thirdCatId }) : Promise.resolve(null),
-      fourthCatId ? getHomeWorld({ n_page: 1, n_limit: 5, main_category_id: fourthCatId }) : Promise.resolve(null),
+    // 3. Now fire all seven fetches that depend on orderedMenu
+    const [districtRes, bigStoriesRes, worldRes, tc1Res, tc2Res, tc3Res, tc4Res] = await Promise.all([
+      firstCatId  ? getHomeDistrictNews({ n_page: 1, n_limit: 5, main_category_id: firstCatId  }) : Promise.resolve(null),
+      thirdCatId  ? getHomeBigStories(  { n_page: 1, n_limit: 5, main_category_id: thirdCatId  }) : Promise.resolve(null),
+      fourthCatId ? getHomeWorld(       { n_page: 1, n_limit: 5, main_category_id: fourthCatId }) : Promise.resolve(null),
+      tc1CatId    ? getHomeDistrictNews({ n_page: 1, n_limit: 5, main_category_id: tc1CatId    }) : Promise.resolve(null),
+      tc2CatId    ? getHomeJustBefore(  { n_page: 1, n_limit: 5, main_category_id: tc2CatId    }) : Promise.resolve(null),
+      tc3CatId    ? getHomeBigStories(  { n_page: 1, n_limit: 5, main_category_id: tc3CatId    }) : Promise.resolve(null),
+      tc4CatId    ? getHomeWorld(       { n_page: 1, n_limit: 5, main_category_id: tc4CatId    }) : Promise.resolve(null),
     ]);
 
     // Decrypt all responses where applicable
@@ -134,6 +143,11 @@ export async function getServerSideProps(context) {
     const justBeforeNewsData = pruneNewsDocs(justBeforeNewsDataRaw);
     const bigStoriesNewsData = pruneNewsDocs(bigStoriesNewsDataRaw);
     const worldNewsData = pruneNewsDocs(worldNewsDataRaw);
+
+    const thirdCatData1 = pruneNewsDocs(CryptoFetcher(tc1Res?.payloadJson)?.docs || []);
+    const thirdCatData2 = pruneNewsDocs(CryptoFetcher(tc2Res?.payloadJson)?.docs || []);
+    const thirdCatData3 = pruneNewsDocs(CryptoFetcher(tc3Res?.payloadJson)?.docs || []);
+    const thirdCatData4 = pruneNewsDocs(CryptoFetcher(tc4Res?.payloadJson)?.docs || []);
     const topNewsData = pruneNewsDocs(topNewsDataRaw);
     const trendingNewsData = pruneNewsDocs(trendingNewsDataRaw);
 
@@ -162,6 +176,10 @@ export async function getServerSideProps(context) {
         justBeforeNewsData,
         bigStoriesNewsData,
         worldNewsData,
+        thirdCatData1,
+        thirdCatData2,
+        thirdCatData3,
+        thirdCatData4,
         lcpHeroImage,
       },
     };
@@ -214,6 +232,10 @@ export default function Home({
   justBeforeNewsData,
   bigStoriesNewsData,
   worldNewsData,
+  thirdCatData1 = [],
+  thirdCatData2 = [],
+  thirdCatData3 = [],
+  thirdCatData4 = [],
   lcpHeroImage,
 }) {
   const pathname = usePathname(); 
@@ -361,6 +383,10 @@ export default function Home({
           justBeforeNewsData={justBeforeNewsData}
           bigStoriesNewsData={bigStoriesNewsData}
           worldNewsData={worldNewsData}
+          thirdCatData1={thirdCatData1}
+          thirdCatData2={thirdCatData2}
+          thirdCatData3={thirdCatData3}
+          thirdCatData4={thirdCatData4}
         />
         </div>
       )}

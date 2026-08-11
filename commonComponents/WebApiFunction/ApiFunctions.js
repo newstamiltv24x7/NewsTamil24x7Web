@@ -5,9 +5,6 @@ const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 // MongoDB queries on large collections can be slow, need substantial buffer
 axios.defaults.timeout = 60000;
 
-// Config for news API calls - allow up to 25 seconds since these query large collections
-const newsApiConfig = { timeout: 25000 };
-
 export const getHomeMenuApi = async () => {
   return await axios
     .get(`${baseURL}/api/v1/web/menus/list`)
@@ -43,8 +40,7 @@ export const getAllNewsList = async (body) => {
 
 export const getHomeTopSection = async (body) => {
   try {
-    // ✅ Use extended timeout config for this slow query
-    const res = await axios.post(`${baseURL}/api/v1/web/news/home`, body, newsApiConfig);
+    const res = await axios.post(`${baseURL}/api/v1/web/news/home`, body);
     return res.data;
   } catch (err) {
     console.error("getHomeTopSection failed:", err?.message);
@@ -68,8 +64,7 @@ export function CryptoFetcher(data) {
 
 export const getHomeLatest = async (body) => {
   try {
-    // ✅ Use extended timeout config for this slow query
-    const res = await axios.post(`${baseURL}/api/v1/web/news/latest`, body, newsApiConfig);
+    const res = await axios.post(`${baseURL}/api/v1/web/news/latest`, body);
     return res.data;
   } catch (err) {
     console.error("getHomeLatest failed:", err?.message);

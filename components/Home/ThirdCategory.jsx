@@ -33,13 +33,25 @@ const newsReducer = (state, action) => {
   }
 };
 
-function ThirdCategory({viewControl, orderedMenu = []}) {
+function ThirdCategory({
+  viewControl,
+  orderedMenu = [],
+  initialFirstData = [],
+  initialSecondData = [],
+  initialThirdData = [],
+  initialFourthData = [],
+}) {
   const FirstCategoryId = orderedMenu?.at(10)?.c_category_id;
   const SecondCategoryId = orderedMenu?.at(11)?.c_category_id;
   const ThirdCategoryId = orderedMenu?.at(12)?.c_category_id;
   const FourthCategoryId = orderedMenu?.at(13)?.c_category_id;
 
-  const [state, dispatch] = useReducer(newsReducer, initialState);
+  const [state, dispatch] = useReducer(newsReducer, {
+    firstCategoryNews:  initialFirstData.length  > 0 ? initialFirstData  : [],
+    secondCategoryNews: initialSecondData.length > 0 ? initialSecondData : [],
+    thirdCategoryNews:  initialThirdData.length  > 0 ? initialThirdData  : [],
+    fourthCategoryNews: initialFourthData.length > 0 ? initialFourthData : [],
+  });
   const [titleArr, setTitleArr] = useState([]);
   const [mergedArr, setMergedArr] = useState([]);
   const { mode } = useTheme();
@@ -180,10 +192,10 @@ function ThirdCategory({viewControl, orderedMenu = []}) {
 };
 
   useEffect(() => {
-    GetFirstCategory();
-    GetSecondCategory();
-    GetThirdCategory();
-    GetFourthCategory();
+    if (initialFirstData.length  === 0) GetFirstCategory();
+    if (initialSecondData.length === 0) GetSecondCategory();
+    if (initialThirdData.length  === 0) GetThirdCategory();
+    if (initialFourthData.length === 0) GetFourthCategory();
   }, [FirstCategoryId]);
 
   useEffect(() => {
